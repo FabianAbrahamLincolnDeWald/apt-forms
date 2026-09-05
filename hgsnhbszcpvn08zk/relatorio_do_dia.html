@@ -29,6 +29,9 @@ select{display:none}
 .fld,select{width:100%;height:52px;padding:0 13px;font:17px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;border:1px solid rgba(0,0,0,.12);border-radius:12px;background:#fff;color:#111;margin-top:8px;-webkit-appearance:none;appearance:none}
 select{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='9'><path d='M1 1l6 6 6-6' stroke='%23888' stroke-width='2' fill='none'/></svg>");background-repeat:no-repeat;background-position:right 15px center;padding-right:40px}
 input[type=date],input[type=time]{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='9'><path d='M1 1l6 6 6-6' stroke='%23999' stroke-width='2' fill='none'/></svg>");background-repeat:no-repeat;background-position:right 15px center;padding-right:40px}
+.now{display:block;width:100%;margin-top:6px;padding:9px;font:600 14px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;background:#fff;color:#5a5852;border:1px solid #dcdad2;border-radius:10px;cursor:pointer}
+@media (prefers-color-scheme:dark){.now{background:#1a1a19;border-color:#3a3a36;color:#c3c2b7}}
+@media print{.now{display:none!important}}
 .two{display:flex;gap:10px}.two>div{flex:1;min-width:0}
 textarea{width:100%;min-height:96px;margin-top:8px;padding:13px;font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;border:1px solid rgba(0,0,0,.12);border-radius:12px;background:#fff;color:#111;resize:vertical}
 .send{display:block;width:100%;margin:24px 0 8px;padding:18px;font:700 18px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;text-align:center;background:#0ca30c;color:#fff;border:none;border-radius:14px;cursor:pointer;text-decoration:none}
@@ -143,7 +146,7 @@ html[data-doc] .prt{display:none}
 <p class="sub"><i lang="pt">Depois de cada limpeza, um minuto e está feito. No fim carregue no botão verde.</i><i lang="en">After each clean, one minute and it is done. Tap the green button at the end.</i><i lang="de">Nach jeder Reinigung, eine Minute und fertig. Am Ende auf den grünen Knopf tippen.</i><i lang="es">Después de cada limpieza, un minuto y listo. Al final pulse el botón verde.</i></p>
 <h2><i lang="pt">Dia e horas</i><i lang="en">Day and times</i><i lang="de">Tag und Uhrzeiten</i><i lang="es">Día y horas</i></h2>
 <input class="fld" type="date" id="f-data">
-<div class="two"><div><span class="hint"><i lang="pt">Entrada</i><i lang="en">In</i><i lang="de">Ankunft</i><i lang="es">Entrada</i></span><input class="fld" type="time" id="f-in"></div><div><span class="hint"><i lang="pt">Saída</i><i lang="en">Out</i><i lang="de">Ende</i><i lang="es">Salida</i></span><input class="fld" type="time" id="f-out"></div></div>
+<div class="two"><div><span class="hint"><i lang="pt">Entrada</i><i lang="en">In</i><i lang="de">Ankunft</i><i lang="es">Entrada</i></span><input class="fld" type="time" id="f-in"><button class="now" type="button" data-t="f-in"><i lang="pt">agora</i><i lang="en">now</i><i lang="de">jetzt</i><i lang="es">ahora</i></button></div><div><span class="hint"><i lang="pt">Saída</i><i lang="en">Out</i><i lang="de">Ende</i><i lang="es">Salida</i></span><input class="fld" type="time" id="f-out"><button class="now" type="button" data-t="f-out"><i lang="pt">agora</i><i lang="en">now</i><i lang="de">jetzt</i><i lang="es">ahora</i></button></div></div>
 <h2><i lang="pt">Que tipo de limpeza foi</i><i lang="en">What kind of clean it was</i><i lang="de">Welche Art von Reinigung</i><i lang="es">Qué tipo de limpieza fue</i></h2>
 <select lang="pt" data-g="tipo"><option value="0">Limpeza completa — mudança de hóspedes</option><option value="1">Limpeza rápida — sem mudança</option><option value="2">Limpeza a fundo</option><option value="3">Só o corredor e as escadas</option><option value="4">Só uma passagem para ver tudo</option><option value="5">Outro</option></select><select lang="en" data-g="tipo"><option value="0">Full clean — guest changeover</option><option value="1">Quick clean — no changeover</option><option value="2">Deep clean</option><option value="3">Only the corridor and stairs</option><option value="4">Just a look round</option><option value="5">Other</option></select><select lang="de" data-g="tipo"><option value="0">Komplette Reinigung — Gästewechsel</option><option value="1">Kurze Reinigung — ohne Wechsel</option><option value="2">Grundreinigung</option><option value="3">Nur Flur und Treppenhaus</option><option value="4">Nur kurz nach dem Rechten gesehen</option><option value="5">Anderes</option></select><select lang="es" data-g="tipo"><option value="0">Limpieza completa — cambio de huéspedes</option><option value="1">Limpieza rápida — sin cambio</option><option value="2">Limpieza a fondo</option><option value="3">Solo el pasillo y las escaleras</option><option value="4">Solo una vuelta para revisar</option><option value="5">Otro</option></select>
 <h2><i lang="pt">Como estava o apartamento à chegada</i><i lang="en">How the flat was on arrival</i><i lang="de">Zustand der Wohnung bei Ankunft</i><i lang="es">Cómo estaba el apartamento al llegar</i></h2>
@@ -816,6 +819,11 @@ document.querySelector('.addx').addEventListener('click',function(){
   var o={id:'c'+Date.now(),label:''};
   st.custom.push(o);save();addRow(o,true);});
 
+document.querySelectorAll('.now').forEach(function(b){
+  b.addEventListener('click',function(){
+    var n=new Date(),v=('0'+n.getHours()).slice(-2)+':'+('0'+n.getMinutes()).slice(-2);
+    var t=document.getElementById(b.dataset.t);t.value=v;
+    b.style.background='#0ca30c';b.style.color='#fff';b.style.borderColor='#0ca30c';});});
 var mi=document.getElementById('f-min'),mrow=document.querySelector('.mins');
 var mwarn=document.createElement('p');mwarn.className='hint';mwarn.style.color='#eb6834';mwarn.hidden=true;
 mwarn.textContent='';
