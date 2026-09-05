@@ -183,6 +183,10 @@ html[data-doc] .prt{display:none}
 var TEL=[49,173,4175,955].join(''),KEY='com-funchal',HEAD='LISTA DE COMPRAS';
 var FPREFIX='compras';
 
+if(/[?&]reset=1/.test(location.search)){
+  try{localStorage.removeItem(KEY)}catch(e){}
+  location.replace(location.pathname);
+}
 var AUTOR='Diana Velosa';
 var CMEXTRA=[],CMCOMMON=[],SELMAP={},CMMIN='',CMIN='',CMOUT='',CMLIST=false,CMPROB='',CMOBS='',CMCODE='';
 Array.prototype.slice.call(document.querySelectorAll('.nif')).forEach(function(e){e.textContent=[304,927,660].join('')});

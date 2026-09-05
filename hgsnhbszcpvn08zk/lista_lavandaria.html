@@ -159,6 +159,10 @@ html[data-doc] .prt{display:none}
 var TEL=[49,173,4175,955].join(''),KEY='lav-funchal',HEAD='LAVANDARIA';
 var FPREFIX='lavandaria';
 
+if(/[?&]reset=1/.test(location.search)){
+  try{localStorage.removeItem(KEY)}catch(e){}
+  location.replace(location.pathname);
+}
 var AUTOR='Diana Velosa';
 var CMEXTRA=[],CMCOMMON=[],SELMAP={},CMMIN='',CMIN='',CMOUT='',CMLIST=false,CMPROB='',CMOBS='',CMCODE='';
 function pad(x){return('0'+x).slice(-2)}
