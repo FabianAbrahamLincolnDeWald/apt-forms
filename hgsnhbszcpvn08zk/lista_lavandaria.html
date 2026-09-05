@@ -353,7 +353,7 @@ var LBL={
  en:{doc:'Document',by:'Filled in by',on:'Date',total:'Total',flat:'Flat',common:'Common parts',
      foot:'Automatically generated document',dl:'Download',send:'Send'},
  de:{doc:'Dokument',by:'Ausgefüllt von',on:'Datum',total:'Gesamt',flat:'Wohnung',common:'Gemeinschaftsflächen',
-     foot:'Automatisch erzeugtes Dokument',dl:'Herunterladen',send:'Senden'},
+     foot:P.foot,dl:'Herunterladen',send:'Senden'},
  es:{doc:'Documento',by:'Rellenado por',on:'Fecha',total:'Total',flat:'Apartamento',common:'Zonas comunes',
      foot:'Documento generado automáticamente',dl:'Descargar',send:'Enviar'}};
 
@@ -409,8 +409,17 @@ function wrapText(s,size,bold,maxw){
   if(cur)lines.push(cur);
   return lines.length?lines:[''];
 }
+var PDFL={
+ pt:{by:'Preenchido por',day:'DIA',tot:'TOTAL',flat:'APARTAMENTO',com:'PARTES COMUNS',
+     items:'PEÇAS NO TOTAL',pos:'POSIÇÕES',foot:'Documento gerado automaticamente'},
+ en:{by:'Filled in by',day:'DAY',tot:'TOTAL',flat:'FLAT',com:'COMMON PARTS',
+     items:'ITEMS IN TOTAL',pos:'ENTRIES',foot:'Automatically generated document'},
+ de:{by:'Ausgefüllt von',day:P.day,tot:P.tot,flat:P.flat,com:P.com,
+     items:P.items,pos:P.pos,foot:'Automatisch erzeugtes Dokument'},
+ es:{by:'Rellenado por',day:'DÍA',tot:'TOTAL',flat:'APARTAMENTO',com:'ZONAS COMUNES',
+     items:'PIEZAS EN TOTAL',pos:'POSICIONES',foot:'Documento generado automáticamente'}};
 function buildPDF(o,L){
-  L='de';
+  L=L||'de';var P=PDFL[L]||PDFL.de;
   var W=595.28,H=841.89,M=42.5,RIGHT=W-M,BW=RIGHT-M;
   var LABW=128, VALX=M+LABW+10, VALW=RIGHT-VALX;
   var pages=[],cur=[],y=H-M;
@@ -430,7 +439,7 @@ function buildPDF(o,L){
 
   /* Kopf */
   line(M,y,RIGHT,1.6); y-=13;
-  text(M,y,'Ausgefüllt von: '+(o.a||AUTOR),8.5,true);
+  text(M,y,P.by+': '+(o.a||AUTOR),8.5,true);
   text(RIGHT-pdfWidth(dt,8.5,false),y,dt,8.5,false);
   y-=11;
   text(M,y,'Alojamento Local · Funchal',8.5,false,'0.25');
@@ -701,6 +710,7 @@ function recordMode(o){
     var L=curLang();
     var files=[
       {name:base+'.pdf', data:buildPDF(o,'de')},
+      {name:base+'_PT.pdf', data:buildPDF(o,'pt')},
       {name:base+'.html',data:utf8(buildDocHTML(o))},
       {name:base+'.csv', data:utf8(buildCSV(o))}];
     var url=URL.createObjectURL(new Blob([zip(files)],{type:'application/zip'}));
