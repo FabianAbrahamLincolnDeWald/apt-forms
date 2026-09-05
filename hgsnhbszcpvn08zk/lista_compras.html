@@ -32,6 +32,9 @@ i{font-style:normal;display:none}
 .fld{width:100%;height:46px;padding:0 13px;font:16px inherit;border:1px solid rgba(0,0,0,.12);border-radius:12px;background:#fff;color:#111;margin-top:8px}
 textarea{width:100%;min-height:96px;margin-top:8px;padding:13px;font:16px/1.45 inherit;border:1px solid rgba(0,0,0,.12);border-radius:12px;background:#fff;color:#111;resize:vertical}
 .send{display:block;width:100%;margin:22px 0 6px;padding:18px;font:700 18px inherit;text-align:center;background:#0ca30c;color:#fff;border:none;border-radius:14px;cursor:pointer;text-decoration:none}
+.pdf{display:block;width:100%;padding:15px;margin-top:8px;font:600 16px inherit;text-align:center;background:#fff;color:#444;border:1px solid #dcdad2;border-radius:14px;cursor:pointer}
+@media (prefers-color-scheme:dark){.pdf{background:#1a1a19;border-color:#3a3a36;color:#fff}}
+@media print{.pdf,.langs,.send,.reset,.add{display:none!important}}
 .reset{display:block;width:100%;padding:12px;font:15px inherit;background:transparent;color:#8a8880;border:none;cursor:pointer;text-align:center}
 @media (prefers-color-scheme:dark){
  body{background:#0d0d0d;color:#fff}
@@ -118,8 +121,8 @@ textarea{width:100%;min-height:96px;margin-top:8px;padding:13px;font:16px/1.45 i
 <h2><i lang="pt">Observações</i><i lang="en">Notes</i><i lang="de">Anmerkungen</i><i lang="es">Observaciones</i></h2>
 <textarea data-n="obs" placeholder="..."></textarea>
 <p class="note"><i lang="pt">Se faltar alguma coisa que não está aqui, carregue em «Acrescentar uma linha» e escreva o que é.</i><i lang="en">If something is missing that is not here, tap «Add a line» and write what it is.</i><i lang="de">Wenn etwas fehlt, das hier nicht steht, auf «Zeile hinzufügen» tippen und eintragen.</i><i lang="es">Si falta algo que no está aquí, pulse «Añadir una línea» y escriba qué es.</i></p>
-<a class="send" href="#"><i lang="pt">Enviar ao Fabian</i><i lang="en">Send to Fabian</i><i lang="de">An Fabian senden</i><i lang="es">Enviar a Fabian</i></a>
-<button class="reset" type="button"><i lang="pt">Recomeçar do zero</i><i lang="en">Start over</i><i lang="de">Neu beginnen</i><i lang="es">Empezar de nuevo</i></button>
+<a class="send" href="https://fabianabrahamlincolndewald.github.io/apt-forms/hgsnhbszcpvn08zk/lista_compras.html"><i lang="pt">Enviar ao Fabian</i><i lang="en">Send to Fabian</i><i lang="de">An Fabian senden</i><i lang="es">Enviar a Fabian</i></a>
+<button class="pdf" type="button"><i lang="pt">Guardar em PDF</i><i lang="en">Save as PDF</i><i lang="de">Als PDF sichern</i><i lang="es">Guardar en PDF</i></button><button class="reset" type="button"><i lang="pt">Recomeçar do zero</i><i lang="en">Start over</i><i lang="de">Neu beginnen</i><i lang="es">Empezar de nuevo</i></button>
 </div>
 
 <script>
@@ -284,6 +287,8 @@ document.querySelectorAll('.fld,textarea').forEach(function(f){
   var k=f.dataset.n;if(!k)return;
   if(st['n'+k])f.value=st['n'+k];
   f.addEventListener('input',function(){st['n'+k]=f.value;save()});});
+var pdfb=document.querySelector('.pdf');
+if(pdfb)pdfb.addEventListener('click',function(){window.print()});
 var rst=document.querySelector('.reset');
 if(rst)rst.addEventListener('click',function(){try{localStorage.removeItem(KEY)}catch(e){};location.reload()});
 document.querySelector('.send').addEventListener('click',function(ev){
