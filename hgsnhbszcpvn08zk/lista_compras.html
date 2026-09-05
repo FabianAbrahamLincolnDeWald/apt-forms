@@ -46,7 +46,7 @@ ul.vals li b{font-weight:650}
 @media (prefers-color-scheme:dark){.reset{background:#2b1917;color:#ff9c92;border-color:#5e2f2b}}
 @media print{.sec{break-inside:avoid}}
 @media print{.pdf,.langs,.send,.reset,.add{display:none!important}}
-.reset{display:block;width:100%;margin:2px 0 18px;padding:15px;font:600 16px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;text-align:center;cursor:pointer;background:#fdecec;color:#b3261e;border:1px solid #e9b4b1;border-radius:14px}
+.reset{display:block;width:100%;margin:18px 0 22px;padding:15px;font:600 16px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;text-align:center;cursor:pointer;background:#fdecec;color:#b3261e;border:1px solid #e9b4b1;border-radius:14px}
 @media (prefers-color-scheme:dark){
  body{background:#0d0d0d;color:#fff}
  .sub,.note{color:#c3c2b7} h2{color:#a9a79e}
@@ -439,8 +439,8 @@ var PDFL={
      items:'PEÇAS NO TOTAL',pos:'POSIÇÕES',foot:'Documento gerado automaticamente'},
  en:{by:'Filled in by',day:'DAY',tot:'TOTAL',flat:'FLAT',com:'COMMON PARTS',
      items:'ITEMS IN TOTAL',pos:'ENTRIES',foot:'Automatically generated document'},
- de:{by:'Ausgefüllt von',day:P.day,tot:P.tot,flat:P.flat,com:P.com,
-     items:P.items,pos:P.pos,foot:'Automatisch erzeugtes Dokument'},
+ de:{by:'Ausgefüllt von',day:'EINSATZTAG',tot:'GESAMT',flat:'WOHNUNG',com:'GEMEINSCHAFTSFLÄCHEN',
+     items:'TEILE INSGESAMT',pos:'POSITIONEN',foot:'Automatisch erzeugtes Dokument'},
  es:{by:'Rellenado por',day:'DÍA',tot:'TOTAL',flat:'APARTAMENTO',com:'ZONAS COMUNES',
      items:'PIEZAS EN TOTAL',pos:'POSICIONES',foot:'Documento generado automáticamente'}};
 function buildPDF(o,L){
@@ -479,14 +479,14 @@ function buildPDF(o,L){
   if(!CMLIST){
     var mm=mins(CMIN,CMOUT),cm=+CMMIN||0;
     var dd=document.getElementById('f-data');
-    if(dd&&dd.value)cells.push([fmtDate(dd.value),'EINSATZTAG',false]);
-    if(mm!=null){cells.push([hm(mm),'GESAMT',false]);cells.push([hm(mm-cm),'WOHNUNG',false]);}
-    cells.push([cm?hm(cm):'—','GEMEINSCHAFTSFLÄCHEN',true]);
+    if(dd&&dd.value)cells.push([fmtDate(dd.value),P.day,false]);
+    if(mm!=null){cells.push([hm(mm),P.tot,false]);cells.push([hm(mm-cm),P.flat,false]);}
+    cells.push([cm?hm(cm):'—',P.com,true]);
   }else{
     var n=0,tot=0;
     Array.prototype.slice.call(document.querySelectorAll('ul.vals li')).forEach(function(li){
       var m2=/^(\d+)/.exec(li.textContent.trim());if(m2){n++;tot+=+m2[1]}});
-    if(tot){cells.push([String(tot),'TEILE INSGESAMT',false]);cells.push([String(n),'POSITIONEN',true]);}
+    if(tot){cells.push([String(tot),P.items,false]);cells.push([String(n),P.pos,true]);}
   }
   if(cells.length){
     var ch=34, cw=BW/cells.length;

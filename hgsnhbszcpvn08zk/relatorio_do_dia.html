@@ -37,7 +37,7 @@ input[type=date],input[type=time]{background-image:url("data:image/svg+xml;utf8,
 textarea{width:100%;min-height:96px;margin-top:8px;padding:13px;font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;border:1px solid rgba(0,0,0,.12);border-radius:12px;background:#fff;color:#111;resize:vertical}
 .send{display:block;width:100%;margin:24px 0 8px;padding:18px;font:700 18px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;text-align:center;background:#0ca30c;color:#fff;border:none;border-radius:14px;cursor:pointer;text-decoration:none}
 .pdf{display:block;width:100%;padding:15px;font:600 16px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;text-align:center;background:#fff;color:#444;border:1px solid #dcdad2;border-radius:14px;cursor:pointer}
-.reset{display:block;width:100%;margin:2px 0 18px;padding:15px;font:600 16px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;text-align:center;cursor:pointer;background:#fdecec;color:#b3261e;border:1px solid #e9b4b1;border-radius:14px}
+.reset{display:block;width:100%;margin:18px 0 22px;padding:15px;font:600 16px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;text-align:center;cursor:pointer;background:#fdecec;color:#b3261e;border:1px solid #e9b4b1;border-radius:14px}
 @media (prefers-color-scheme:dark){
  body{background:#0d0d0d;color:#fff} .sub{color:#c3c2b7} h2{color:#a9a79e}
  .langs label{background:#1a1a19;border-color:#2f2f2c;color:#c3c2b7}
@@ -148,7 +148,7 @@ html[data-doc] .prt{display:none}
 <h2><i lang="pt">Dia e horas</i><i lang="en">Day and times</i><i lang="de">Tag und Uhrzeiten</i><i lang="es">Día y horas</i></h2>
 <input class="fld" type="date" id="f-data">
 <div class="two"><div><span class="hint"><i lang="pt">Entrada</i><i lang="en">In</i><i lang="de">Ankunft</i><i lang="es">Entrada</i></span><input class="fld" type="time" id="f-in"><button class="now" type="button" data-t="f-in"><i lang="pt">agora</i><i lang="en">now</i><i lang="de">jetzt</i><i lang="es">ahora</i></button></div><div><span class="hint"><i lang="pt">Saída</i><i lang="en">Out</i><i lang="de">Ende</i><i lang="es">Salida</i></span><input class="fld" type="time" id="f-out"><button class="now" type="button" data-t="f-out"><i lang="pt">agora</i><i lang="en">now</i><i lang="de">jetzt</i><i lang="es">ahora</i></button></div></div>
-<h2><i lang="pt">Que tipo de limpeza foi</i><i lang="en">What kind of clean it was</i><i lang="de">Welche Art von Reinigung</i><i lang="es">Qué tipo de limpieza fue</i></h2>
+<h2><i lang="pt">Novo código da caixa das chaves</i><i lang="en">New key box code</i><i lang="de">Neuer Code am Schlüsselkasten</i><i lang="es">Nuevo código de la caja de llaves</i></h2><input class="fld" type="text" inputmode="numeric" autocomplete="off" id="f-code" placeholder="—"><p class="hint"><i lang="pt">Em cada mudança de hóspedes o código deve ser trocado. Escreva aqui o número novo — assim fica registado e eu sei sempre qual é o que está em uso.</i><i lang="en">At every guest changeover the code should be changed. Write the new number here — that way it is on record and I always know which one is in use.</i><i lang="de">Bei jedem Gästewechsel soll der Code gewechselt werden. Tragen Sie die neue Zahl hier ein — dann ist sie festgehalten und ich weiß immer, welche gerade gilt.</i><i lang="es">En cada cambio de huéspedes el código debe cambiarse. Escriba aquí el número nuevo — así queda registrado y yo sé siempre cuál está en uso.</i></p><h2><i lang="pt">Que tipo de limpeza foi</i><i lang="en">What kind of clean it was</i><i lang="de">Welche Art von Reinigung</i><i lang="es">Qué tipo de limpieza fue</i></h2>
 <select lang="pt" data-g="tipo"><option value="0">Limpeza completa — mudança de hóspedes</option><option value="1">Limpeza rápida — sem mudança</option><option value="2">Limpeza a fundo</option><option value="3">Só o corredor e as escadas</option><option value="4">Só uma passagem para ver tudo</option><option value="5">Outro</option></select><select lang="en" data-g="tipo"><option value="0">Full clean — guest changeover</option><option value="1">Quick clean — no changeover</option><option value="2">Deep clean</option><option value="3">Only the corridor and stairs</option><option value="4">Just a look round</option><option value="5">Other</option></select><select lang="de" data-g="tipo"><option value="0">Komplette Reinigung — Gästewechsel</option><option value="1">Kurze Reinigung — ohne Wechsel</option><option value="2">Grundreinigung</option><option value="3">Nur Flur und Treppenhaus</option><option value="4">Nur kurz nach dem Rechten gesehen</option><option value="5">Anderes</option></select><select lang="es" data-g="tipo"><option value="0">Limpieza completa — cambio de huéspedes</option><option value="1">Limpieza rápida — sin cambio</option><option value="2">Limpieza a fondo</option><option value="3">Solo el pasillo y las escaleras</option><option value="4">Solo una vuelta para revisar</option><option value="5">Otro</option></select>
 <h2><i lang="pt">Como estava o apartamento à chegada</i><i lang="en">How the flat was on arrival</i><i lang="de">Zustand der Wohnung bei Ankunft</i><i lang="es">Cómo estaba el apartamento al llegar</i></h2>
 <select lang="pt" data-g="estado"><option value="0">Normal, como sempre</option><option value="1">Melhor do que o costume</option><option value="2">Pior do que o costume</option><option value="3">Muito mau — deu bastante trabalho a mais</option><option value="4">Não havia hóspedes</option></select><select lang="en" data-g="estado"><option value="0">Normal, as usual</option><option value="1">Better than usual</option><option value="2">Worse than usual</option><option value="3">Very bad — a lot of extra work</option><option value="4">No guests had been in</option></select><select lang="de" data-g="estado"><option value="0">Normal, wie immer</option><option value="1">Besser als sonst</option><option value="2">Schlechter als sonst</option><option value="3">Sehr schlecht — deutlich mehr Arbeit</option><option value="4">Es waren keine Gäste da</option></select><select lang="es" data-g="estado"><option value="0">Normal, como siempre</option><option value="1">Mejor de lo habitual</option><option value="2">Peor de lo habitual</option><option value="3">Muy malo — bastante trabajo extra</option><option value="4">No había huéspedes</option></select>
@@ -199,7 +199,7 @@ var TEL=[49,173,4175,955].join(''),KEY='rel-funchal';
 var FPREFIX='relatorio';
 
 var AUTOR='Diana Velosa';
-var CMEXTRA=[],CMCOMMON=[],SELMAP={},CMMIN='',CMIN='',CMOUT='',CMLIST=false,CMPROB='',CMOBS='';
+var CMEXTRA=[],CMCOMMON=[],SELMAP={},CMMIN='',CMIN='',CMOUT='',CMLIST=false,CMPROB='',CMOBS='',CMCODE='';
 function pad(x){return('0'+x).slice(-2)}
 function ctrls(){return Array.prototype.slice.call(
   document.querySelectorAll('.wrap input,.wrap select,.wrap textarea'))}
@@ -236,16 +236,16 @@ function applyState(o){
   });
 }
 var MSG={
- pt:{rep:'RELATORIO',type:'Tipo',cond:'Estado a chegada',extra:'Trabalhos extra',
+ pt:{rep:'RELATORIO',code:'Codigo novo da caixa',type:'Tipo',cond:'Estado a chegada',extra:'Trabalhos extra',
      com:'PARTES COMUNS (condominio)',tm:'Tempo (incluido no total)',tmx:'Tempo: NAO INDICADO',
      lau:'Roupa',prob:'Problemas',miss:'Faltas',notes:'Notas',empty:'(vazio)'},
- en:{rep:'DAILY REPORT',type:'Type',cond:'Condition on arrival',extra:'Extra work',
+ en:{rep:'DAILY REPORT',code:'New key box code',type:'Type',cond:'Condition on arrival',extra:'Extra work',
      com:'COMMON PARTS (building)',tm:'Time (already in the total)',tmx:'Time: NOT GIVEN',
      lau:'Laundry',prob:'Problems',miss:'Missing',notes:'Notes',empty:'(empty)'},
- de:{rep:'TAGESBERICHT',type:'Art',cond:'Zustand bei Ankunft',extra:'Zusatzarbeiten',
+ de:{rep:'TAGESBERICHT',code:'Neuer Schluesselcode',type:'Art',cond:'Zustand bei Ankunft',extra:'Zusatzarbeiten',
      com:'GEMEINSCHAFTSFLAECHEN (Haus)',tm:'Zeit (in der Gesamtzeit enthalten)',tmx:'Zeit: NICHT ANGEGEBEN',
      lau:'Waesche',prob:'Probleme',miss:'Fehlendes',notes:'Anmerkungen',empty:'(leer)'},
- es:{rep:'PARTE DEL DIA',type:'Tipo',cond:'Estado al llegar',extra:'Trabajos extra',
+ es:{rep:'PARTE DEL DIA',code:'Codigo nuevo de la caja',type:'Tipo',cond:'Estado al llegar',extra:'Trabajos extra',
      com:'ZONAS COMUNES (edificio)',tm:'Tiempo (ya incluido en el total)',tmx:'Tiempo: NO INDICADO',
      lau:'Ropa',prob:'Problemas',miss:'Faltas',notes:'Observaciones',empty:'(vacio)'}};
 function M(){return MSG[curLang()]||MSG.pt}
@@ -312,7 +312,7 @@ function buildCompact(){
       if(x.type==='checkbox'||x.type==='radio')return;
       if(x.closest&&x.closest('.row'))return;
       var v=(x.value||'').trim();if(!v)return;
-      if(x.id==='f-data'||x.id==='f-in'||x.id==='f-out'||x.id==='f-min')return;
+      if(x.id==='f-data'||x.id==='f-in'||x.id==='f-out'||x.id==='f-min'||x.id==='f-code')return;
       cur.items.push('<span class="free">'+esc(v)+'</span>');});
   });
   var html='';
@@ -350,6 +350,8 @@ function buildKPI(){
     o+='<div class="k"><span class="kn">'+hm(d-m)+'</span>'+
       langSpan({pt:'no apartamento',en:'in the flat',de:'in der Wohnung',es:'en el apartamento'})+'</div>';
   }
+  if(CMCODE)o+='<div class="k code"><span class="kn">'+esc(CMCODE)+'</span>'+
+    langSpan({pt:'c\u00f3digo novo da caixa',en:'new key box code',de:'neuer Schl\u00fcsselcode',es:'nuevo c\u00f3digo de la caja'})+'</div>';
   o+='<div class="k'+(m?' hi':'')+'"><span class="kn">'+(m?hm(m):'—')+'</span>'+
      langSpan({pt:'partes comuns',en:'common parts',de:'Gemeinschaftsflächen',es:'zonas comunes'})+
      '<span class="ks">'+langSpan({pt:'para o condomínio',en:'for the management',de:'für die Hausverwaltung',es:'para la administración'})+'</span></div>';
@@ -375,10 +377,10 @@ function buildCSV(o){
   }else{
     var dur=mins(CMIN,CMOUT);
     rows.push(['date','author','document','from','to','duration_min','flat_min','common_min',
-      'type','condition','extra_work','common_parts','laundry','problem','problem_notes','missing','notes'].map(csvq).join(S));
+      'key_code','type','condition','extra_work','common_parts','laundry','problem','problem_notes','missing','notes'].map(csvq).join(S));
     rows.push([day,who,FPREFIX,CMIN,CMOUT,dur==null?'':dur,
       dur==null?'':(dur-(+CMMIN||0)),CMMIN,
-      selTxt('tipo'),selTxt('estado'),
+      CMCODE,selTxt('tipo'),selTxt('estado'),
       CMEXTRA.map(resolveML).join(' | '),CMCOMMON.map(resolveML).join(' | '),
       selTxt('roupa'),selTxt('prob'),CMPROB,selTxt('falta'),CMOBS].map(csvq).join(S));
   }
@@ -449,13 +451,13 @@ function wrapText(s,size,bold,maxw){
   return lines.length?lines:[''];
 }
 var PDFL={
- pt:{by:'Preenchido por',day:'DIA',tot:'TOTAL',flat:'APARTAMENTO',com:'PARTES COMUNS',
+ pt:{by:'Preenchido por',day:'DIA',tot:'TOTAL',flat:'APARTAMENTO',com:'PARTES COMUNS',code:'CÓDIGO NOVO',
      items:'PEÇAS NO TOTAL',pos:'POSIÇÕES',foot:'Documento gerado automaticamente'},
- en:{by:'Filled in by',day:'DAY',tot:'TOTAL',flat:'FLAT',com:'COMMON PARTS',
+ en:{by:'Filled in by',day:'DAY',tot:'TOTAL',flat:'FLAT',com:'COMMON PARTS',code:'NEW CODE',
      items:'ITEMS IN TOTAL',pos:'ENTRIES',foot:'Automatically generated document'},
- de:{by:'Ausgefüllt von',day:P.day,tot:P.tot,flat:P.flat,com:P.com,
-     items:P.items,pos:P.pos,foot:'Automatisch erzeugtes Dokument'},
- es:{by:'Rellenado por',day:'DÍA',tot:'TOTAL',flat:'APARTAMENTO',com:'ZONAS COMUNES',
+ de:{by:'Ausgefüllt von',day:'EINSATZTAG',tot:'GESAMT',flat:'WOHNUNG',com:'GEMEINSCHAFTSFLÄCHEN',code:'NEUER CODE',
+     items:'TEILE INSGESAMT',pos:'POSITIONEN',foot:'Automatisch erzeugtes Dokument'},
+ es:{by:'Rellenado por',day:'DÍA',tot:'TOTAL',flat:'APARTAMENTO',com:'ZONAS COMUNES',code:'CÓDIGO NUEVO',
      items:'PIEZAS EN TOTAL',pos:'POSICIONES',foot:'Documento generado automáticamente'}};
 function buildPDF(o,L){
   L=L||'de';var P=PDFL[L]||PDFL.de;
@@ -493,14 +495,15 @@ function buildPDF(o,L){
   if(!CMLIST){
     var mm=mins(CMIN,CMOUT),cm=+CMMIN||0;
     var dd=document.getElementById('f-data');
-    if(dd&&dd.value)cells.push([fmtDate(dd.value),'EINSATZTAG',false]);
-    if(mm!=null){cells.push([hm(mm),'GESAMT',false]);cells.push([hm(mm-cm),'WOHNUNG',false]);}
-    cells.push([cm?hm(cm):'—','GEMEINSCHAFTSFLÄCHEN',true]);
+    if(dd&&dd.value)cells.push([fmtDate(dd.value),P.day,false]);
+    if(mm!=null){cells.push([hm(mm),P.tot,false]);cells.push([hm(mm-cm),P.flat,false]);}
+    if(CMCODE)cells.push([CMCODE,P.code,true]);
+    cells.push([cm?hm(cm):'—',P.com,true]);
   }else{
     var n=0,tot=0;
     Array.prototype.slice.call(document.querySelectorAll('ul.vals li')).forEach(function(li){
       var m2=/^(\d+)/.exec(li.textContent.trim());if(m2){n++;tot+=+m2[1]}});
-    if(tot){cells.push([String(tot),'TEILE INSGESAMT',false]);cells.push([String(n),'POSITIONEN',true]);}
+    if(tot){cells.push([String(tot),P.items,false]);cells.push([String(n),P.pos,true]);}
   }
   if(cells.length){
     var ch=34, cw=BW/cells.length;
@@ -640,6 +643,7 @@ function formalBody(o,secs){
     if(mm!=null){
       kb+=cell(hm(mm),langSpan({pt:'Total',en:'Total',de:'Gesamt',es:'Total'}));
       kb+=cell(hm(mm-cm),langSpan({pt:'Apartamento',en:'Flat',de:'Wohnung',es:'Apartamento'}));}
+    if(CMCODE)kb+=cell(esc(CMCODE),langSpan({pt:'Código novo',en:'New code',de:'Neuer Code',es:'Código nuevo'}),true);
     kb+=cell(cm?hm(cm):'—',langSpan({pt:'Partes comuns',en:'Common parts',de:'Gemeinschaftsflächen',es:'Zonas comunes'}),true);
   }else{
     var n=0,tot=0;
@@ -686,6 +690,7 @@ function recordMode(o){
   var _a=document.getElementById('f-in'),_b=document.getElementById('f-out');
   CMIN=_a?(_a.value||''):'';CMOUT=_b?(_b.value||''):'';
   CMLIST=!!document.querySelector('.row .stp');
+  var _c=document.getElementById('f-code');CMCODE=_c?_c.value.trim():'';
   var _p=document.getElementById('f-prob'),_o2=document.getElementById('f-obs');
   CMPROB=_p?_p.value.trim():'';CMOBS=_o2?_o2.value.trim():'';
   Array.prototype.slice.call(document.querySelectorAll('input[data-x]')).forEach(function(c){
@@ -702,6 +707,8 @@ function recordMode(o){
    +'.kpi{display:flex;gap:10px;margin:0 0 22px;flex-wrap:wrap}'
    +'.kpi .k{flex:1 1 130px;background:#fff;border:1px solid rgba(0,0,0,.10);border-radius:14px;padding:14px 15px}'
    +'.kpi .k.hi{background:#0ca30c;border-color:#0ca30c;color:#fff}'
+   +'.kpi .k.code{background:#eb6834;border-color:#eb6834;color:#fff}'
+   +'.kpi .k.code i{color:rgba(255,255,255,.92)}'
    +'.kpi .kn{display:block;font-size:26px;font-weight:700;letter-spacing:-.02em;line-height:1.1}'
    +'.kpi .k i{font-size:14px;color:#6b6963}.kpi .k.hi i{color:rgba(255,255,255,.92)}'
    +'.kpi .ks{display:block;font-size:12.5px;color:#a09e95;margin-top:3px}'
@@ -784,6 +791,7 @@ function captureVars(){
   var _a=document.getElementById('f-in'),_b=document.getElementById('f-out');
   CMIN=_a?(_a.value||''):'';CMOUT=_b?(_b.value||''):'';
   CMLIST=!!document.querySelector('.row .stp');
+  var _c=document.getElementById('f-code');CMCODE=_c?_c.value.trim():'';
   var _p=document.getElementById('f-prob'),_o=document.getElementById('f-obs');
   CMPROB=_p?_p.value.trim():'';CMOBS=_o?_o.value.trim():'';
   Array.prototype.slice.call(document.querySelectorAll('input[data-x]')).forEach(function(c){
@@ -936,6 +944,7 @@ document.querySelector('.reset').addEventListener('click',function(){
   document.querySelectorAll('input[type=checkbox]').forEach(function(c){c.checked=false});
   document.getElementById('f-prob').value='';
   document.getElementById('f-obs').value='';
+  document.getElementById('f-code').value='';
   document.getElementById('f-in').value='';
   document.getElementById('f-out').value='';
   mi.value='';mpaint();
@@ -948,6 +957,8 @@ document.querySelector('.send').addEventListener('click',function(ev){
   var m=T.rep+'  '+dv+'\n';
   var a=document.getElementById('f-in').value,b=document.getElementById('f-out').value;
   if(a||b)m+=(a||'?')+' - '+(b||'?')+'\n';
+  var kc=document.getElementById('f-code').value.trim();
+  if(kc)m+='\n'+T.code+': '+kc+'\n';
   m+='\n'+T.type+': '+selCur('tipo')+'\n';
   m+=T.cond+': '+selCur('estado')+'\n';
   var xs=[];
