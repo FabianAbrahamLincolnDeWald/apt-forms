@@ -266,7 +266,7 @@ function buildCSV(o){
   var d=new Date(o.t||Date.now());
   var day=pad(d.getDate())+'.'+pad(d.getMonth()+1)+'.'+d.getFullYear();
   var who=o.a||AUTOR, S=';', NL='\r\n', rows=[];
-  var isList=!!document.querySelector('.row .stp');
+  var isList=CMLIST;
   if(isList){
     rows.push(['date','author','document','category','item','quantity'].map(csvq).join(S));
     var cat='';
@@ -294,17 +294,14 @@ function buildCSV(o){
     var mn=CMMIN;
     rows.push(['date','author','document','from','to','duration_min','type','condition',
       'extra_work','common_parts','common_minutes','laundry','problem','problem_notes','missing','notes'].map(csvq).join(S));
-    var probTxt='', notes='';
-    var vals=Object.keys(o.d||{}).map(function(k){return o.d[k]});
-    var texts=vals.filter(function(v){return typeof v==='string'&&v.length>25});
-    probTxt=texts[0]||''; notes=texts[1]||'';
+    var probTxt=CMPROB, notes=CMOBS;
     rows.push([day,who,FPREFIX,a,b,dur,selTxt('tipo'),selTxt('estado'),
       CMEXTRA.map(resolveML).join(' | '),CMCOMMON.map(resolveML).join(' | '),mn,selTxt('roupa'),selTxt('prob'),
       probTxt,selTxt('falta'),notes].map(csvq).join(S));
   }
   return '\ufeff'+rows.join(NL)+NL;
 }
-var CMEXTRA=[],CMCOMMON=[],SELMAP={},CMMIN="",CMIN="",CMOUT="";
+var CMEXTRA=[],CMCOMMON=[],SELMAP={},CMMIN="",CMIN="",CMOUT="",CMLIST=false,CMPROB="",CMOBS="";
 function recordMode(o){
   var d=new Date(o.t||Date.now());
   var st=document.createElement('style');st.id='s1';
@@ -323,6 +320,9 @@ function recordMode(o){
   var _m=document.getElementById('f-min');CMMIN=_m?(_m.value||''):'';
   var _a=document.getElementById('f-in'),_b=document.getElementById('f-out');
   CMIN=_a?(_a.value||''):'';CMOUT=_b?(_b.value||''):'';
+  CMLIST=!!document.querySelector('.row .stp');
+  var _p=document.getElementById('f-prob'),_o=document.getElementById('f-obs');
+  CMPROB=_p?_p.value.trim():'';CMOBS=_o?_o.value.trim():'';
   Array.prototype.slice.call(document.querySelectorAll('select[data-g]')).forEach(function(s){
     var g=s.getAttribute('data-g'),L=s.getAttribute('lang');
     (SELMAP[g]=SELMAP[g]||{})[L]=s.options[s.selectedIndex].textContent.trim();});
