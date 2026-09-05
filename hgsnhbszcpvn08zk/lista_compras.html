@@ -398,7 +398,7 @@ function recordMode(o){
       else{t.setAttribute('value',s.value)}}
     ['script','.prt','.send','.reset','.add','.addx','.del','.last','.ov','style:not(#s0):not(#s1)','link[rel="stylesheet"]','iframe'].forEach(function(q){
       Array.prototype.slice.call(root.querySelectorAll(q)).forEach(function(e){e.remove()})});
-    var html='<!doctype html>\n<html lang="pt">'+root.innerHTML+'</html>';
+    var html='<!doctype html>\n<html lang="pt" data-doc="1">'+root.innerHTML+'</html>';
     var url=URL.createObjectURL(new Blob([html],{type:'text/html'}));
     var a2=document.createElement('a');a2.href=url;a2.download=dn;
     document.body.appendChild(a2);a2.click();
