@@ -112,7 +112,7 @@ textarea{width:100%;min-height:96px;margin-top:8px;padding:13px;font:16px/1.45 i
 </div>
 <button class="addx" type="button"><i lang="pt">+ Acrescentar outro trabalho</i><i lang="en">+ Add another job</i><i lang="de">+ Weitere Arbeit hinzufügen</i><i lang="es">+ Añadir otro trabajo</i></button>
 <h2><i lang="pt">Partes comuns do prédio</i><i lang="en">The building's common parts</i><i lang="de">Gemeinschaftsflächen des Hauses</i><i lang="es">Zonas comunes del edificio</i></h2>
-<p class="hint"><i lang="pt">Este trabalho não é do apartamento, é do prédio. Por isso preciso do <strong>tempo à parte</strong>: eu encaminho-o à administração do condomínio. Quanto mais certo estiver, melhor para nós.</i><i lang="en">This work is not for the flat, it is for the building. That is why I need the <strong>time separately</strong>: I forward it to the building management. The more accurate it is, the better for us.</i><i lang="de">Diese Arbeit gehört nicht zur Wohnung, sondern zum Haus. Deshalb brauche ich die <strong>Zeit gesondert</strong>: Ich leite sie an die Hausverwaltung weiter. Je genauer, desto besser für uns.</i><i lang="es">Este trabajo no es del apartamento, es del edificio. Por eso necesito el <strong>tiempo aparte</strong>: yo lo remito a la administración. Cuanto más exacto sea, mejor para nosotros.</i></p>
+<p class="hint"><i lang="pt">Este trabalho não é do apartamento, é do prédio. Por isso apontamos o <strong>tempo à parte</strong> — é comunicado à administração do condomínio.</i><i lang="en">This work is not for the flat, it is for the building. That is why the <strong>time is noted separately</strong> — it is reported to the building management.</i><i lang="de">Diese Arbeit gehört nicht zur Wohnung, sondern zum Haus. Deshalb wird die <strong>Zeit gesondert</strong> notiert — sie wird der Hausverwaltung mitgeteilt.</i><i lang="es">Este trabajo no es del apartamento, es del edificio. Por eso se apunta el <strong>tiempo aparte</strong> — se comunica a la administración del edificio.</i></p>
 <div class="card">
 <label><input type="checkbox" data-cm="0"><span class="t"><i lang="pt">A entrada do prédio</i><i lang="en">The building entrance</i><i lang="de">Der Hauseingang</i><i lang="es">La entrada del edificio</i></span></label>
 <label><input type="checkbox" data-cm="1"><span class="t"><i lang="pt">O corredor</i><i lang="en">The corridor</i><i lang="de">Der Flur</i><i lang="es">El pasillo</i></span></label>
@@ -132,7 +132,6 @@ textarea{width:100%;min-height:96px;margin-top:8px;padding:13px;font:16px/1.45 i
 <select lang="pt" data-g="falta"><option value="0">Não faltou nada</option><option value="1">Sim — já pus na lista de compras</option><option value="2">Sim — está a ficar pouco, mas ainda dá</option></select><select lang="en" data-g="falta"><option value="0">Nothing was missing</option><option value="1">Yes — already on the shopping list</option><option value="2">Yes — running low, but still enough</option></select><select lang="de" data-g="falta"><option value="0">Es hat nichts gefehlt</option><option value="1">Ja — schon auf der Einkaufsliste</option><option value="2">Ja — wird knapp, reicht aber noch</option></select><select lang="es" data-g="falta"><option value="0">No faltó nada</option><option value="1">Sí — ya está en la lista de la compra</option><option value="2">Sí — queda poco, pero aún alcanza</option></select>
 <h2><i lang="pt">Observações</i><i lang="en">Notes</i><i lang="de">Anmerkungen</i><i lang="es">Observaciones</i></h2>
 <textarea id="f-obs" placeholder="..."></textarea>
-<h2><i lang="pt">Sugestões para as listas</i><i lang="en">Suggestions for the lists</i><i lang="de">Vorschläge zu den Listen</i><i lang="es">Sugerencias para las listas</i></h2><p class="hint"><i lang="pt">Alguma coisa nestas listas que não faz sentido, que falta ou que dá trabalho a mais? Escreva sem rodeios — eu altero e mando-lhe a versão nova. É consigo que elas melhoram.</i><i lang="en">Anything in these lists that makes no sense, is missing, or creates extra work? Say it plainly — I change it and send you the new version. They only get better with you.</i><i lang="de">Etwas in diesen Listen, das keinen Sinn ergibt, das fehlt oder das unnötig Arbeit macht? Schreiben Sie es offen — ich ändere es und schicke Ihnen die neue Fassung. Sie werden nur mit Ihnen besser.</i><i lang="es">¿Algo en estas listas que no tenga sentido, que falte o que dé trabajo de más? Dígalo sin rodeos — yo lo cambio y le mando la versión nueva. Solo mejoran con usted.</i></p><textarea id="f-sug" data-n="sug" placeholder="..."></textarea>
 <a class="send" href="#"><i lang="pt">Enviar ao Fabian</i><i lang="en">Send to Fabian</i><i lang="de">An Fabian senden</i><i lang="es">Enviar a Fabian</i></a>
 <button class="pdf" type="button"><i lang="pt">Guardar em PDF</i><i lang="en">Save as PDF</i><i lang="de">Als PDF sichern</i><i lang="es">Guardar en PDF</i></button>
 <button class="reset" type="button"><i lang="pt">Limpar para o próximo dia</i><i lang="en">Clear for the next day</i><i lang="de">Für den nächsten Tag leeren</i><i lang="es">Limpiar para el próximo día</i></button>
@@ -328,7 +327,6 @@ document.querySelector('.reset').addEventListener('click',function(){
   document.querySelectorAll('input[type=checkbox]').forEach(function(c){c.checked=false});
   document.getElementById('f-prob').value='';
   document.getElementById('f-obs').value='';
-  document.getElementById('f-sug').value='';
   document.getElementById('f-in').value='';
   document.getElementById('f-out').value='';
   mi.value='';mpaint();
@@ -366,8 +364,6 @@ document.querySelector('.send').addEventListener('click',function(ev){
   m+='Faltas: '+txtPT('falta')+'\n';
   var ob=document.getElementById('f-obs').value.trim();
   if(ob)m+='\nNotas: '+ob+'\n';
-  var sg=document.getElementById('f-sug').value.trim();
-  if(sg)m+='\nSUGESTOES: '+sg+'\n';
   save();paintLast();
   deliver(m);});
 })();
