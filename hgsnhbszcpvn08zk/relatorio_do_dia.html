@@ -923,6 +923,8 @@ document.querySelectorAll('.mins button').forEach(function(b){
 mi.addEventListener('input',function(){mpaint();mcheck()}); mpaint(); mcheck();
 document.querySelector('.pdf').addEventListener('click',function(){window.print()});
 document.querySelector('.reset').addEventListener('click',function(){
+  var CF={"pt":"Apagar tudo o que preencheu?","en":"Clear everything you entered?","de":"Alle Einträge löschen?","es":"¿Borrar todo lo que ha rellenado?"};
+  if(!confirm(CF[curLang()]||CF.pt))return;
   document.querySelectorAll('input[type=checkbox]').forEach(function(c){c.checked=false});
   document.getElementById('f-prob').value='';
   document.getElementById('f-obs').value='';
