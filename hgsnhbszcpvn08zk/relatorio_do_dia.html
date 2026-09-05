@@ -31,12 +31,13 @@ select{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.o
 input[type=date],input[type=time]{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='9'><path d='M1 1l6 6 6-6' stroke='%23999' stroke-width='2' fill='none'/></svg>");background-repeat:no-repeat;background-position:right 15px center;padding-right:40px}
 .now{display:block;width:100%;margin-top:6px;padding:9px;font:600 14px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;background:#fff;color:#5a5852;border:1px solid #dcdad2;border-radius:10px;cursor:pointer}
 @media (prefers-color-scheme:dark){.now{background:#1a1a19;border-color:#3a3a36;color:#c3c2b7}}
+@media (prefers-color-scheme:dark){.reset{background:#2b1917;color:#ff9c92;border-color:#5e2f2b}}
 @media print{.now{display:none!important}}
 .two{display:flex;gap:10px}.two>div{flex:1;min-width:0}
 textarea{width:100%;min-height:96px;margin-top:8px;padding:13px;font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;border:1px solid rgba(0,0,0,.12);border-radius:12px;background:#fff;color:#111;resize:vertical}
 .send{display:block;width:100%;margin:24px 0 8px;padding:18px;font:700 18px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;text-align:center;background:#0ca30c;color:#fff;border:none;border-radius:14px;cursor:pointer;text-decoration:none}
 .pdf{display:block;width:100%;padding:15px;font:600 16px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;text-align:center;background:#fff;color:#444;border:1px solid #dcdad2;border-radius:14px;cursor:pointer}
-.reset{display:block;width:100%;margin:2px 0 16px;padding:15px;border:1px solid #dcdad2;border-radius:14px;background:#fff;font-weight:600;font-size:16px;margin-top:6px;font:16px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;background:transparent;color:#8a8880;border:none;cursor:pointer;text-align:center}
+.reset{display:block;width:100%;margin:2px 0 18px;padding:15px;font:600 16px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;text-align:center;cursor:pointer;background:#fdecec;color:#b3261e;border:1px solid #e9b4b1;border-radius:14px}
 @media (prefers-color-scheme:dark){
  body{background:#0d0d0d;color:#fff} .sub{color:#c3c2b7} h2{color:#a9a79e}
  .langs label{background:#1a1a19;border-color:#2f2f2c;color:#c3c2b7}
@@ -919,12 +920,10 @@ function mpaint(){mrow.classList.toggle('on',(+mi.value||0)>0)}
 document.querySelectorAll('.mins button').forEach(function(b){
   b.addEventListener('click',function(){
     var v=(+mi.value||0)+(b.dataset.m==='+'?1:-1);
-    if(v<0)v=0; mi.value=v||''; mpaint();});});
+    if(v<0)v=0; mi.value=v||''; mpaint(); mcheck();});});
 mi.addEventListener('input',function(){mpaint();mcheck()}); mpaint(); mcheck();
 document.querySelector('.pdf').addEventListener('click',function(){window.print()});
 document.querySelector('.reset').addEventListener('click',function(){
-  var CF={"pt":"Apagar tudo o que preencheu?","en":"Clear everything you entered?","de":"Alle Einträge löschen?","es":"¿Borrar todo lo que ha rellenado?"};
-  if(!confirm(CF[curLang()]||CF.pt))return;
   document.querySelectorAll('input[type=checkbox]').forEach(function(c){c.checked=false});
   document.getElementById('f-prob').value='';
   document.getElementById('f-obs').value='';
