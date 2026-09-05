@@ -1,0 +1,315 @@
+<!doctype html><html lang="pt"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="Compras">
+<title>Lista de compras</title><style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#f7f7f5;color:#111;font:17px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+.wrap{max-width:680px;margin:0 auto;padding:0 16px 70px}
+h1{font-size:25px;line-height:1.2;margin:20px 0 4px;letter-spacing:-.02em}
+.sub{color:#5a5852;font-size:15px;margin:0 0 14px}
+h2{font-size:14px;text-transform:uppercase;letter-spacing:.07em;color:#6b6963;margin:26px 0 8px;font-weight:700}
+i{font-style:normal;display:none}
+.langs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+.langs label{display:inline-block;padding:9px 15px;border-radius:999px;border:1px solid #dcdad2;background:#fff;font-size:15px;color:#5a5852;cursor:pointer}
+.sw{position:absolute;opacity:0;pointer-events:none}
+#l-pt:checked~.wrap label[for=l-pt],#l-en:checked~.wrap label[for=l-en],#l-de:checked~.wrap label[for=l-de],#l-es:checked~.wrap label[for=l-es]{background:#111;color:#fff;border-color:#111}
+#l-pt:checked~.wrap i[lang=pt],#l-en:checked~.wrap i[lang=en],#l-de:checked~.wrap i[lang=de],#l-es:checked~.wrap i[lang=es]{display:inline}
+.hint{display:block;font-size:14.5px;color:#8a8880;margin-top:4px;line-height:1.45}
+.card{background:#fff;border:1px solid rgba(0,0,0,.09);border-radius:14px;overflow:hidden}
+.row{display:flex;gap:10px;align-items:center;padding:11px 14px;border-bottom:1px solid #eeece4}
+.row:last-child{border-bottom:none}
+.row.on{background:#f3fbf3}
+.t{flex:1;min-width:0;padding-right:4px}
+.stp{display:flex;align-items:center;gap:2px;flex:none}
+.stp button{width:40px;height:40px;flex:none;border:1px solid #dcdad2;background:#fff;color:#444;border-radius:11px;font:400 24px/1 inherit;cursor:pointer;padding:0}
+.stp input{width:52px;height:40px;text-align:center;border:1px solid #dcdad2;border-radius:11px;background:#fff;color:#111;font:600 18px inherit;margin:0 2px;-moz-appearance:textfield}
+.stp input::-webkit-outer-spin-button,.stp input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.row.on .stp input{background:#0ca30c;border-color:#0ca30c;color:#fff}
+.free input[type=text]{flex:1;min-width:0;height:40px;padding:0 11px;border:1px solid #dcdad2;border-radius:11px;background:#fff;color:#111;font:16px inherit}
+.add{display:block;width:100%;margin-top:10px;padding:14px;font:600 16px inherit;background:#fff;color:#5a5852;border:1px dashed #c9c7bd;border-radius:14px;cursor:pointer}
+.note{border-left:4px solid #eb6834;background:#fff;border-radius:0 12px 12px 0;padding:12px 14px;margin:10px 0;font-size:15px;color:#5a5852}
+.fld{width:100%;height:46px;padding:0 13px;font:16px inherit;border:1px solid rgba(0,0,0,.12);border-radius:12px;background:#fff;color:#111;margin-top:8px}
+textarea{width:100%;min-height:96px;margin-top:8px;padding:13px;font:16px/1.45 inherit;border:1px solid rgba(0,0,0,.12);border-radius:12px;background:#fff;color:#111;resize:vertical}
+.send{display:block;width:100%;margin:22px 0 6px;padding:18px;font:700 18px inherit;text-align:center;background:#0ca30c;color:#fff;border:none;border-radius:14px;cursor:pointer;text-decoration:none}
+.reset{display:block;width:100%;padding:12px;font:15px inherit;background:transparent;color:#8a8880;border:none;cursor:pointer;text-align:center}
+@media (prefers-color-scheme:dark){
+ body{background:#0d0d0d;color:#fff}
+ .sub,.note{color:#c3c2b7} h2{color:#a9a79e}
+ .langs label{background:#1a1a19;border-color:#2f2f2c;color:#c3c2b7}
+ #l-pt:checked~.wrap label[for=l-pt],#l-en:checked~.wrap label[for=l-en],#l-de:checked~.wrap label[for=l-de],#l-es:checked~.wrap label[for=l-es]{background:#fff;color:#111;border-color:#fff}
+ .card{background:#1a1a19;border-color:rgba(255,255,255,.10)} .row{border-color:#2c2c2a}
+ .row.on{background:#122112}
+ .stp button,.stp input,.free input[type=text],.fld,textarea{background:#1a1a19;border-color:#3a3a36;color:#fff}
+ .row.on .stp input{background:#0ca30c;border-color:#0ca30c}
+ .note{background:#1a1a19} .add{background:#1a1a19;border-color:#3a3a36;color:#c3c2b7}
+}
+</style></head><body>
+<input class="sw" type="radio" name="lang" id="l-pt" checked>
+<input class="sw" type="radio" name="lang" id="l-en">
+<input class="sw" type="radio" name="lang" id="l-de">
+<input class="sw" type="radio" name="lang" id="l-es">
+<div class="wrap">
+<div class="langs"><label for="l-pt">Português</label><label for="l-en">English</label><label for="l-de">Deutsch</label><label for="l-es">Español</label></div>
+<h1><i lang="pt">Lista de compras</i><i lang="en">Shopping list</i><i lang="de">Einkaufsliste</i><i lang="es">Lista de la compra</i></h1>
+<p class="sub"><i lang="pt">Esta lista é sua. Sempre que reparar que falta alguma coisa, marque a quantidade e envie-ma — assim ficamos os dois a saber e da próxima vez traz consigo. Eu devolvo-lhe sempre o valor contra o talão.</i><i lang="en">This list is yours. Whenever you notice something is missing, set the quantity and send it to me — then we both know, and next time you bring it with you. I always pay you back against the receipt.</i><i lang="de">Diese Liste gehört Ihnen. Immer wenn Ihnen auffällt, dass etwas fehlt, die Menge eintragen und mir schicken — dann wissen wir beide Bescheid und Sie bringen es beim nächsten Mal mit. Ich erstatte Ihnen den Betrag immer gegen den Beleg.</i><i lang="es">Esta lista es suya. Cuando note que falta algo, marque la cantidad y envíemela — así lo sabemos los dos y la próxima vez lo trae consigo. Yo le devuelvo siempre el importe contra el tique.</i></p>
+<p class="note"><i lang="pt"><strong>Importante na caixa:</strong> peça sempre fatura <strong>com contribuinte n.º <span class="nif"></span></strong>. Sem esse número a fatura não nos serve. E um talão à parte só com as coisas do apartamento.</i><i lang="en"><strong>Important at the till:</strong> always ask for the receipt <strong>with tax number <span class="nif"></span></strong>. Without that number the receipt is no use to us. And a separate receipt with only the flat's items.</i><i lang="de"><strong>Wichtig an der Kasse:</strong> immer die Rechnung <strong>mit Steuernummer <span class="nif"></span></strong> verlangen. Ohne diese Nummer nützt uns die Rechnung nichts. Und einen eigenen Bon nur mit den Sachen für die Wohnung.</i><i lang="es"><strong>Importante en caja:</strong> pida siempre la factura <strong>con NIF <span class="nif"></span></strong>. Sin ese número la factura no nos sirve. Y un tique aparte solo con las cosas del apartamento.</i></p>
+<h2><i lang="pt">Produtos de limpeza</i><i lang="en">Cleaning products</i><i lang="de">Reinigungsmittel</i><i lang="es">Productos de limpieza</i></h2>
+<div class="card">
+<div class="row" data-k="1"><span class="t"><i lang="pt">Detergente multiusos</i><i lang="en">All-purpose cleaner</i><i lang="de">Allzweckreiniger</i><i lang="es">Limpiador multiusos</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="2"><span class="t"><i lang="pt">Desengordurante para a cozinha</i><i lang="en">Kitchen degreaser</i><i lang="de">Fettlöser Küche</i><i lang="es">Desengrasante de cocina</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="3"><span class="t"><i lang="pt">Limpa-vidros</i><i lang="en">Glass cleaner</i><i lang="de">Glasreiniger</i><i lang="es">Limpiacristales</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="4"><span class="t"><i lang="pt">Detergente / desinfetante da sanita</i><i lang="en">Toilet cleaner</i><i lang="de">WC-Reiniger</i><i lang="es">Limpiador de inodoro</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="5"><span class="t"><i lang="pt">Lixívia</i><i lang="en">Bleach</i><i lang="de">Bleichmittel</i><i lang="es">Lejía</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="6"><span class="t"><i lang="pt">Anticalcário para a casa de banho</i><i lang="en">Limescale remover</i><i lang="de">Kalkentferner</i><i lang="es">Antical para el baño</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="7"><span class="t"><i lang="pt">Limpa-ralos / desentupidor</i><i lang="en">Drain cleaner</i><i lang="de">Rohrreiniger</i><i lang="es">Limpiador de desagües</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="8"><span class="t"><i lang="pt">Detergente da loiça</i><i lang="en">Washing-up liquid</i><i lang="de">Spülmittel</i><i lang="es">Lavavajillas a mano</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="9"><span class="t"><i lang="pt">Pastilhas para a máquina da loiça</i><i lang="en">Dishwasher tablets</i><i lang="de">Spülmaschinentabs</i><i lang="es">Pastillas del lavavajillas</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="10"><span class="t"><i lang="pt">Detergente da roupa</i><i lang="en">Laundry detergent</i><i lang="de">Waschmittel</i><i lang="es">Detergente de ropa</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="11"><span class="t"><i lang="pt">Amaciador</i><i lang="en">Fabric softener</i><i lang="de">Weichspüler</i><i lang="es">Suavizante</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="12"><span class="t"><i lang="pt">Tira-nódoas</i><i lang="en">Stain remover</i><i lang="de">Fleckenentferner</i><i lang="es">Quitamanchas</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="13"><span class="t"><i lang="pt">Esponjas</i><i lang="en">Sponges</i><i lang="de">Schwämme</i><i lang="es">Esponjas</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="14"><span class="t"><i lang="pt">Esfregões</i><i lang="en">Scouring pads</i><i lang="de">Topfreiniger</i><i lang="es">Estropajos</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="15"><span class="t"><i lang="pt">Panos de microfibra</i><i lang="en">Microfibre cloths</i><i lang="de">Mikrofasertücher</i><i lang="es">Bayetas de microfibra</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="16"><span class="t"><i lang="pt">Luvas de limpeza</i><i lang="en">Cleaning gloves</i><i lang="de">Putzhandschuhe</i><i lang="es">Guantes de limpieza</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="17"><span class="t"><i lang="pt">Recarga para a esfregona</i><i lang="en">Mop refill</i><i lang="de">Wischmopp-Ersatzkopf</i><i lang="es">Recambio de fregona</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="18"><span class="t"><i lang="pt">Ambientador</i><i lang="en">Air freshener</i><i lang="de">Raumduft</i><i lang="es">Ambientador</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+</div>
+<button class="add" type="button"><i lang="pt">+ Acrescentar uma linha</i><i lang="en">+ Add a line</i><i lang="de">+ Zeile hinzufügen</i><i lang="es">+ Añadir una línea</i></button>
+<h2><i lang="pt">Consumíveis para os hóspedes</i><i lang="en">Guest consumables</i><i lang="de">Verbrauchsmaterial für Gäste</i><i lang="es">Consumibles para los huéspedes</i></h2>
+<div class="card">
+<div class="row" data-k="19"><span class="t"><i lang="pt">Papel higiénico</i><i lang="en">Toilet paper</i><i lang="de">Toilettenpapier</i><i lang="es">Papel higiénico</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="20"><span class="t"><i lang="pt">Rolo de cozinha (dos finos)</i><i lang="en">Kitchen roll (the slim ones)</i><i lang="de">Küchenrolle (die dünnen)</i><i lang="es">Rollo de cocina (de los finos)</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="21"><span class="t"><i lang="pt">Sacos do lixo 10 L</i><i lang="en">Bin bags 10 L</i><i lang="de">Müllbeutel 10 L</i><i lang="es">Bolsas de basura 10 L</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="23"><span class="t"><i lang="pt">Sabonete líquido para as mãos</i><i lang="en">Hand soap</i><i lang="de">Handseife</i><i lang="es">Jabón de manos</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="24"><span class="t"><i lang="pt">Gel de banho</i><i lang="en">Shower gel</i><i lang="de">Duschgel</i><i lang="es">Gel de ducha</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="25"><span class="t"><i lang="pt">Champô</i><i lang="en">Shampoo</i><i lang="de">Shampoo</i><i lang="es">Champú</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="26"><span class="t"><i lang="pt">Guardanapos</i><i lang="en">Napkins</i><i lang="de">Servietten</i><i lang="es">Servilletas</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+</div>
+<button class="add" type="button"><i lang="pt">+ Acrescentar uma linha</i><i lang="en">+ Add a line</i><i lang="de">+ Zeile hinzufügen</i><i lang="es">+ Añadir una línea</i></button>
+<h2><i lang="pt">Cozinha — boas-vindas</i><i lang="en">Kitchen — welcome</i><i lang="de">Küche — Willkommen</i><i lang="es">Cocina — bienvenida</i></h2>
+<p class="note"><i lang="pt">Café, açúcar, chá, sal e pimenta costumam existir no apartamento — e em princípio são os hóspedes que compram o resto. Marque só o que estiver mesmo a faltar.</i><i lang="en">Coffee, sugar, tea, salt and pepper are usually there — and in principle the guests buy the rest themselves. Only mark what is genuinely missing.</i><i lang="de">Kaffee, Zucker, Tee, Salz und Pfeffer sind meistens vor Ort — den Rest besorgen sich die Gäste grundsätzlich selbst. Nur eintragen, was wirklich fehlt.</i><i lang="es">Café, azúcar, té, sal y pimienta suelen estar en el apartamento — y en principio los huéspedes compran el resto. Marque solo lo que falte de verdad.</i></p>
+<div class="card">
+<div class="row" data-k="28"><span class="t"><i lang="pt">Cápsulas de café</i><i lang="en">Coffee capsules</i><i lang="de">Kaffeekapseln</i><i lang="es">Cápsulas de café</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="29"><span class="t"><i lang="pt">Açúcar</i><i lang="en">Sugar</i><i lang="de">Zucker</i><i lang="es">Azúcar</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="30"><span class="t"><i lang="pt">Chá (saquetas)</i><i lang="en">Tea bags</i><i lang="de">Tee (Beutel)</i><i lang="es">Té (bolsitas)</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="31"><span class="t"><i lang="pt">Sal</i><i lang="en">Salt</i><i lang="de">Salz</i><i lang="es">Sal</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="32"><span class="t"><i lang="pt">Pimenta</i><i lang="en">Pepper</i><i lang="de">Pfeffer</i><i lang="es">Pimienta</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="901"><span class="t"><i lang="pt">Água sem gás (garrafas)<span class="hint">Uma sempre no frigorífico, o resto de reserva no arrumo.</span></i><i lang="en">Still water (bottles)<span class="hint">One always in the fridge, the rest kept in the storage room.</span></i><i lang="de">Stilles Wasser (Flaschen)<span class="hint">Immer eine im Kühlschrank, der Rest als Vorrat im Abstellraum.</span></i><i lang="es">Agua sin gas (botellas)<span class="hint">Una siempre en el frigorífico, el resto de reserva en el trastero.</span></i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="902"><span class="t"><i lang="pt">Vinho — caixa de 6 (tinto e branco)<span class="hint">Para deixar uma garrafa aos hóspedes de estadia longa.</span></i><i lang="en">Wine — box of 6 (red and white)<span class="hint">To leave a bottle for long-stay guests.</span></i><i lang="de">Wein — 6er-Kiste (rot und weiß)<span class="hint">Um Gästen mit längerem Aufenthalt eine Flasche hinzustellen.</span></i><i lang="es">Vino — caja de 6 (tinto y blanco)<span class="hint">Para dejar una botella a los huéspedes de estancia larga.</span></i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="35"><span class="t"><i lang="pt">Película aderente</i><i lang="en">Cling film</i><i lang="de">Frischhaltefolie</i><i lang="es">Film transparente</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="36"><span class="t"><i lang="pt">Papel de alumínio</i><i lang="en">Aluminium foil</i><i lang="de">Alufolie</i><i lang="es">Papel de aluminio</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="37"><span class="t"><i lang="pt">Papel vegetal</i><i lang="en">Baking paper</i><i lang="de">Backpapier</i><i lang="es">Papel de horno</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+</div>
+<button class="add" type="button"><i lang="pt">+ Acrescentar uma linha</i><i lang="en">+ Add a line</i><i lang="de">+ Zeile hinzufügen</i><i lang="es">+ Añadir una línea</i></button>
+<h2><i lang="pt">Casa e manutenção</i><i lang="en">Home and maintenance</i><i lang="de">Haus und Instandhaltung</i><i lang="es">Casa y mantenimiento</i></h2>
+<div class="card">
+<div class="row" data-k="39"><span class="t"><i lang="pt">Lâmpadas</i><i lang="en">Light bulbs</i><i lang="de">Glühbirnen</i><i lang="es">Bombillas</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="40"><span class="t"><i lang="pt">Pilhas (comando, relógio)</i><i lang="en">Batteries (remote, clock)</i><i lang="de">Batterien (Fernbedienung, Uhr)</i><i lang="es">Pilas (mando, reloj)</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="41"><span class="t"><i lang="pt">Cabides</i><i lang="en">Coat hangers</i><i lang="de">Kleiderbügel</i><i lang="es">Perchas</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="42"><span class="t"><i lang="pt">Velas</i><i lang="en">Candles</i><i lang="de">Kerzen</i><i lang="es">Velas</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="43"><span class="t"><i lang="pt">Flores ou uma planta</i><i lang="en">Flowers or a plant</i><i lang="de">Blumen oder eine Pflanze</i><i lang="es">Flores o una planta</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="44"><span class="t"><i lang="pt">Caixa de primeiros socorros / pensos</i><i lang="en">First-aid items / plasters</i><i lang="de">Erste-Hilfe / Pflaster</i><i lang="es">Botiquín / tiritas</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="45"><span class="t"><i lang="pt">Vassoura, pá, balde</i><i lang="en">Broom, dustpan, bucket</i><i lang="de">Besen, Kehrblech, Eimer</i><i lang="es">Escoba, recogedor, cubo</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+</div>
+<button class="add" type="button"><i lang="pt">+ Acrescentar uma linha</i><i lang="en">+ Add a line</i><i lang="de">+ Zeile hinzufügen</i><i lang="es">+ Añadir una línea</i></button>
+<h2><i lang="pt">Roupa de cama e toalhas que existem</i><i lang="en">Bed linen and towels in stock</i><i lang="de">Vorhandene Bettwäsche und Handtücher</i><i lang="es">Ropa de cama y toallas que hay</i></h2>
+<input class="fld" type="text" data-n="stock" data-lbl="Roupa de cama e toalhas que existem" placeholder="...">
+<h2><i lang="pt">Observações</i><i lang="en">Notes</i><i lang="de">Anmerkungen</i><i lang="es">Observaciones</i></h2>
+<textarea data-n="obs" placeholder="..."></textarea>
+<p class="note"><i lang="pt">Se faltar alguma coisa que não está aqui, carregue em «Acrescentar uma linha» e escreva o que é.</i><i lang="en">If something is missing that is not here, tap «Add a line» and write what it is.</i><i lang="de">Wenn etwas fehlt, das hier nicht steht, auf «Zeile hinzufügen» tippen und eintragen.</i><i lang="es">Si falta algo que no está aquí, pulse «Añadir una línea» y escriba qué es.</i></p>
+<a class="send" href="#"><i lang="pt">Enviar ao Fabian</i><i lang="en">Send to Fabian</i><i lang="de">An Fabian senden</i><i lang="es">Enviar a Fabian</i></a>
+<button class="reset" type="button"><i lang="pt">Recomeçar do zero</i><i lang="en">Start over</i><i lang="de">Neu beginnen</i><i lang="es">Empezar de nuevo</i></button>
+</div>
+
+<script>
+(function(){
+var TEL=[49,173,4175,955].join(''),KEY='com-funchal',HEAD='LISTA DE COMPRAS';
+var FPREFIX='compras';
+
+var AUTOR='Diana Velosa';
+Array.prototype.slice.call(document.querySelectorAll('.nif')).forEach(function(e){e.textContent=[304,927,660].join('')});
+function pad(x){return('0'+x).slice(-2)}
+function ctrls(){return Array.prototype.slice.call(
+  document.querySelectorAll('.wrap input,.wrap select,.wrap textarea'))}
+function curLang(){var r=document.querySelector('input[name=lang]:checked');return r?r.id.slice(2):'pt'}
+function extraCounts(){
+  return Array.prototype.slice.call(document.querySelectorAll('.card')).map(function(c){
+    return c.querySelectorAll('.free,.cust').length});}
+function b64e(s){return btoa(unescape(encodeURIComponent(s))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
+function b64d(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';return decodeURIComponent(escape(atob(s)))}
+function encodeState(){
+  var v={};
+  ctrls().forEach(function(e,i){
+    if(e.type==='checkbox'){if(e.checked)v[i]=1}
+    else if(e.tagName==='SELECT'){if(e.selectedIndex>0)v[i]=e.selectedIndex}
+    else if(e.value!=='')v[i]=e.value;});
+  var d=new Date();
+  return b64e(JSON.stringify({v:1,a:AUTOR,l:curLang(),t:d.getTime(),
+    o:-d.getTimezoneOffset(),x:extraCounts(),d:v}));
+}
+function applyState(o){
+  if(o.l){var r=document.getElementById('l-'+o.l);if(r)r.checked=true}
+  if(o.x&&window.__mkExtra){
+    var cards=Array.prototype.slice.call(document.querySelectorAll('.card'));
+    o.x.forEach(function(n,ci){for(var k=0;k<n;k++)window.__mkExtra(cards[ci])});}
+  var cs=ctrls();
+  Object.keys(o.d||{}).forEach(function(k){
+    var e=cs[+k];if(!e)return;
+    if(e.type==='checkbox')e.checked=!!o.d[k];
+    else if(e.tagName==='SELECT')e.selectedIndex=+o.d[k];
+    else{e.value=o.d[k];if(e.tagName==='TEXTAREA')e.textContent=o.d[k]}
+    if(e.parentNode&&e.parentNode.classList){
+      e.parentNode.classList.toggle('done',e.type==='checkbox'&&e.checked);}
+    if(e.closest){var row=e.closest('.row');if(row&&e.type==='number')row.classList.toggle('on',(+e.value||0)>0)}
+  });
+}
+function recordMode(o){
+  var d=new Date(o.t||Date.now());
+  var st=document.createElement('style');
+  st.textContent='.wrap input:not([name=lang]),.wrap select,.wrap textarea{pointer-events:none}'+
+   '.send,.reset,.add,.addx,.del,.last{display:none!important}'+
+   '.stamp{border:1px solid rgba(0,0,0,.14);background:#fff;border-radius:12px;padding:13px 15px;margin:10px 0 20px;font-size:15px;line-height:1.55}'+
+   '.stamp b{font-weight:650}.stamp span{color:#8a8880}'+
+   '.prt{display:block;width:100%;margin:22px 0 40px;padding:16px;font:600 16px inherit;text-align:center;'+
+   'background:#fff;color:#111;border:1px solid #dcdad2;border-radius:14px;cursor:pointer}'+
+   '@media(prefers-color-scheme:dark){.stamp,.prt{background:#1a1a19;border-color:rgba(255,255,255,.14);color:#fff}}'+
+   '@media print{.prt,.langs{display:none!important}}';
+  document.head.appendChild(st);
+  applyState(o);
+  var w=document.querySelector('.wrap');
+  var box=document.createElement('div');box.className='stamp';
+  box.innerHTML='<b>'+(o.a||AUTOR)+'</b><br><span>Preenchido &middot; filled in &middot; ausgefüllt:</span> '+
+    pad(d.getDate())+'.'+pad(d.getMonth()+1)+'.'+d.getFullYear()+' &middot; '+pad(d.getHours())+':'+pad(d.getMinutes());
+  w.insertBefore(box,w.children[1]);
+  var b=document.createElement('button');b.className='prt';b.type='button';
+  b.textContent='PDF';b.addEventListener('click',function(){window.print()});
+  w.appendChild(b);
+  document.title=FPREFIX+' '+d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+}
+window.__mkExtra=function(card){
+  if(!card)return null;
+  if(card.querySelector('.row')){
+    var r=document.createElement('div');
+    r.className='row free';
+    r.innerHTML='<input type="text" placeholder="...">'+
+      '<span class="stp"><button type="button" data-d="-">−</button>'+
+      '<input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span>';
+    card.appendChild(r);return r;
+  }
+  var l=document.createElement('label');
+  l.className='cust';
+  l.innerHTML='<input type="checkbox"><span class="t"><input class="ci" type="text" value=""></span>'+
+    '<span class="last">↺ —</span><button class="del" type="button">×</button>';
+  card.appendChild(l);return l;
+};
+function restore(){
+  var m=/[#&?]r=([A-Za-z0-9\-_]+)/.exec(location.hash||location.search);
+  if(!m)return false;
+  try{recordMode(JSON.parse(b64d(m[1])));return true}catch(e){return false}
+}
+
+var LB={
+ pt:{h:'Pronto para enviar',p:'1. Toque em «Copiar»  2. Abra o WhatsApp  3. Se a mensagem não aparecer sozinha, cole na conversa.',c:'Copiar',ok:'Copiado ✓',w:'Abrir o WhatsApp',x:'Fechar'},
+ en:{h:'Ready to send',p:'1. Tap "Copy"  2. Open WhatsApp  3. If the message does not appear by itself, paste it into the chat.',c:'Copy',ok:'Copied ✓',w:'Open WhatsApp',x:'Close'},
+ de:{h:'Fertig zum Senden',p:'1. Auf „Kopieren" tippen  2. WhatsApp öffnen  3. Erscheint die Nachricht nicht von selbst, in den Chat einfügen.',c:'Kopieren',ok:'Kopiert ✓',w:'WhatsApp öffnen',x:'Schließen'},
+ es:{h:'Listo para enviar',p:'1. Pulse «Copiar»  2. Abra WhatsApp  3. Si el mensaje no aparece solo, péguelo en la conversación.',c:'Copiar',ok:'Copiado ✓',w:'Abrir WhatsApp',x:'Cerrar'}};
+function panel(text){
+  var L=LB[curLang()]||LB.pt;
+  var ov=document.createElement('div');ov.className='ov';
+  var bx=document.createElement('div');bx.className='bx';
+  bx.innerHTML='<h3></h3><p></p><textarea readonly></textarea>'+
+    '<button class="b1" type="button"></button><a class="b2" target="_blank" rel="noopener"></a>'+
+    '<button class="b3" type="button"></button>';
+  ov.appendChild(bx);document.body.appendChild(ov);
+  bx.querySelector('h3').textContent=L.h;
+  bx.querySelector('p').textContent=L.p;
+  var ta=bx.querySelector('textarea');ta.value=text;
+  var cp=bx.querySelector('.b1');cp.textContent=L.c;
+  cp.addEventListener('click',function(){
+    var done=function(){cp.textContent=L.ok;cp.style.background='#0a7d0a'};
+    function legacy(){try{ta.removeAttribute('readonly');ta.focus();
+      ta.setSelectionRange(0,text.length);document.execCommand('copy');
+      ta.setAttribute('readonly','readonly');window.getSelection().removeAllRanges();done()}catch(e){}}
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(done,legacy)}else legacy();});
+  var wa=bx.querySelector('.b2');wa.textContent=L.w;
+  wa.href='https://wa.me/'+TEL+'?text='+encodeURIComponent(text);
+  bx.querySelector('.b3').textContent=L.x;
+  bx.querySelector('.b3').addEventListener('click',function(){ov.remove()});
+  ov.addEventListener('click',function(e){if(e.target===ov)ov.remove()});
+}
+function deliver(text){
+  try{
+    var base=location.href.split('#')[0].split('?')[0];
+    if(/^https?:/.test(base))text+='\n\n'+base+'#r='+encodeState();
+  }catch(e){}
+  if(navigator.share){
+    navigator.share({text:text}).then(function(){},function(err){
+      if(!err||err.name!=='AbortError')panel(text);});
+    return;}
+  panel(text);
+}
+if(restore())return;
+var st={};try{st=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
+var wrap=document.querySelector('.wrap');
+function bind(row){
+  var inp=row.querySelector('.stp input'),k=row.dataset.k;
+  function paint(){row.classList.toggle('on',(+inp.value||0)>0)}
+  if(k&&st['q'+k])inp.value=st['q'+k];
+  paint();
+  row.querySelectorAll('.stp button').forEach(function(b){
+    b.addEventListener('click',function(){
+      var v=(+inp.value||0)+(b.dataset.d==='+'?1:-1);
+      if(v<0)v=0; inp.value=v||''; if(k){st['q'+k]=v||0;save()} paint();});});
+  inp.addEventListener('input',function(){if(k){st['q'+k]=+inp.value||0;save()}paint()});
+  var tx=row.querySelector('input[type=text]');
+  if(tx){var fk=row.dataset.f; if(fk&&st['f'+fk])tx.value=st['f'+fk];
+    tx.addEventListener('input',function(){if(fk){st['f'+fk]=tx.value;save()}});}
+}
+document.querySelectorAll('.row').forEach(bind);
+var fi=0;
+document.querySelectorAll('.add').forEach(function(btn){
+  var card=btn.previousElementSibling;
+  btn.addEventListener('click',function(){
+    fi++;var id='x'+Date.now()+fi;
+    var r=document.createElement('div');
+    r.className='row free';r.dataset.k=id;r.dataset.f=id;
+    r.innerHTML='<input type="text" placeholder="...">'+
+      '<span class="stp"><button type="button" data-d="-">\u2212</button>'+
+      '<input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span>';
+    card.appendChild(r);bind(r);r.querySelector('input[type=text]').focus();});});
+document.querySelectorAll('.fld,textarea').forEach(function(f){
+  var k=f.dataset.n;if(!k)return;
+  if(st['n'+k])f.value=st['n'+k];
+  f.addEventListener('input',function(){st['n'+k]=f.value;save()});});
+var rst=document.querySelector('.reset');
+if(rst)rst.addEventListener('click',function(){try{localStorage.removeItem(KEY)}catch(e){};location.reload()});
+document.querySelector('.send').addEventListener('click',function(ev){
+  ev.preventDefault();
+  var d=new Date(),z=function(x){return('0'+x).slice(-2)};
+  var m=HEAD+' \u2014 '+z(d.getDate())+'/'+z(d.getMonth()+1)+'/'+d.getFullYear()+'\n'+
+        '';
+  var any=false,cur='';
+  document.querySelectorAll('.wrap > *').forEach(function(el){
+    if(el.tagName==='H2'){var p=el.querySelector('i[lang=pt]');cur=p?p.textContent.trim():''}
+    if(el.classList&&el.classList.contains('card')){
+      var lines=[];
+      el.querySelectorAll('.row').forEach(function(r){
+        var n=+r.querySelector('.stp input').value||0;if(!n)return;
+        var tx=r.querySelector('input[type=text]');
+        var lab=tx?tx.value.trim():(r.querySelector('i[lang=pt]')||{textContent:''}).textContent.trim();
+        if(!lab)lab='(?)';
+        lines.push(n+'x '+lab);});
+      if(lines.length){any=true;m+=(cur?cur+'\n':'')+lines.join('\n')+'\n\n';}}});
+  document.querySelectorAll('.fld').forEach(function(f){
+    if(f.value.trim()){m+=(f.dataset.lbl||'')+': '+f.value.trim()+'\n';any=true;}});
+  var ta=document.querySelector('textarea');
+  if(ta&&ta.value.trim())m+='\nNotas: '+ta.value.trim()+'\n';
+  if(!any&&!(ta&&ta.value.trim()))m+='(vazio)\n';
+  deliver(m);});
+})();
+</script>
+
+</body></html>

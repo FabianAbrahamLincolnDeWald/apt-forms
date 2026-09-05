@@ -1,0 +1,290 @@
+<!doctype html><html lang="pt"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="Lavandaria">
+<title>Lavandaria</title><style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#f7f7f5;color:#111;font:17px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+.wrap{max-width:680px;margin:0 auto;padding:0 16px 70px}
+h1{font-size:25px;line-height:1.2;margin:20px 0 4px;letter-spacing:-.02em}
+.sub{color:#5a5852;font-size:15px;margin:0 0 14px}
+h2{font-size:14px;text-transform:uppercase;letter-spacing:.07em;color:#6b6963;margin:26px 0 8px;font-weight:700}
+i{font-style:normal;display:none}
+.langs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+.langs label{display:inline-block;padding:9px 15px;border-radius:999px;border:1px solid #dcdad2;background:#fff;font-size:15px;color:#5a5852;cursor:pointer}
+.sw{position:absolute;opacity:0;pointer-events:none}
+#l-pt:checked~.wrap label[for=l-pt],#l-en:checked~.wrap label[for=l-en],#l-de:checked~.wrap label[for=l-de],#l-es:checked~.wrap label[for=l-es]{background:#111;color:#fff;border-color:#111}
+#l-pt:checked~.wrap i[lang=pt],#l-en:checked~.wrap i[lang=en],#l-de:checked~.wrap i[lang=de],#l-es:checked~.wrap i[lang=es]{display:inline}
+.hint{display:block;font-size:14.5px;color:#8a8880;margin-top:4px;line-height:1.45}
+.card{background:#fff;border:1px solid rgba(0,0,0,.09);border-radius:14px;overflow:hidden}
+.row{display:flex;gap:10px;align-items:center;padding:11px 14px;border-bottom:1px solid #eeece4}
+.row:last-child{border-bottom:none}
+.row.on{background:#f3fbf3}
+.t{flex:1;min-width:0;padding-right:4px}
+.stp{display:flex;align-items:center;gap:2px;flex:none}
+.stp button{width:40px;height:40px;flex:none;border:1px solid #dcdad2;background:#fff;color:#444;border-radius:11px;font:400 24px/1 inherit;cursor:pointer;padding:0}
+.stp input{width:52px;height:40px;text-align:center;border:1px solid #dcdad2;border-radius:11px;background:#fff;color:#111;font:600 18px inherit;margin:0 2px;-moz-appearance:textfield}
+.stp input::-webkit-outer-spin-button,.stp input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.row.on .stp input{background:#0ca30c;border-color:#0ca30c;color:#fff}
+.free input[type=text]{flex:1;min-width:0;height:40px;padding:0 11px;border:1px solid #dcdad2;border-radius:11px;background:#fff;color:#111;font:16px inherit}
+.add{display:block;width:100%;margin-top:10px;padding:14px;font:600 16px inherit;background:#fff;color:#5a5852;border:1px dashed #c9c7bd;border-radius:14px;cursor:pointer}
+.note{border-left:4px solid #eb6834;background:#fff;border-radius:0 12px 12px 0;padding:12px 14px;margin:10px 0;font-size:15px;color:#5a5852}
+.fld{width:100%;height:46px;padding:0 13px;font:16px inherit;border:1px solid rgba(0,0,0,.12);border-radius:12px;background:#fff;color:#111;margin-top:8px}
+textarea{width:100%;min-height:96px;margin-top:8px;padding:13px;font:16px/1.45 inherit;border:1px solid rgba(0,0,0,.12);border-radius:12px;background:#fff;color:#111;resize:vertical}
+.send{display:block;width:100%;margin:22px 0 6px;padding:18px;font:700 18px inherit;text-align:center;background:#0ca30c;color:#fff;border:none;border-radius:14px;cursor:pointer;text-decoration:none}
+.reset{display:block;width:100%;padding:12px;font:15px inherit;background:transparent;color:#8a8880;border:none;cursor:pointer;text-align:center}
+@media (prefers-color-scheme:dark){
+ body{background:#0d0d0d;color:#fff}
+ .sub,.note{color:#c3c2b7} h2{color:#a9a79e}
+ .langs label{background:#1a1a19;border-color:#2f2f2c;color:#c3c2b7}
+ #l-pt:checked~.wrap label[for=l-pt],#l-en:checked~.wrap label[for=l-en],#l-de:checked~.wrap label[for=l-de],#l-es:checked~.wrap label[for=l-es]{background:#fff;color:#111;border-color:#fff}
+ .card{background:#1a1a19;border-color:rgba(255,255,255,.10)} .row{border-color:#2c2c2a}
+ .row.on{background:#122112}
+ .stp button,.stp input,.free input[type=text],.fld,textarea{background:#1a1a19;border-color:#3a3a36;color:#fff}
+ .row.on .stp input{background:#0ca30c;border-color:#0ca30c}
+ .note{background:#1a1a19} .add{background:#1a1a19;border-color:#3a3a36;color:#c3c2b7}
+}
+</style></head><body>
+<input class="sw" type="radio" name="lang" id="l-pt" checked>
+<input class="sw" type="radio" name="lang" id="l-en">
+<input class="sw" type="radio" name="lang" id="l-de">
+<input class="sw" type="radio" name="lang" id="l-es">
+<div class="wrap">
+<div class="langs"><label for="l-pt">Português</label><label for="l-en">English</label><label for="l-de">Deutsch</label><label for="l-es">Español</label></div>
+<h1><i lang="pt">Lista para a lavandaria</i><i lang="en">Laundry list</i><i lang="de">Wäschereiliste</i><i lang="es">Lista para la lavandería</i></h1>
+<p class="sub"><i lang="pt">Marque as quantidades, carregue em enviar — eu encaminho a lista por e-mail para a Iris Wash.</i><i lang="en">Set the quantities, tap send — I forward the list by e-mail to Iris Wash.</i><i lang="de">Mengen eintragen, senden — ich leite die Liste per E-Mail an Iris Wash weiter.</i><i lang="es">Marque las cantidades, pulse enviar — yo mando la lista por correo a Iris Wash.</i></p>
+<p class="note"><i lang="pt">Use esta lista sempre que levar roupa. Fica guardada no telemóvel; depois de enviar, carregue em «Recomeçar do zero».</i><i lang="en">Use this list every time you take laundry. It is saved on your phone; after sending, tap «Start over».</i><i lang="de">Diese Liste bei jeder Wäschefahrt verwenden. Sie bleibt auf dem Handy gespeichert; nach dem Senden auf «Neu beginnen» tippen.</i><i lang="es">Use esta lista cada vez que lleve ropa. Queda guardada en el móvil; después de enviar, pulse «Empezar de nuevo».</i></p>
+<h2><i lang="pt">Cama</i><i lang="en">Bed</i><i lang="de">Bett</i><i lang="es">Cama</i></h2>
+<div class="card">
+<div class="row" data-k="1"><span class="t"><i lang="pt">Lençol de baixo (ajustável)</i><i lang="en">Fitted sheet</i><i lang="de">Spannbettlaken</i><i lang="es">Sábana bajera ajustable</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="2"><span class="t"><i lang="pt">Lençol de cima</i><i lang="en">Top sheet</i><i lang="de">Oberlaken</i><i lang="es">Sábana encimera</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="3"><span class="t"><i lang="pt">Capa de edredão</i><i lang="en">Duvet cover</i><i lang="de">Bettdeckenbezug</i><i lang="es">Funda nórdica</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="4"><span class="t"><i lang="pt">Fronha de almofada</i><i lang="en">Pillowcase</i><i lang="de">Kissenbezug</i><i lang="es">Funda de almohada</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="5"><span class="t"><i lang="pt">Protetor de colchão / resguardo</i><i lang="en">Mattress protector / topper cover</i><i lang="de">Matratzenschoner / Topperbezug</i><i lang="es">Protector de colchón / cubrecolchón</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="6"><span class="t"><i lang="pt">Edredão</i><i lang="en">Duvet</i><i lang="de">Bettdecke</i><i lang="es">Edredón</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="7"><span class="t"><i lang="pt">Almofada</i><i lang="en">Pillow</i><i lang="de">Kopfkissen</i><i lang="es">Almohada</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="8"><span class="t"><i lang="pt">Manta / colcha</i><i lang="en">Blanket / bedspread</i><i lang="de">Decke / Tagesdecke</i><i lang="es">Manta / colcha</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+</div>
+<button class="add" type="button"><i lang="pt">+ Acrescentar uma linha</i><i lang="en">+ Add a line</i><i lang="de">+ Zeile hinzufügen</i><i lang="es">+ Añadir una línea</i></button>
+<h2><i lang="pt">Casa de banho</i><i lang="en">Bathroom</i><i lang="de">Bad</i><i lang="es">Baño</i></h2>
+<div class="card">
+<div class="row" data-k="9"><span class="t"><i lang="pt">Toalha de banho grande</i><i lang="en">Large bath towel</i><i lang="de">Großes Badetuch</i><i lang="es">Toalla de baño grande</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="10"><span class="t"><i lang="pt">Toalha de rosto</i><i lang="en">Hand towel</i><i lang="de">Handtuch</i><i lang="es">Toalla de manos</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="11"><span class="t"><i lang="pt">Toalha pequena / de mãos</i><i lang="en">Small towel</i><i lang="de">Kleines Handtuch</i><i lang="es">Toalla pequeña</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="12"><span class="t"><i lang="pt">Toalha de pés</i><i lang="en">Bath mat towel</i><i lang="de">Fußhandtuch</i><i lang="es">Toalla de pies</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="13"><span class="t"><i lang="pt">Tapete de casa de banho</i><i lang="en">Bathroom rug</i><i lang="de">Badvorleger</i><i lang="es">Alfombra de baño</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+</div>
+<button class="add" type="button"><i lang="pt">+ Acrescentar uma linha</i><i lang="en">+ Add a line</i><i lang="de">+ Zeile hinzufügen</i><i lang="es">+ Añadir una línea</i></button>
+<h2><i lang="pt">Cozinha e limpeza</i><i lang="en">Kitchen and cleaning</i><i lang="de">Küche und Reinigung</i><i lang="es">Cocina y limpieza</i></h2>
+<div class="card">
+<div class="row" data-k="14"><span class="t"><i lang="pt">Pano de cozinha / de loiça</i><i lang="en">Tea towel</i><i lang="de">Geschirrtuch</i><i lang="es">Paño de cocina</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="15"><span class="t"><i lang="pt">Pano de limpeza</i><i lang="en">Cleaning cloth</i><i lang="de">Putztuch</i><i lang="es">Trapo de limpieza</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="16"><span class="t"><i lang="pt">Avental</i><i lang="en">Apron</i><i lang="de">Schürze</i><i lang="es">Delantal</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+</div>
+<button class="add" type="button"><i lang="pt">+ Acrescentar uma linha</i><i lang="en">+ Add a line</i><i lang="de">+ Zeile hinzufügen</i><i lang="es">+ Añadir una línea</i></button>
+<h2><i lang="pt">Sala e outros</i><i lang="en">Living room and other</i><i lang="de">Wohnraum und Sonstiges</i><i lang="es">Salón y otros</i></h2>
+<div class="card">
+<div class="row" data-k="17"><span class="t"><i lang="pt">Capa do sofá</i><i lang="en">Sofa cover</i><i lang="de">Sofabezug</i><i lang="es">Funda de sofá</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="18"><span class="t"><i lang="pt">Capa de almofada decorativa</i><i lang="en">Decorative cushion cover</i><i lang="de">Deko-Kissenhülle</i><i lang="es">Funda de cojín decorativo</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="19"><span class="t"><i lang="pt">Manta do sofá</i><i lang="en">Sofa throw</i><i lang="de">Sofadecke</i><i lang="es">Manta de sofá</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="20"><span class="t"><i lang="pt">Cortinado / cortina</i><i lang="en">Curtain</i><i lang="de">Vorhang</i><i lang="es">Cortina</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+<div class="row" data-k="21"><span class="t"><i lang="pt">Tapete</i><i lang="en">Rug</i><i lang="de">Teppich</i><i lang="es">Alfombra</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
+</div>
+<button class="add" type="button"><i lang="pt">+ Acrescentar uma linha</i><i lang="en">+ Add a line</i><i lang="de">+ Zeile hinzufügen</i><i lang="es">+ Añadir una línea</i></button>
+<h2><i lang="pt">Observações</i><i lang="en">Notes</i><i lang="de">Anmerkungen</i><i lang="es">Observaciones</i></h2>
+<textarea data-n="obs" placeholder="..."></textarea>
+<p class="note"><i lang="pt">Pode dizer à lavandaria que a lista das quantidades lhes chega sempre por e-mail da minha parte.</i><i lang="en">You can tell the laundry that the list of quantities always reaches them by e-mail from me.</i><i lang="de">Du kannst der Wäscherei sagen, dass die Mengenliste ihnen immer per E-Mail von mir zugeht.</i><i lang="es">Puede decir a la lavandería que la lista de cantidades les llega siempre por correo de mi parte.</i></p>
+<a class="send" href="#"><i lang="pt">Enviar ao Fabian</i><i lang="en">Send to Fabian</i><i lang="de">An Fabian senden</i><i lang="es">Enviar a Fabian</i></a>
+<button class="reset" type="button"><i lang="pt">Recomeçar do zero</i><i lang="en">Start over</i><i lang="de">Neu beginnen</i><i lang="es">Empezar de nuevo</i></button>
+</div>
+
+<script>
+(function(){
+var TEL=[49,173,4175,955].join(''),KEY='lav-funchal',HEAD='LAVANDARIA';
+var FPREFIX='lavandaria';
+
+var AUTOR='Diana Velosa';
+function pad(x){return('0'+x).slice(-2)}
+function ctrls(){return Array.prototype.slice.call(
+  document.querySelectorAll('.wrap input,.wrap select,.wrap textarea'))}
+function curLang(){var r=document.querySelector('input[name=lang]:checked');return r?r.id.slice(2):'pt'}
+function extraCounts(){
+  return Array.prototype.slice.call(document.querySelectorAll('.card')).map(function(c){
+    return c.querySelectorAll('.free,.cust').length});}
+function b64e(s){return btoa(unescape(encodeURIComponent(s))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
+function b64d(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';return decodeURIComponent(escape(atob(s)))}
+function encodeState(){
+  var v={};
+  ctrls().forEach(function(e,i){
+    if(e.type==='checkbox'){if(e.checked)v[i]=1}
+    else if(e.tagName==='SELECT'){if(e.selectedIndex>0)v[i]=e.selectedIndex}
+    else if(e.value!=='')v[i]=e.value;});
+  var d=new Date();
+  return b64e(JSON.stringify({v:1,a:AUTOR,l:curLang(),t:d.getTime(),
+    o:-d.getTimezoneOffset(),x:extraCounts(),d:v}));
+}
+function applyState(o){
+  if(o.l){var r=document.getElementById('l-'+o.l);if(r)r.checked=true}
+  if(o.x&&window.__mkExtra){
+    var cards=Array.prototype.slice.call(document.querySelectorAll('.card'));
+    o.x.forEach(function(n,ci){for(var k=0;k<n;k++)window.__mkExtra(cards[ci])});}
+  var cs=ctrls();
+  Object.keys(o.d||{}).forEach(function(k){
+    var e=cs[+k];if(!e)return;
+    if(e.type==='checkbox')e.checked=!!o.d[k];
+    else if(e.tagName==='SELECT')e.selectedIndex=+o.d[k];
+    else{e.value=o.d[k];if(e.tagName==='TEXTAREA')e.textContent=o.d[k]}
+    if(e.parentNode&&e.parentNode.classList){
+      e.parentNode.classList.toggle('done',e.type==='checkbox'&&e.checked);}
+    if(e.closest){var row=e.closest('.row');if(row&&e.type==='number')row.classList.toggle('on',(+e.value||0)>0)}
+  });
+}
+function recordMode(o){
+  var d=new Date(o.t||Date.now());
+  var st=document.createElement('style');
+  st.textContent='.wrap input:not([name=lang]),.wrap select,.wrap textarea{pointer-events:none}'+
+   '.send,.reset,.add,.addx,.del,.last{display:none!important}'+
+   '.stamp{border:1px solid rgba(0,0,0,.14);background:#fff;border-radius:12px;padding:13px 15px;margin:10px 0 20px;font-size:15px;line-height:1.55}'+
+   '.stamp b{font-weight:650}.stamp span{color:#8a8880}'+
+   '.prt{display:block;width:100%;margin:22px 0 40px;padding:16px;font:600 16px inherit;text-align:center;'+
+   'background:#fff;color:#111;border:1px solid #dcdad2;border-radius:14px;cursor:pointer}'+
+   '@media(prefers-color-scheme:dark){.stamp,.prt{background:#1a1a19;border-color:rgba(255,255,255,.14);color:#fff}}'+
+   '@media print{.prt,.langs{display:none!important}}';
+  document.head.appendChild(st);
+  applyState(o);
+  var w=document.querySelector('.wrap');
+  var box=document.createElement('div');box.className='stamp';
+  box.innerHTML='<b>'+(o.a||AUTOR)+'</b><br><span>Preenchido &middot; filled in &middot; ausgefüllt:</span> '+
+    pad(d.getDate())+'.'+pad(d.getMonth()+1)+'.'+d.getFullYear()+' &middot; '+pad(d.getHours())+':'+pad(d.getMinutes());
+  w.insertBefore(box,w.children[1]);
+  var b=document.createElement('button');b.className='prt';b.type='button';
+  b.textContent='PDF';b.addEventListener('click',function(){window.print()});
+  w.appendChild(b);
+  document.title=FPREFIX+' '+d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+}
+window.__mkExtra=function(card){
+  if(!card)return null;
+  if(card.querySelector('.row')){
+    var r=document.createElement('div');
+    r.className='row free';
+    r.innerHTML='<input type="text" placeholder="...">'+
+      '<span class="stp"><button type="button" data-d="-">−</button>'+
+      '<input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span>';
+    card.appendChild(r);return r;
+  }
+  var l=document.createElement('label');
+  l.className='cust';
+  l.innerHTML='<input type="checkbox"><span class="t"><input class="ci" type="text" value=""></span>'+
+    '<span class="last">↺ —</span><button class="del" type="button">×</button>';
+  card.appendChild(l);return l;
+};
+function restore(){
+  var m=/[#&?]r=([A-Za-z0-9\-_]+)/.exec(location.hash||location.search);
+  if(!m)return false;
+  try{recordMode(JSON.parse(b64d(m[1])));return true}catch(e){return false}
+}
+
+var LB={
+ pt:{h:'Pronto para enviar',p:'1. Toque em «Copiar»  2. Abra o WhatsApp  3. Se a mensagem não aparecer sozinha, cole na conversa.',c:'Copiar',ok:'Copiado ✓',w:'Abrir o WhatsApp',x:'Fechar'},
+ en:{h:'Ready to send',p:'1. Tap "Copy"  2. Open WhatsApp  3. If the message does not appear by itself, paste it into the chat.',c:'Copy',ok:'Copied ✓',w:'Open WhatsApp',x:'Close'},
+ de:{h:'Fertig zum Senden',p:'1. Auf „Kopieren" tippen  2. WhatsApp öffnen  3. Erscheint die Nachricht nicht von selbst, in den Chat einfügen.',c:'Kopieren',ok:'Kopiert ✓',w:'WhatsApp öffnen',x:'Schließen'},
+ es:{h:'Listo para enviar',p:'1. Pulse «Copiar»  2. Abra WhatsApp  3. Si el mensaje no aparece solo, péguelo en la conversación.',c:'Copiar',ok:'Copiado ✓',w:'Abrir WhatsApp',x:'Cerrar'}};
+function panel(text){
+  var L=LB[curLang()]||LB.pt;
+  var ov=document.createElement('div');ov.className='ov';
+  var bx=document.createElement('div');bx.className='bx';
+  bx.innerHTML='<h3></h3><p></p><textarea readonly></textarea>'+
+    '<button class="b1" type="button"></button><a class="b2" target="_blank" rel="noopener"></a>'+
+    '<button class="b3" type="button"></button>';
+  ov.appendChild(bx);document.body.appendChild(ov);
+  bx.querySelector('h3').textContent=L.h;
+  bx.querySelector('p').textContent=L.p;
+  var ta=bx.querySelector('textarea');ta.value=text;
+  var cp=bx.querySelector('.b1');cp.textContent=L.c;
+  cp.addEventListener('click',function(){
+    var done=function(){cp.textContent=L.ok;cp.style.background='#0a7d0a'};
+    function legacy(){try{ta.removeAttribute('readonly');ta.focus();
+      ta.setSelectionRange(0,text.length);document.execCommand('copy');
+      ta.setAttribute('readonly','readonly');window.getSelection().removeAllRanges();done()}catch(e){}}
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(done,legacy)}else legacy();});
+  var wa=bx.querySelector('.b2');wa.textContent=L.w;
+  wa.href='https://wa.me/'+TEL+'?text='+encodeURIComponent(text);
+  bx.querySelector('.b3').textContent=L.x;
+  bx.querySelector('.b3').addEventListener('click',function(){ov.remove()});
+  ov.addEventListener('click',function(e){if(e.target===ov)ov.remove()});
+}
+function deliver(text){
+  try{
+    var base=location.href.split('#')[0].split('?')[0];
+    if(/^https?:/.test(base))text+='\n\n'+base+'#r='+encodeState();
+  }catch(e){}
+  if(navigator.share){
+    navigator.share({text:text}).then(function(){},function(err){
+      if(!err||err.name!=='AbortError')panel(text);});
+    return;}
+  panel(text);
+}
+if(restore())return;
+var st={};try{st=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
+var wrap=document.querySelector('.wrap');
+function bind(row){
+  var inp=row.querySelector('.stp input'),k=row.dataset.k;
+  function paint(){row.classList.toggle('on',(+inp.value||0)>0)}
+  if(k&&st['q'+k])inp.value=st['q'+k];
+  paint();
+  row.querySelectorAll('.stp button').forEach(function(b){
+    b.addEventListener('click',function(){
+      var v=(+inp.value||0)+(b.dataset.d==='+'?1:-1);
+      if(v<0)v=0; inp.value=v||''; if(k){st['q'+k]=v||0;save()} paint();});});
+  inp.addEventListener('input',function(){if(k){st['q'+k]=+inp.value||0;save()}paint()});
+  var tx=row.querySelector('input[type=text]');
+  if(tx){var fk=row.dataset.f; if(fk&&st['f'+fk])tx.value=st['f'+fk];
+    tx.addEventListener('input',function(){if(fk){st['f'+fk]=tx.value;save()}});}
+}
+document.querySelectorAll('.row').forEach(bind);
+var fi=0;
+document.querySelectorAll('.add').forEach(function(btn){
+  var card=btn.previousElementSibling;
+  btn.addEventListener('click',function(){
+    fi++;var id='x'+Date.now()+fi;
+    var r=document.createElement('div');
+    r.className='row free';r.dataset.k=id;r.dataset.f=id;
+    r.innerHTML='<input type="text" placeholder="...">'+
+      '<span class="stp"><button type="button" data-d="-">\u2212</button>'+
+      '<input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span>';
+    card.appendChild(r);bind(r);r.querySelector('input[type=text]').focus();});});
+document.querySelectorAll('.fld,textarea').forEach(function(f){
+  var k=f.dataset.n;if(!k)return;
+  if(st['n'+k])f.value=st['n'+k];
+  f.addEventListener('input',function(){st['n'+k]=f.value;save()});});
+var rst=document.querySelector('.reset');
+if(rst)rst.addEventListener('click',function(){try{localStorage.removeItem(KEY)}catch(e){};location.reload()});
+document.querySelector('.send').addEventListener('click',function(ev){
+  ev.preventDefault();
+  var d=new Date(),z=function(x){return('0'+x).slice(-2)};
+  var m=HEAD+' \u2014 '+z(d.getDate())+'/'+z(d.getMonth()+1)+'/'+d.getFullYear()+'\n'+
+        '';
+  var any=false,cur='';
+  document.querySelectorAll('.wrap > *').forEach(function(el){
+    if(el.tagName==='H2'){var p=el.querySelector('i[lang=pt]');cur=p?p.textContent.trim():''}
+    if(el.classList&&el.classList.contains('card')){
+      var lines=[];
+      el.querySelectorAll('.row').forEach(function(r){
+        var n=+r.querySelector('.stp input').value||0;if(!n)return;
+        var tx=r.querySelector('input[type=text]');
+        var lab=tx?tx.value.trim():(r.querySelector('i[lang=pt]')||{textContent:''}).textContent.trim();
+        if(!lab)lab='(?)';
+        lines.push(n+'x '+lab);});
+      if(lines.length){any=true;m+=(cur?cur+'\n':'')+lines.join('\n')+'\n\n';}}});
+  document.querySelectorAll('.fld').forEach(function(f){
+    if(f.value.trim()){m+=(f.dataset.lbl||'')+': '+f.value.trim()+'\n';any=true;}});
+  var ta=document.querySelector('textarea');
+  if(ta&&ta.value.trim())m+='\nNotas: '+ta.value.trim()+'\n';
+  if(!any&&!(ta&&ta.value.trim()))m+='(vazio)\n';
+  deliver(m);});
+})();
+</script>
+
+</body></html>

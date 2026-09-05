@@ -1,0 +1,338 @@
+<!doctype html><html lang="pt"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="Relatório">
+<title>Relatório</title><style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#f7f7f5;color:#111;font:17px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+.wrap{max-width:680px;margin:0 auto;padding:0 16px 70px}
+h1{font-size:25px;line-height:1.2;margin:20px 0 4px;letter-spacing:-.02em}
+.sub{color:#5a5852;font-size:15px;margin:0 0 14px}
+h2{font-size:14px;text-transform:uppercase;letter-spacing:.07em;color:#6b6963;margin:26px 0 8px;font-weight:700}
+i{font-style:normal;display:none}
+select{display:none}
+.langs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+.langs label{display:inline-block;padding:9px 15px;border-radius:999px;border:1px solid #dcdad2;background:#fff;font-size:15px;color:#5a5852;cursor:pointer}
+.sw{position:absolute;opacity:0;pointer-events:none}
+#l-pt:checked~.wrap label[for=l-pt],#l-en:checked~.wrap label[for=l-en],#l-de:checked~.wrap label[for=l-de],#l-es:checked~.wrap label[for=l-es]{background:#111;color:#fff;border-color:#111}
+#l-pt:checked~.wrap i[lang=pt],#l-en:checked~.wrap i[lang=en],#l-de:checked~.wrap i[lang=de],#l-es:checked~.wrap i[lang=es]{display:inline}
+#l-pt:checked~.wrap select[lang=pt],#l-en:checked~.wrap select[lang=en],#l-de:checked~.wrap select[lang=de],#l-es:checked~.wrap select[lang=es]{display:block}
+.hint{display:block;font-size:14.5px;color:#8a8880;margin-top:4px;line-height:1.45}
+.card{background:#fff;border:1px solid rgba(0,0,0,.09);border-radius:14px;overflow:hidden}
+.card label{display:flex;gap:13px;align-items:center;padding:14px;border-bottom:1px solid #eeece4;cursor:pointer}
+.card label:last-child{border-bottom:none}
+.card input[type=checkbox]{appearance:none;-webkit-appearance:none;width:27px;height:27px;flex:none;margin:0;border-radius:8px;border:2px solid #b3b1a8;background:#fff;position:relative}
+.card input[type=checkbox]:checked{background:#0ca30c;border-color:#0ca30c}
+.card input[type=checkbox]:checked::after{content:"";position:absolute;left:8px;top:3px;width:7px;height:14px;border:solid #fff;border-width:0 3px 3px 0;transform:rotate(45deg)}
+.t{flex:1;min-width:0}
+.last{flex:none;font-size:13px;color:#9a9890;background:#f2f1ea;border-radius:99px;padding:4px 10px;white-space:nowrap}
+.fld,select{width:100%;height:52px;padding:0 13px;font:17px inherit;border:1px solid rgba(0,0,0,.12);border-radius:12px;background:#fff;color:#111;margin-top:8px;-webkit-appearance:none;appearance:none}
+select{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='9'><path d='M1 1l6 6 6-6' stroke='%23888' stroke-width='2' fill='none'/></svg>");background-repeat:no-repeat;background-position:right 15px center;padding-right:40px}
+.two{display:flex;gap:10px}.two>div{flex:1;min-width:0}
+textarea{width:100%;min-height:96px;margin-top:8px;padding:13px;font:16px/1.45 inherit;border:1px solid rgba(0,0,0,.12);border-radius:12px;background:#fff;color:#111;resize:vertical}
+.send{display:block;width:100%;margin:24px 0 8px;padding:18px;font:700 18px inherit;text-align:center;background:#0ca30c;color:#fff;border:none;border-radius:14px;cursor:pointer;text-decoration:none}
+.pdf{display:block;width:100%;padding:15px;font:600 16px inherit;text-align:center;background:#fff;color:#444;border:1px solid #dcdad2;border-radius:14px;cursor:pointer}
+.reset{display:block;width:100%;padding:12px;margin-top:6px;font:15px inherit;background:transparent;color:#8a8880;border:none;cursor:pointer;text-align:center}
+@media (prefers-color-scheme:dark){
+ body{background:#0d0d0d;color:#fff} .sub{color:#c3c2b7} h2{color:#a9a79e}
+ .langs label{background:#1a1a19;border-color:#2f2f2c;color:#c3c2b7}
+ #l-pt:checked~.wrap label[for=l-pt],#l-en:checked~.wrap label[for=l-en],#l-de:checked~.wrap label[for=l-de],#l-es:checked~.wrap label[for=l-es]{background:#fff;color:#111;border-color:#fff}
+ .card{background:#1a1a19;border-color:rgba(255,255,255,.10)} .card label{border-color:#2c2c2a}
+ .card input[type=checkbox]{background:#1a1a19;border-color:#6f6d66}
+ .last{background:#26261f;color:#8f8d84}
+ .fld,select,textarea,.pdf{background:#1a1a19;border-color:#3a3a36;color:#fff}
+}
+
+.ci{width:100%;border:none;background:transparent;color:inherit;font:17px inherit;padding:0}
+.ci:focus{outline:none}
+.del{flex:none;width:30px;height:30px;border:none;background:transparent;color:#b3b1a8;font:300 24px/1 inherit;cursor:pointer;padding:0}
+.addx{display:block;width:100%;margin-top:10px;padding:14px;font:600 16px inherit;background:#fff;color:#5a5852;border:1px dashed #c9c7bd;border-radius:14px;cursor:pointer}
+@media (prefers-color-scheme:dark){.addx{background:#1a1a19;border-color:#3a3a36;color:#c3c2b7}}
+
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:99;display:flex;align-items:flex-end;justify-content:center}
+.ov .bx{background:#f7f7f5;color:#111;width:100%;max-width:680px;max-height:92vh;overflow:auto;
+ border-radius:18px 18px 0 0;padding:20px 18px calc(20px + env(safe-area-inset-bottom))}
+.ov h3{margin:0 0 4px;font-size:20px;letter-spacing:-.01em}
+.ov p{margin:0 0 12px;font-size:15px;color:#5a5852;line-height:1.5}
+.ov textarea{width:100%;height:190px;padding:13px;font:14px/1.45 ui-monospace,Menlo,monospace;
+ border:1px solid rgba(0,0,0,.12);border-radius:12px;background:#fff;color:#111;resize:none}
+.ov .b1,.ov .b2,.ov .b3{display:block;width:100%;margin-top:10px;padding:16px;font:700 17px -apple-system,BlinkMacSystemFont,sans-serif;
+ text-align:center;border-radius:14px;border:none;cursor:pointer;text-decoration:none}
+.ov .b1{background:#0ca30c;color:#fff}
+.ov .b2{background:#fff;color:#111;border:1px solid #dcdad2;font-weight:600}
+.ov .b3{background:transparent;color:#8a8880;font-weight:400;font-size:15px;padding:12px}
+@media (prefers-color-scheme:dark){
+ .ov .bx{background:#141413;color:#fff} .ov p{color:#c3c2b7}
+ .ov textarea{background:#1a1a19;border-color:#3a3a36;color:#fff}
+ .ov .b2{background:#1a1a19;color:#fff;border-color:#3a3a36}}
+@media print{.addx,.del{display:none!important}}
+@media print{
+ .langs,.send,.pdf,.reset,.last{display:none!important}
+ body{background:#fff;color:#000} .card{border-color:#bbb} .fld,select,textarea{border-color:#bbb}
+}
+</style></head><body>
+<input class="sw" type="radio" name="lang" id="l-pt" checked>
+<input class="sw" type="radio" name="lang" id="l-en">
+<input class="sw" type="radio" name="lang" id="l-de">
+<input class="sw" type="radio" name="lang" id="l-es">
+<div class="wrap">
+<div class="langs"><label for="l-pt">Português</label><label for="l-en">English</label><label for="l-de">Deutsch</label><label for="l-es">Español</label></div>
+<h1><i lang="pt">Relatório do dia</i><i lang="en">Daily report</i><i lang="de">Tagesbericht</i><i lang="es">Parte del día</i></h1>
+<p class="sub"><i lang="pt">Depois de cada limpeza, um minuto e está feito. No fim carregue no botão verde.</i><i lang="en">After each clean, one minute and it is done. Tap the green button at the end.</i><i lang="de">Nach jeder Reinigung, eine Minute und fertig. Am Ende auf den grünen Knopf tippen.</i><i lang="es">Después de cada limpieza, un minuto y listo. Al final pulse el botón verde.</i></p>
+<h2><i lang="pt">Dia e horas</i><i lang="en">Day and times</i><i lang="de">Tag und Uhrzeiten</i><i lang="es">Día y horas</i></h2>
+<input class="fld" type="date" id="f-data">
+<div class="two"><div><span class="hint"><i lang="pt">Entrada</i><i lang="en">In</i><i lang="de">Ankunft</i><i lang="es">Entrada</i></span><input class="fld" type="time" id="f-in"></div><div><span class="hint"><i lang="pt">Saída</i><i lang="en">Out</i><i lang="de">Ende</i><i lang="es">Salida</i></span><input class="fld" type="time" id="f-out"></div></div>
+<h2><i lang="pt">Que tipo de limpeza foi</i><i lang="en">What kind of clean it was</i><i lang="de">Welche Art von Reinigung</i><i lang="es">Qué tipo de limpieza fue</i></h2>
+<select lang="pt" data-g="tipo"><option value="0">Limpeza completa — mudança de hóspedes</option><option value="1">Limpeza rápida — sem mudança</option><option value="2">Limpeza a fundo</option><option value="3">Só o corredor e as escadas</option><option value="4">Só uma passagem para ver tudo</option><option value="5">Outro</option></select><select lang="en" data-g="tipo"><option value="0">Full clean — guest changeover</option><option value="1">Quick clean — no changeover</option><option value="2">Deep clean</option><option value="3">Only the corridor and stairs</option><option value="4">Just a look round</option><option value="5">Other</option></select><select lang="de" data-g="tipo"><option value="0">Komplette Reinigung — Gästewechsel</option><option value="1">Kurze Reinigung — ohne Wechsel</option><option value="2">Grundreinigung</option><option value="3">Nur Flur und Treppenhaus</option><option value="4">Nur kurz nach dem Rechten gesehen</option><option value="5">Anderes</option></select><select lang="es" data-g="tipo"><option value="0">Limpieza completa — cambio de huéspedes</option><option value="1">Limpieza rápida — sin cambio</option><option value="2">Limpieza a fondo</option><option value="3">Solo el pasillo y las escaleras</option><option value="4">Solo una vuelta para revisar</option><option value="5">Otro</option></select>
+<h2><i lang="pt">Como estava o apartamento à chegada</i><i lang="en">How the flat was on arrival</i><i lang="de">Zustand der Wohnung bei Ankunft</i><i lang="es">Cómo estaba el apartamento al llegar</i></h2>
+<select lang="pt" data-g="estado"><option value="0">Normal, como sempre</option><option value="1">Melhor do que o costume</option><option value="2">Pior do que o costume</option><option value="3">Muito mau — deu bastante trabalho a mais</option><option value="4">Não havia hóspedes</option></select><select lang="en" data-g="estado"><option value="0">Normal, as usual</option><option value="1">Better than usual</option><option value="2">Worse than usual</option><option value="3">Very bad — a lot of extra work</option><option value="4">No guests had been in</option></select><select lang="de" data-g="estado"><option value="0">Normal, wie immer</option><option value="1">Besser als sonst</option><option value="2">Schlechter als sonst</option><option value="3">Sehr schlecht — deutlich mehr Arbeit</option><option value="4">Es waren keine Gäste da</option></select><select lang="es" data-g="estado"><option value="0">Normal, como siempre</option><option value="1">Mejor de lo habitual</option><option value="2">Peor de lo habitual</option><option value="3">Muy malo — bastante trabajo extra</option><option value="4">No había huéspedes</option></select>
+<h2><i lang="pt">Trabalhos extra feitos hoje</i><i lang="en">Extra jobs done today</i><i lang="de">Heute zusätzlich erledigt</i><i lang="es">Trabajos extra hechos hoy</i></h2>
+<p class="hint"><i lang="pt">Estas coisas não são precisas em todas as limpezas. A data cinzenta mostra quando foi a última vez.</i><i lang="en">These are not needed at every clean. The grey date shows when it was last done.</i><i lang="de">Diese Dinge sind nicht bei jeder Reinigung nötig. Das graue Datum zeigt, wann es zuletzt gemacht wurde.</i><i lang="es">Estas cosas no hacen falta en cada limpieza. La fecha gris muestra cuándo fue la última vez.</i></p>
+<div class="card">
+<label><input type="checkbox" data-x="0"><span class="t"><i lang="pt">Vidros por dentro</i><i lang="en">Windows from the inside</i><i lang="de">Fenster von innen</i><i lang="es">Cristales por dentro</i></span><span class="last" data-l="0">↺ —</span></label>
+<label><input type="checkbox" data-x="1"><span class="t"><i lang="pt">Janelas / varanda por fora</i><i lang="en">Windows / balcony outside</i><i lang="de">Fenster / Balkon außen</i><i lang="es">Ventanas / balcón por fuera</i></span><span class="last" data-l="1">↺ —</span></label>
+<label><input type="checkbox" data-x="2"><span class="t"><i lang="pt">Cortinas lavadas</i><i lang="en">Curtains washed</i><i lang="de">Vorhänge gewaschen</i><i lang="es">Cortinas lavadas</i></span><span class="last" data-l="2">↺ —</span></label>
+<label><input type="checkbox" data-x="3"><span class="t"><i lang="pt">Filtro da máquina de lavar</i><i lang="en">Washing machine filter</i><i lang="de">Waschmaschinenfilter</i><i lang="es">Filtro de la lavadora</i></span><span class="last" data-l="3">↺ —</span></label>
+<label><input type="checkbox" data-x="4"><span class="t"><i lang="pt">Frigorífico a fundo</i><i lang="en">Fridge deep-cleaned</i><i lang="de">Kühlschrank gründlich</i><i lang="es">Frigorífico a fondo</i></span><span class="last" data-l="4">↺ —</span></label>
+<label><input type="checkbox" data-x="5"><span class="t"><i lang="pt">Forno / micro-ondas a fundo</i><i lang="en">Oven / microwave deep-cleaned</i><i lang="de">Backofen / Mikrowelle gründlich</i><i lang="es">Horno / microondas a fondo</i></span><span class="last" data-l="5">↺ —</span></label>
+<label><input type="checkbox" data-x="6"><span class="t"><i lang="pt">Grelha de contacto</i><i lang="en">Contact grill</i><i lang="de">Kontaktgrill</i><i lang="es">Grill de contacto</i></span><span class="last" data-l="6">↺ —</span></label>
+<label><input type="checkbox" data-x="7"><span class="t"><i lang="pt">Armários por dentro</i><i lang="en">Inside the cupboards</i><i lang="de">Schränke von innen</i><i lang="es">Armarios por dentro</i></span><span class="last" data-l="7">↺ —</span></label>
+<label><input type="checkbox" data-x="8"><span class="t"><i lang="pt">Atrás e por baixo dos móveis</i><i lang="en">Behind and under the furniture</i><i lang="de">Hinter und unter den Möbeln</i><i lang="es">Detrás y debajo de los muebles</i></span><span class="last" data-l="8">↺ —</span></label>
+<label><input type="checkbox" data-x="9"><span class="t"><i lang="pt">Capa do sofá lavada</i><i lang="en">Sofa cover washed</i><i lang="de">Sofabezug gewaschen</i><i lang="es">Funda de sofá lavada</i></span><span class="last" data-l="9">↺ —</span></label>
+<label><input type="checkbox" data-x="10"><span class="t"><i lang="pt">Entrada, corredor e escadas</i><i lang="en">Entrance, corridor and stairs</i><i lang="de">Eingang, Flur und Treppen</i><i lang="es">Entrada, pasillo y escaleras</i></span><span class="last" data-l="10">↺ —</span></label>
+<label><input type="checkbox" data-x="11"><span class="t"><i lang="pt">Arrumo organizado</i><i lang="en">Storage room organised</i><i lang="de">Abstellraum geordnet</i><i lang="es">Trastero organizado</i></span><span class="last" data-l="11">↺ —</span></label>
+</div>
+<button class="addx" type="button"><i lang="pt">+ Acrescentar outro trabalho</i><i lang="en">+ Add another job</i><i lang="de">+ Weitere Arbeit hinzufügen</i><i lang="es">+ Añadir otro trabajo</i></button>
+<h2><i lang="pt">Roupa</i><i lang="en">Laundry</i><i lang="de">Wäsche</i><i lang="es">Ropa</i></h2>
+<select lang="pt" data-g="roupa"><option value="0">Não houve roupa hoje</option><option value="1">Levei roupa suja à lavandaria</option><option value="2">Trouxe roupa lavada da lavandaria</option><option value="3">Levei e trouxe</option><option value="4">Lavei na máquina do apartamento</option></select><select lang="en" data-g="roupa"><option value="0">No laundry today</option><option value="1">Took dirty laundry to the laundrette</option><option value="2">Brought clean laundry back</option><option value="3">Took and brought back</option><option value="4">Washed in the flat's machine</option></select><select lang="de" data-g="roupa"><option value="0">Heute keine Wäsche</option><option value="1">Schmutzwäsche zur Wäscherei gebracht</option><option value="2">Saubere Wäsche abgeholt</option><option value="3">Gebracht und abgeholt</option><option value="4">In der Maschine der Wohnung gewaschen</option></select><select lang="es" data-g="roupa"><option value="0">Hoy no hubo ropa</option><option value="1">Llevé ropa sucia a la lavandería</option><option value="2">Traje ropa limpia de la lavandería</option><option value="3">Llevé y traje</option><option value="4">Lavé en la máquina del apartamento</option></select>
+<h2><i lang="pt">Houve algum problema?</i><i lang="en">Was there a problem?</i><i lang="de">Gab es ein Problem?</i><i lang="es">¿Hubo algún problema?</i></h2>
+<select lang="pt" data-g="prob"><option value="0">Não, tudo bem</option><option value="1">Uma coisa pequena</option><option value="2">Sim, é importante</option><option value="3">Sim, urgente</option></select><select lang="en" data-g="prob"><option value="0">No, all fine</option><option value="1">Something small</option><option value="2">Yes, it matters</option><option value="3">Yes, urgent</option></select><select lang="de" data-g="prob"><option value="0">Nein, alles in Ordnung</option><option value="1">Eine Kleinigkeit</option><option value="2">Ja, das ist wichtig</option><option value="3">Ja, dringend</option></select><select lang="es" data-g="prob"><option value="0">No, todo bien</option><option value="1">Algo pequeño</option><option value="2">Sí, es importante</option><option value="3">Sí, urgente</option></select>
+<textarea id="f-prob" placeholder="..."></textarea>
+<p class="hint"><i lang="pt">Uma torneira, uma lâmpada, uma mancha nova, um cheiro. Se puder, mande também uma foto aqui pelo WhatsApp.</i><i lang="en">A tap, a bulb, a new stain, a smell. If you can, send a photo here on WhatsApp too.</i><i lang="de">Ein Wasserhahn, eine Lampe, ein neuer Fleck, ein Geruch. Wenn möglich, schick auch ein Foto hier über WhatsApp.</i><i lang="es">Un grifo, una bombilla, una mancha nueva, un olor. Si puede, mande también una foto aquí por WhatsApp.</i></p>
+<h2><i lang="pt">Faltou alguma coisa?</i><i lang="en">Was anything missing?</i><i lang="de">Hat etwas gefehlt?</i><i lang="es">¿Faltó algo?</i></h2>
+<select lang="pt" data-g="falta"><option value="0">Não faltou nada</option><option value="1">Sim — já pus na lista de compras</option><option value="2">Sim — está a ficar pouco, mas ainda dá</option></select><select lang="en" data-g="falta"><option value="0">Nothing was missing</option><option value="1">Yes — already on the shopping list</option><option value="2">Yes — running low, but still enough</option></select><select lang="de" data-g="falta"><option value="0">Es hat nichts gefehlt</option><option value="1">Ja — schon auf der Einkaufsliste</option><option value="2">Ja — wird knapp, reicht aber noch</option></select><select lang="es" data-g="falta"><option value="0">No faltó nada</option><option value="1">Sí — ya está en la lista de la compra</option><option value="2">Sí — queda poco, pero aún alcanza</option></select>
+<h2><i lang="pt">Observações</i><i lang="en">Notes</i><i lang="de">Anmerkungen</i><i lang="es">Observaciones</i></h2>
+<textarea id="f-obs" placeholder="..."></textarea>
+<a class="send" href="#"><i lang="pt">Enviar ao Fabian</i><i lang="en">Send to Fabian</i><i lang="de">An Fabian senden</i><i lang="es">Enviar a Fabian</i></a>
+<button class="pdf" type="button"><i lang="pt">Guardar em PDF</i><i lang="en">Save as PDF</i><i lang="de">Als PDF sichern</i><i lang="es">Guardar en PDF</i></button>
+<button class="reset" type="button"><i lang="pt">Limpar para o próximo dia</i><i lang="en">Clear for the next day</i><i lang="de">Für den nächsten Tag leeren</i><i lang="es">Limpiar para el próximo día</i></button>
+</div>
+
+<script>
+(function(){
+var TEL=[49,173,4175,955].join(''),KEY='rel-funchal';
+var FPREFIX='relatorio';
+
+var AUTOR='Diana Velosa';
+function pad(x){return('0'+x).slice(-2)}
+function ctrls(){return Array.prototype.slice.call(
+  document.querySelectorAll('.wrap input,.wrap select,.wrap textarea'))}
+function curLang(){var r=document.querySelector('input[name=lang]:checked');return r?r.id.slice(2):'pt'}
+function extraCounts(){
+  return Array.prototype.slice.call(document.querySelectorAll('.card')).map(function(c){
+    return c.querySelectorAll('.free,.cust').length});}
+function b64e(s){return btoa(unescape(encodeURIComponent(s))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
+function b64d(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';return decodeURIComponent(escape(atob(s)))}
+function encodeState(){
+  var v={};
+  ctrls().forEach(function(e,i){
+    if(e.type==='checkbox'){if(e.checked)v[i]=1}
+    else if(e.tagName==='SELECT'){if(e.selectedIndex>0)v[i]=e.selectedIndex}
+    else if(e.value!=='')v[i]=e.value;});
+  var d=new Date();
+  return b64e(JSON.stringify({v:1,a:AUTOR,l:curLang(),t:d.getTime(),
+    o:-d.getTimezoneOffset(),x:extraCounts(),d:v}));
+}
+function applyState(o){
+  if(o.l){var r=document.getElementById('l-'+o.l);if(r)r.checked=true}
+  if(o.x&&window.__mkExtra){
+    var cards=Array.prototype.slice.call(document.querySelectorAll('.card'));
+    o.x.forEach(function(n,ci){for(var k=0;k<n;k++)window.__mkExtra(cards[ci])});}
+  var cs=ctrls();
+  Object.keys(o.d||{}).forEach(function(k){
+    var e=cs[+k];if(!e)return;
+    if(e.type==='checkbox')e.checked=!!o.d[k];
+    else if(e.tagName==='SELECT')e.selectedIndex=+o.d[k];
+    else{e.value=o.d[k];if(e.tagName==='TEXTAREA')e.textContent=o.d[k]}
+    if(e.parentNode&&e.parentNode.classList){
+      e.parentNode.classList.toggle('done',e.type==='checkbox'&&e.checked);}
+    if(e.closest){var row=e.closest('.row');if(row&&e.type==='number')row.classList.toggle('on',(+e.value||0)>0)}
+  });
+}
+function recordMode(o){
+  var d=new Date(o.t||Date.now());
+  var st=document.createElement('style');
+  st.textContent='.wrap input:not([name=lang]),.wrap select,.wrap textarea{pointer-events:none}'+
+   '.send,.reset,.add,.addx,.del,.last{display:none!important}'+
+   '.stamp{border:1px solid rgba(0,0,0,.14);background:#fff;border-radius:12px;padding:13px 15px;margin:10px 0 20px;font-size:15px;line-height:1.55}'+
+   '.stamp b{font-weight:650}.stamp span{color:#8a8880}'+
+   '.prt{display:block;width:100%;margin:22px 0 40px;padding:16px;font:600 16px inherit;text-align:center;'+
+   'background:#fff;color:#111;border:1px solid #dcdad2;border-radius:14px;cursor:pointer}'+
+   '@media(prefers-color-scheme:dark){.stamp,.prt{background:#1a1a19;border-color:rgba(255,255,255,.14);color:#fff}}'+
+   '@media print{.prt,.langs{display:none!important}}';
+  document.head.appendChild(st);
+  applyState(o);
+  var w=document.querySelector('.wrap');
+  var box=document.createElement('div');box.className='stamp';
+  box.innerHTML='<b>'+(o.a||AUTOR)+'</b><br><span>Preenchido &middot; filled in &middot; ausgefüllt:</span> '+
+    pad(d.getDate())+'.'+pad(d.getMonth()+1)+'.'+d.getFullYear()+' &middot; '+pad(d.getHours())+':'+pad(d.getMinutes());
+  w.insertBefore(box,w.children[1]);
+  var b=document.createElement('button');b.className='prt';b.type='button';
+  b.textContent='PDF';b.addEventListener('click',function(){window.print()});
+  w.appendChild(b);
+  document.title=FPREFIX+' '+d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+}
+window.__mkExtra=function(card){
+  if(!card)return null;
+  if(card.querySelector('.row')){
+    var r=document.createElement('div');
+    r.className='row free';
+    r.innerHTML='<input type="text" placeholder="...">'+
+      '<span class="stp"><button type="button" data-d="-">−</button>'+
+      '<input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span>';
+    card.appendChild(r);return r;
+  }
+  var l=document.createElement('label');
+  l.className='cust';
+  l.innerHTML='<input type="checkbox"><span class="t"><input class="ci" type="text" value=""></span>'+
+    '<span class="last">↺ —</span><button class="del" type="button">×</button>';
+  card.appendChild(l);return l;
+};
+function restore(){
+  var m=/[#&?]r=([A-Za-z0-9\-_]+)/.exec(location.hash||location.search);
+  if(!m)return false;
+  try{recordMode(JSON.parse(b64d(m[1])));return true}catch(e){return false}
+}
+
+var LB={
+ pt:{h:'Pronto para enviar',p:'1. Toque em «Copiar»  2. Abra o WhatsApp  3. Se a mensagem não aparecer sozinha, cole na conversa.',c:'Copiar',ok:'Copiado ✓',w:'Abrir o WhatsApp',x:'Fechar'},
+ en:{h:'Ready to send',p:'1. Tap "Copy"  2. Open WhatsApp  3. If the message does not appear by itself, paste it into the chat.',c:'Copy',ok:'Copied ✓',w:'Open WhatsApp',x:'Close'},
+ de:{h:'Fertig zum Senden',p:'1. Auf „Kopieren" tippen  2. WhatsApp öffnen  3. Erscheint die Nachricht nicht von selbst, in den Chat einfügen.',c:'Kopieren',ok:'Kopiert ✓',w:'WhatsApp öffnen',x:'Schließen'},
+ es:{h:'Listo para enviar',p:'1. Pulse «Copiar»  2. Abra WhatsApp  3. Si el mensaje no aparece solo, péguelo en la conversación.',c:'Copiar',ok:'Copiado ✓',w:'Abrir WhatsApp',x:'Cerrar'}};
+function panel(text){
+  var L=LB[curLang()]||LB.pt;
+  var ov=document.createElement('div');ov.className='ov';
+  var bx=document.createElement('div');bx.className='bx';
+  bx.innerHTML='<h3></h3><p></p><textarea readonly></textarea>'+
+    '<button class="b1" type="button"></button><a class="b2" target="_blank" rel="noopener"></a>'+
+    '<button class="b3" type="button"></button>';
+  ov.appendChild(bx);document.body.appendChild(ov);
+  bx.querySelector('h3').textContent=L.h;
+  bx.querySelector('p').textContent=L.p;
+  var ta=bx.querySelector('textarea');ta.value=text;
+  var cp=bx.querySelector('.b1');cp.textContent=L.c;
+  cp.addEventListener('click',function(){
+    var done=function(){cp.textContent=L.ok;cp.style.background='#0a7d0a'};
+    function legacy(){try{ta.removeAttribute('readonly');ta.focus();
+      ta.setSelectionRange(0,text.length);document.execCommand('copy');
+      ta.setAttribute('readonly','readonly');window.getSelection().removeAllRanges();done()}catch(e){}}
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(done,legacy)}else legacy();});
+  var wa=bx.querySelector('.b2');wa.textContent=L.w;
+  wa.href='https://wa.me/'+TEL+'?text='+encodeURIComponent(text);
+  bx.querySelector('.b3').textContent=L.x;
+  bx.querySelector('.b3').addEventListener('click',function(){ov.remove()});
+  ov.addEventListener('click',function(e){if(e.target===ov)ov.remove()});
+}
+function deliver(text){
+  try{
+    var base=location.href.split('#')[0].split('?')[0];
+    if(/^https?:/.test(base))text+='\n\n'+base+'#r='+encodeState();
+  }catch(e){}
+  if(navigator.share){
+    navigator.share({text:text}).then(function(){},function(err){
+      if(!err||err.name!=='AbortError')panel(text);});
+    return;}
+  panel(text);
+}
+if(restore())return;
+var st={};try{st=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
+var z=function(x){return('0'+x).slice(-2)};
+var d=new Date();
+var dt=document.getElementById('f-data');
+dt.value=d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate());
+
+// Sprachauswahl synchron halten
+var groups={};
+document.querySelectorAll('select').forEach(function(s){
+  (groups[s.dataset.g]=groups[s.dataset.g]||[]).push(s);});
+Object.keys(groups).forEach(function(g){
+  groups[g].forEach(function(s){
+    s.addEventListener('change',function(){
+      groups[g].forEach(function(o){o.selectedIndex=s.selectedIndex});});});});
+function val(g){var s=groups[g][0];return s.options[s.selectedIndex]}
+function txtPT(g){return groups[g][0].options[groups[g][0].selectedIndex].textContent}
+
+// letzte Ausfuehrung der Zusatzarbeiten
+function paintLast(){
+  document.querySelectorAll('.last').forEach(function(el){
+    var v=st['x'+el.dataset.l];
+    el.textContent='\u21ba '+(v?v:'\u2014');});}
+paintLast();
+
+// eigene Arbeiten
+var card=document.querySelector('.card');
+st.custom=st.custom||[];
+function addRow(o,focus){
+  var l=document.createElement('label');
+  l.className='cust';
+  l.innerHTML='<input type="checkbox" data-x="'+o.id+'">'+
+    '<span class="t"><input class="ci" type="text" value=""></span>'+
+    '<span class="last" data-l="'+o.id+'">\u21ba \u2014</span>'+
+    '<button class="del" type="button">\u00d7</button>';
+  card.appendChild(l);
+  var tx=l.querySelector('.ci');tx.value=o.label||'';
+  tx.addEventListener('input',function(){o.label=tx.value;save()});
+  l.querySelector('.del').addEventListener('click',function(ev){
+    ev.preventDefault();ev.stopPropagation();
+    st.custom=st.custom.filter(function(x){return x.id!==o.id});
+    delete st['x'+o.id];save();l.remove();});
+  paintLast();
+  if(focus)tx.focus();
+}
+st.custom.forEach(function(o){addRow(o,false)});
+document.querySelector('.addx').addEventListener('click',function(){
+  var o={id:'c'+Date.now(),label:''};
+  st.custom.push(o);save();addRow(o,true);});
+
+document.querySelector('.pdf').addEventListener('click',function(){window.print()});
+document.querySelector('.reset').addEventListener('click',function(){
+  document.querySelectorAll('input[type=checkbox]').forEach(function(c){c.checked=false});
+  document.getElementById('f-prob').value='';
+  document.getElementById('f-obs').value='';
+  document.getElementById('f-in').value='';
+  document.getElementById('f-out').value='';
+  Object.keys(groups).forEach(function(g){groups[g].forEach(function(s){s.selectedIndex=0})});});
+
+document.querySelector('.send').addEventListener('click',function(ev){
+  ev.preventDefault();
+  var dv=dt.value?dt.value.split('-').reverse().join('/'):'';
+  var m='RELATORIO '+dv+'\n';
+  var a=document.getElementById('f-in').value,b=document.getElementById('f-out').value;
+  if(a||b)m+=(a||'?')+' - '+(b||'?')+'\n';
+  m+='\nTipo: '+txtPT('tipo')+'\n';
+  m+='Estado a chegada: '+txtPT('estado')+'\n';
+  var xs=[];
+  document.querySelectorAll('input[data-x]').forEach(function(c){
+    if(c.checked){
+      var pt=c.parentNode.querySelector('.t i[lang=pt]');
+      var ci=c.parentNode.querySelector('.ci');
+      var lab=pt?pt.textContent.trim():(ci?ci.value.trim():'');
+      if(!lab)lab='(?)';
+      xs.push(lab);
+      st['x'+c.dataset.x]=dv;}});
+  if(xs.length){m+='\nTrabalhos extra:\n';xs.forEach(function(x){m+='- '+x+'\n'})}
+  m+='\nRoupa: '+txtPT('roupa')+'\n';
+  m+='Problemas: '+txtPT('prob')+'\n';
+  var p=document.getElementById('f-prob').value.trim();
+  if(p)m+='   '+p+'\n';
+  m+='Faltas: '+txtPT('falta')+'\n';
+  var ob=document.getElementById('f-obs').value.trim();
+  if(ob)m+='\nNotas: '+ob+'\n';
+  save();paintLast();
+  deliver(m);});
+})();
+</script>
+
+</body></html>
