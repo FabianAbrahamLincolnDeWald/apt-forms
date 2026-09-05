@@ -56,6 +56,49 @@ ul.vals li b{font-weight:650}
  .row.on .stp input{background:#0ca30c;border-color:#0ca30c}
  .note{background:#1a1a19} .add{background:#1a1a19;border-color:#3a3a36;color:#c3c2b7}
 }
+
+/* FORMALE ANSICHT — nur beim Drucken und in der gespeicherten Datei */
+@media print{
+
+body{background:#fff!important;color:#000!important;font:12pt/1.6 Georgia,"Times New Roman",serif}
+.wrap{max-width:180mm;margin:0 auto;padding:10mm 8mm 20mm}
+h1{font:400 21pt/1.15 Georgia,serif;letter-spacing:0;margin:0 0 4mm;padding-bottom:3mm;border-bottom:2px solid #000}
+.addr{font:9.5pt/1.4 Arial,Helvetica,sans-serif;color:#444;margin:0 0 8mm}
+.stamp{border:none!important;background:none!important;border-radius:0;padding:0;margin:0 0 9mm;
+ font:10.5pt/1.6 Arial,Helvetica,sans-serif;color:#000}
+.stamp b{font-weight:700}
+.stamp span{color:#555}
+.sec{border:none;border-top:1px solid #bbb;padding:3.5mm 0 0;margin:0 0 5mm;
+ display:flex;flex-wrap:wrap;gap:2mm 8mm;break-inside:avoid}
+.sec h3{flex:0 0 48mm;min-width:48mm;margin:0;color:#555;
+ font:700 8.5pt/1.5 Arial,Helvetica,sans-serif;letter-spacing:.08em;text-transform:uppercase}
+ul.vals{flex:1 1 60mm;margin:0}
+ul.vals li{padding-left:0;margin:0 0 1.5mm;font-size:11.5pt;line-height:1.5}
+ul.vals li::before{display:none}
+ul.vals li b{font-weight:700}
+.langs,.prt,.send,.reset,.add,.addx{display:none!important}
+}
+html[data-doc] body{}
+html[data-doc] body{background:#fff!important;color:#000!important;font:12pt/1.6 Georgia,"Times New Roman",serif}
+html[data-doc] .wrap{max-width:180mm;margin:0 auto;padding:10mm 8mm 20mm}
+html[data-doc] h1{font:400 21pt/1.15 Georgia,serif;letter-spacing:0;margin:0 0 4mm;padding-bottom:3mm;border-bottom:2px solid #000}
+html[data-doc] .addr{font:9.5pt/1.4 Arial,Helvetica,sans-serif;color:#444;margin:0 0 8mm}
+html[data-doc] .stamp{border:none!important;background:none!important;border-radius:0;padding:0;margin:0 0 9mm;
+html[data-doc]  font:10.5pt/1.6 Arial,Helvetica,sans-serif;color:#000}
+html[data-doc] .stamp b{font-weight:700}
+html[data-doc] .stamp span{color:#555}
+html[data-doc] .sec{border:none;border-top:1px solid #bbb;padding:3.5mm 0 0;margin:0 0 5mm;
+html[data-doc]  display:flex;flex-wrap:wrap;gap:2mm 8mm;break-inside:avoid}
+html[data-doc] .sec h3{flex:0 0 48mm;min-width:48mm;margin:0;color:#555;
+html[data-doc]  font:700 8.5pt/1.5 Arial,Helvetica,sans-serif;letter-spacing:.08em;text-transform:uppercase}
+html[data-doc] ul.vals{flex:1 1 60mm;margin:0}
+html[data-doc] ul.vals li{padding-left:0;margin:0 0 1.5mm;font-size:11.5pt;line-height:1.5}
+html[data-doc] ul.vals li::before{display:none}
+html[data-doc] ul.vals li b{font-weight:700}
+html[data-doc] .langs{margin:0 0 6mm;padding:0;position:static;background:none}
+html[data-doc] .langs label{font:11px Arial,Helvetica,sans-serif;padding:5px 10px;border-radius:4px}
+html[data-doc] .prt{display:none}
+@media (max-width:520px){html[data-doc] .sec{display:block}html[data-doc] .sec h3{margin-bottom:2mm}}
 </style></head><body>
 <input class="sw" type="radio" name="lang" id="l-pt" checked>
 <input class="sw" type="radio" name="lang" id="l-en">
@@ -340,6 +383,7 @@ function recordMode(o){
   g.addEventListener('click',function(ev){
     ev.preventDefault();
     var root=document.documentElement.cloneNode(true);
+    root.setAttribute('data-doc','1');
     var src=document.querySelectorAll('input,select,textarea');
     var dst=root.querySelectorAll('input,select,textarea');
     for(var i=0;i<src.length;i++){
