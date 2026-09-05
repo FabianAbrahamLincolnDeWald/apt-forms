@@ -334,8 +334,12 @@ function buildKPI(){
       langSpan({pt:'posições',en:'entries',de:'Positionen',es:'posiciones'})+'</div></div>';
   }
   var d=mins(CMIN,CMOUT), m=+CMMIN||0;
-  if(d==null&&!m)return '';
+  var dd=document.getElementById('f-data');
+  var dv=dd?fmtDate(dd.value):'';
+  if(d==null&&!m&&!dv)return '';
   var o='<div class="kpi">';
+  if(dv)o+='<div class="k"><span class="kn">'+dv+'</span>'+
+    langSpan({pt:'dia do servi\u00e7o',en:'day of service',de:'Einsatztag',es:'d\u00eda de servicio'})+'</div>';
   if(d!=null){
     o+='<div class="k"><span class="kn">'+hm(d)+'</span>'+
       langSpan({pt:'no total',en:'in total',de:'insgesamt',es:'en total'})+
@@ -617,6 +621,7 @@ function buildDocHTML(o){
 
 /* ---------- Sperrmodus ---------- */
 function recordMode(o){
+  applyState(o);
   CMEXTRA=[];CMCOMMON=[];SELMAP={};
   Array.prototype.slice.call(document.querySelectorAll('select[data-g]')).forEach(function(s){
     var g=s.getAttribute('data-g'),L=s.getAttribute('lang');
@@ -659,7 +664,6 @@ function recordMode(o){
    +'.dl{background:#fff;color:#111}.sec{border-color:#2c2c2a}ul.vals li::before{background:#4a4844}}'
    +'@media print{.langs,.dl,.stamp{display:none!important}}';
   document.head.appendChild(st);
-  applyState(o);
 
   var kpi=buildKPI();
   var compact=buildCompact();
