@@ -188,6 +188,32 @@ function recordMode(o){
   var b=document.createElement('button');b.className='prt';b.type='button';
   b.textContent='PDF';b.addEventListener('click',function(){window.print()});
   w.appendChild(b);
+  var dn=FPREFIX+'_'+d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+
+         '_'+pad(d.getHours())+pad(d.getMinutes())+'_'+(o.a||AUTOR).replace(/\s+/g,'-')+'.html';
+  var g=document.createElement('a');g.className='prt';g.textContent='↓  '+dn;
+  g.addEventListener('click',function(ev){
+    ev.preventDefault();
+    var root=document.documentElement.cloneNode(true);
+    var src=document.querySelectorAll('input,select,textarea');
+    var dst=root.querySelectorAll('input,select,textarea');
+    for(var i=0;i<src.length;i++){
+      var s=src[i],t=dst[i];if(!t)continue;
+      if(s.type==='checkbox'||s.type==='radio'){
+        if(s.checked)t.setAttribute('checked','checked');else t.removeAttribute('checked');}
+      else if(s.tagName==='SELECT'){
+        for(var k=0;k<t.options.length;k++){
+          if(k===s.selectedIndex)t.options[k].setAttribute('selected','selected');
+          else t.options[k].removeAttribute('selected');}}
+      else if(s.tagName==='TEXTAREA'){t.textContent=s.value}
+      else{t.setAttribute('value',s.value)}}
+    ['script','.prt','.send','.reset','.add','.addx','.del','.last'].forEach(function(q){
+      Array.prototype.slice.call(root.querySelectorAll(q)).forEach(function(e){e.remove()})});
+    var html='<!doctype html>\n<html lang="pt">'+root.innerHTML+'</html>';
+    var url=URL.createObjectURL(new Blob([html],{type:'text/html'}));
+    var a2=document.createElement('a');a2.href=url;a2.download=dn;
+    document.body.appendChild(a2);a2.click();
+    setTimeout(function(){URL.revokeObjectURL(url);a2.remove()},4000);});
+  w.appendChild(g);
   document.title=FPREFIX+' '+d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
 }
 window.__mkExtra=function(card){
