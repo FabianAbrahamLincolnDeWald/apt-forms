@@ -257,15 +257,14 @@ function buildCSV(o){
   var isList=CMLIST;
   if(isList){
     rows.push(['date','author','document','category','item','quantity'].map(csvq).join(S));
-    var cat='';
-    Array.prototype.slice.call(document.querySelectorAll('.wrap > *')).forEach(function(el){
-      if(el.tagName==='H3'||el.tagName==='H2')cat=txtIn(el);
-      if(el.classList&&el.classList.contains('sec')){
-        cat=txtIn(el.querySelector('h3'));
-        Array.prototype.slice.call(el.querySelectorAll('ul.vals li')).forEach(function(li){
-          var m=/^(\d+)/.exec(li.textContent.trim());
-          var lab=txtIn(li)||li.textContent.replace(/^\s*\d+×\s*/,'').trim();
-          rows.push([day,who,FPREFIX,cat,lab,m?m[1]:''].map(csvq).join(S));});}
+    Array.prototype.slice.call(document.querySelectorAll('.sec')).forEach(function(el){
+      var cat=txtIn(el.querySelector('h3'));
+      Array.prototype.slice.call(el.querySelectorAll('ul.vals li')).forEach(function(li){
+        var raw=li.textContent.trim();
+        var m=/^(\d+)/.exec(raw);
+        var lab=txtIn(li)||raw;
+        lab=lab.replace(/^\s*\d+\s*×?\s*/,'').trim();
+        rows.push([day,who,FPREFIX,cat,lab,m?m[1]:''].map(csvq).join(S));});
     });
   }else{
     var ex=[],cm=[];
