@@ -26,13 +26,14 @@ select{display:none}
 .card input[type=checkbox]:checked::after{content:"";position:absolute;left:8px;top:3px;width:7px;height:14px;border:solid #fff;border-width:0 3px 3px 0;transform:rotate(45deg)}
 .t{flex:1;min-width:0}
 .last{flex:none;font-size:13px;color:#9a9890;background:#f2f1ea;border-radius:99px;padding:4px 10px;white-space:nowrap}
-.fld,select{width:100%;height:52px;padding:0 13px;font:17px inherit;border:1px solid rgba(0,0,0,.12);border-radius:12px;background:#fff;color:#111;margin-top:8px;-webkit-appearance:none;appearance:none}
+.fld,select{width:100%;height:52px;padding:0 13px;font:17px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;border:1px solid rgba(0,0,0,.12);border-radius:12px;background:#fff;color:#111;margin-top:8px;-webkit-appearance:none;appearance:none}
 select{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='9'><path d='M1 1l6 6 6-6' stroke='%23888' stroke-width='2' fill='none'/></svg>");background-repeat:no-repeat;background-position:right 15px center;padding-right:40px}
+input[type=date],input[type=time]{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='9'><path d='M1 1l6 6 6-6' stroke='%23999' stroke-width='2' fill='none'/></svg>");background-repeat:no-repeat;background-position:right 15px center;padding-right:40px}
 .two{display:flex;gap:10px}.two>div{flex:1;min-width:0}
-textarea{width:100%;min-height:96px;margin-top:8px;padding:13px;font:16px/1.45 inherit;border:1px solid rgba(0,0,0,.12);border-radius:12px;background:#fff;color:#111;resize:vertical}
-.send{display:block;width:100%;margin:24px 0 8px;padding:18px;font:700 18px inherit;text-align:center;background:#0ca30c;color:#fff;border:none;border-radius:14px;cursor:pointer;text-decoration:none}
-.pdf{display:block;width:100%;padding:15px;font:600 16px inherit;text-align:center;background:#fff;color:#444;border:1px solid #dcdad2;border-radius:14px;cursor:pointer}
-.reset{display:block;width:100%;padding:12px;margin-top:6px;font:15px inherit;background:transparent;color:#8a8880;border:none;cursor:pointer;text-align:center}
+textarea{width:100%;min-height:96px;margin-top:8px;padding:13px;font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;border:1px solid rgba(0,0,0,.12);border-radius:12px;background:#fff;color:#111;resize:vertical}
+.send{display:block;width:100%;margin:24px 0 8px;padding:18px;font:700 18px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;text-align:center;background:#0ca30c;color:#fff;border:none;border-radius:14px;cursor:pointer;text-decoration:none}
+.pdf{display:block;width:100%;padding:15px;font:600 16px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;text-align:center;background:#fff;color:#444;border:1px solid #dcdad2;border-radius:14px;cursor:pointer}
+.reset{display:block;width:100%;padding:12px;margin-top:6px;font:16px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;background:transparent;color:#8a8880;border:none;cursor:pointer;text-align:center}
 @media (prefers-color-scheme:dark){
  body{background:#0d0d0d;color:#fff} .sub{color:#c3c2b7} h2{color:#a9a79e}
  .langs label{background:#1a1a19;border-color:#2f2f2c;color:#c3c2b7}
@@ -40,13 +41,13 @@ textarea{width:100%;min-height:96px;margin-top:8px;padding:13px;font:16px/1.45 i
  .card{background:#1a1a19;border-color:rgba(255,255,255,.10)} .card label{border-color:#2c2c2a}
  .card input[type=checkbox]{background:#1a1a19;border-color:#6f6d66}
  .last{background:#26261f;color:#8f8d84}
- .fld,select,textarea,.pdf{background:#1a1a19;border-color:#3a3a36;color:#fff}
+ .fld,select,textarea,.pdf{background-color:#1a1a19;border-color:#3a3a36;color:#fff}
 }
 
-.ci{width:100%;border:none;background:transparent;color:inherit;font:17px inherit;padding:0}
+.ci{width:100%;border:none;background:transparent;color:inherit;font:17px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;padding:0}
 .ci:focus{outline:none}
-.del{flex:none;width:30px;height:30px;border:none;background:transparent;color:#b3b1a8;font:300 24px/1 inherit;cursor:pointer;padding:0}
-.addx{display:block;width:100%;margin-top:10px;padding:14px;font:600 16px inherit;background:#fff;color:#5a5852;border:1px dashed #c9c7bd;border-radius:14px;cursor:pointer}
+.del{flex:none;width:30px;height:30px;border:none;background:transparent;color:#b3b1a8;font:300 24px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;cursor:pointer;padding:0}
+.addx{display:block;width:100%;margin-top:10px;padding:14px;font:600 16px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;background:#fff;color:#5a5852;border:1px dashed #c9c7bd;border-radius:14px;cursor:pointer}
 @media (prefers-color-scheme:dark){.addx{background:#1a1a19;border-color:#3a3a36;color:#c3c2b7}}
 
 .ov{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:99;display:flex;align-items:flex-end;justify-content:center}
@@ -54,7 +55,7 @@ textarea{width:100%;min-height:96px;margin-top:8px;padding:13px;font:16px/1.45 i
  border-radius:18px 18px 0 0;padding:20px 18px calc(20px + env(safe-area-inset-bottom))}
 .ov h3{margin:0 0 4px;font-size:20px;letter-spacing:-.01em}
 .ov p{margin:0 0 12px;font-size:15px;color:#5a5852;line-height:1.5}
-.ov textarea{width:100%;height:190px;padding:13px;font:14px/1.45 ui-monospace,Menlo,monospace;
+.ov textarea{width:100%;height:190px;padding:13px;font:16px/1.45 ui-monospace,Menlo,monospace;
  border:1px solid rgba(0,0,0,.12);border-radius:12px;background:#fff;color:#111;resize:none}
 .ov .b1,.ov .b2,.ov .b3{display:block;width:100%;margin-top:10px;padding:16px;font:700 17px -apple-system,BlinkMacSystemFont,sans-serif;
  text-align:center;border-radius:14px;border:none;cursor:pointer;text-decoration:none}
@@ -68,12 +69,12 @@ textarea{width:100%;min-height:96px;margin-top:8px;padding:13px;font:16px/1.45 i
 
 .mins{display:flex;align-items:center;gap:6px;margin-top:10px}
 .mins .lb{flex:1;min-width:0;font-size:16px}
-.mins button{width:46px;height:52px;flex:none;border:1px solid rgba(0,0,0,.12);background:#fff;color:#444;border-radius:12px;font:400 26px/1 inherit;cursor:pointer;padding:0}
-.mins input{width:74px;height:52px;flex:none;text-align:center;border:1px solid rgba(0,0,0,.12);border-radius:12px;background:#fff;color:#111;font:600 19px inherit;margin:0;-moz-appearance:textfield}
+.mins button{width:46px;height:52px;flex:none;border:1px solid rgba(0,0,0,.12);background:#fff;color:#444;border-radius:12px;font:400 26px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;cursor:pointer;padding:0}
+.mins input{width:74px;height:52px;flex:none;text-align:center;border:1px solid rgba(0,0,0,.12);border-radius:12px;background:#fff;color:#111;font:600 19px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;margin:0;-moz-appearance:textfield}
 .mins input::-webkit-outer-spin-button,.mins input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 .mins .un{flex:none;font-size:16px;color:#8a8880;width:32px}
 .mins.on input{background:#0ca30c;border-color:#0ca30c;color:#fff}
-@media (prefers-color-scheme:dark){.mins button,.mins input{background:#1a1a19;border-color:#3a3a36;color:#fff}.mins.on input{background:#0ca30c;border-color:#0ca30c}}
+@media (prefers-color-scheme:dark){.mins button,.mins input{background-color:#1a1a19;border-color:#3a3a36;color:#fff}.mins.on input{background:#0ca30c;border-color:#0ca30c}}
 @media print{.addx,.del{display:none!important}}
 @media print{
  .langs,.send,.pdf,.reset,.last{display:none!important}
@@ -112,7 +113,7 @@ textarea{width:100%;min-height:96px;margin-top:8px;padding:13px;font:16px/1.45 i
 </div>
 <button class="addx" type="button"><i lang="pt">+ Acrescentar outro trabalho</i><i lang="en">+ Add another job</i><i lang="de">+ Weitere Arbeit hinzufügen</i><i lang="es">+ Añadir otro trabajo</i></button>
 <h2><i lang="pt">Partes comuns do prédio</i><i lang="en">The building's common parts</i><i lang="de">Gemeinschaftsflächen des Hauses</i><i lang="es">Zonas comunes del edificio</i></h2>
-<p class="hint"><i lang="pt">Este trabalho não é do apartamento, é do prédio. Por isso apontamos o <strong>tempo à parte</strong> — é comunicado à administração do condomínio.</i><i lang="en">This work is not for the flat, it is for the building. That is why the <strong>time is noted separately</strong> — it is reported to the building management.</i><i lang="de">Diese Arbeit gehört nicht zur Wohnung, sondern zum Haus. Deshalb wird die <strong>Zeit gesondert</strong> notiert — sie wird der Hausverwaltung mitgeteilt.</i><i lang="es">Este trabajo no es del apartamento, es del edificio. Por eso se apunta el <strong>tiempo aparte</strong> — se comunica a la administración del edificio.</i></p>
+<p class="hint"><i lang="pt">Este trabalho não é do apartamento, é do prédio. Por isso apontamos o <strong>tempo à parte</strong> — é comunicado à administração do condomínio. Este tempo <strong>já está incluído</strong> nas horas de entrada e de saída lá em cima; é só para eu saber quanto do total foi para o prédio.</i><i lang="en">This work is not for the flat, it is for the building. That is why the <strong>time is noted separately</strong> — it is reported to the building management. This time is <strong>already part</strong> of the arrival and leaving times above; it just tells me how much of the total went to the building.</i><i lang="de">Diese Arbeit gehört nicht zur Wohnung, sondern zum Haus. Deshalb wird die <strong>Zeit gesondert</strong> notiert — sie wird der Hausverwaltung mitgeteilt. Diese Zeit ist in den Uhrzeiten oben <strong>bereits enthalten</strong>; sie sagt mir nur, wie viel von der Gesamtzeit auf das Haus entfiel.</i><i lang="es">Este trabajo no es del apartamento, es del edificio. Por eso se apunta el <strong>tiempo aparte</strong> — se comunica a la administración del edificio. Este tiempo <strong>ya está incluido</strong> en las horas de entrada y salida de arriba; solo me dice cuánto del total fue para el edificio.</i></p>
 <div class="card">
 <label><input type="checkbox" data-cm="0"><span class="t"><i lang="pt">A entrada do prédio</i><i lang="en">The building entrance</i><i lang="de">Der Hauseingang</i><i lang="es">La entrada del edificio</i></span></label>
 <label><input type="checkbox" data-cm="1"><span class="t"><i lang="pt">O corredor</i><i lang="en">The corridor</i><i lang="de">Der Flur</i><i lang="es">El pasillo</i></span></label>
@@ -121,7 +122,7 @@ textarea{width:100%;min-height:96px;margin-top:8px;padding:13px;font:16px/1.45 i
 <label><input type="checkbox" data-cm="4"><span class="t"><i lang="pt">Limpei água ou poças</i><i lang="en">Cleared water or puddles</i><i lang="de">Wasser oder Pfützen beseitigt</i><i lang="es">Limpié agua o charcos</i></span></label>
 <label><input type="checkbox" data-cm="5"><span class="t"><i lang="pt">Fotografei o estado para a administração</i><i lang="en">Photographed the state for the management</i><i lang="de">Zustand für die Hausverwaltung fotografiert</i><i lang="es">Fotografié el estado para la administración</i></span></label>
 </div>
-<div class="mins"><span class="lb"><i lang="pt">Tempo gasto</i><i lang="en">Time spent</i><i lang="de">Aufgewendete Zeit</i><i lang="es">Tiempo empleado</i></span><button type="button" data-m="-">−</button><input type="number" inputmode="numeric" min="0" step="5" value="" id="f-min"><button type="button" data-m="+">+</button><span class="un">min</span></div>
+<div class="mins"><span class="lb"><i lang="pt">Tempo gasto</i><i lang="en">Time spent</i><i lang="de">Aufgewendete Zeit</i><i lang="es">Tiempo empleado</i></span><button type="button" data-m="-">−</button><input type="number" inputmode="numeric" min="0" step="1" value="" id="f-min"><button type="button" data-m="+">+</button><span class="un">min</span></div>
 <h2><i lang="pt">Roupa</i><i lang="en">Laundry</i><i lang="de">Wäsche</i><i lang="es">Ropa</i></h2>
 <select lang="pt" data-g="roupa"><option value="0">Não houve roupa hoje</option><option value="1">Levei roupa suja à lavandaria</option><option value="2">Trouxe roupa lavada da lavandaria</option><option value="3">Levei e trouxe</option><option value="4">Lavei na máquina do apartamento</option></select><select lang="en" data-g="roupa"><option value="0">No laundry today</option><option value="1">Took dirty laundry to the laundrette</option><option value="2">Brought clean laundry back</option><option value="3">Took and brought back</option><option value="4">Washed in the flat's machine</option></select><select lang="de" data-g="roupa"><option value="0">Heute keine Wäsche</option><option value="1">Schmutzwäsche zur Wäscherei gebracht</option><option value="2">Saubere Wäsche abgeholt</option><option value="3">Gebracht und abgeholt</option><option value="4">In der Maschine der Wohnung gewaschen</option></select><select lang="es" data-g="roupa"><option value="0">Hoy no hubo ropa</option><option value="1">Llevé ropa sucia a la lavandería</option><option value="2">Traje ropa limpia de la lavandería</option><option value="3">Llevé y traje</option><option value="4">Lavé en la máquina del apartamento</option></select>
 <h2><i lang="pt">Houve algum problema?</i><i lang="en">Was there a problem?</i><i lang="de">Gab es ein Problem?</i><i lang="es">¿Hubo algún problema?</i></h2>
@@ -185,7 +186,7 @@ function recordMode(o){
    '.send,.reset,.add,.addx,.del,.last{display:none!important}'+
    '.stamp{border:1px solid rgba(0,0,0,.14);background:#fff;border-radius:12px;padding:13px 15px;margin:10px 0 20px;font-size:15px;line-height:1.55}'+
    '.stamp b{font-weight:650}.stamp span{color:#8a8880}'+
-   '.prt{display:block;width:100%;margin:22px 0 40px;padding:16px;font:600 16px inherit;text-align:center;'+
+   '.prt{display:block;width:100%;margin:22px 0 40px;padding:16px;font:600 16px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;text-align:center;'+
    'background:#fff;color:#111;border:1px solid #dcdad2;border-radius:14px;cursor:pointer}'+
    '@media(prefers-color-scheme:dark){.stamp,.prt{background:#1a1a19;border-color:rgba(255,255,255,.14);color:#fff}}'+
    '@media print{.prt,.langs{display:none!important}}';
@@ -345,7 +346,7 @@ var mi=document.getElementById('f-min'),mrow=document.querySelector('.mins');
 function mpaint(){mrow.classList.toggle('on',(+mi.value||0)>0)}
 document.querySelectorAll('.mins button').forEach(function(b){
   b.addEventListener('click',function(){
-    var v=(+mi.value||0)+(b.dataset.m==='+'?5:-5);
+    var v=(+mi.value||0)+(b.dataset.m==='+'?1:-1);
     if(v<0)v=0; mi.value=v||''; mpaint();});});
 mi.addEventListener('input',mpaint); mpaint();
 document.querySelector('.pdf').addEventListener('click',function(){window.print()});
@@ -382,7 +383,7 @@ document.querySelector('.send').addEventListener('click',function(ev){
   if(cm.length||mn){
     m+='\nPARTES COMUNS (condominio):\n';
     cm.forEach(function(x){m+='- '+x+'\n'});
-    m+='Tempo: '+mn+' min\n';}
+    m+='Tempo (incluido no total): '+mn+' min\n';}
   m+='\nRoupa: '+txtPT('roupa')+'\n';
   m+='Problemas: '+txtPT('prob')+'\n';
   var p=document.getElementById('f-prob').value.trim();

@@ -22,20 +22,20 @@ i{font-style:normal;display:none}
 .row.on{background:#f3fbf3}
 .t{flex:1;min-width:0;padding-right:4px}
 .stp{display:flex;align-items:center;gap:2px;flex:none}
-.stp button{width:40px;height:40px;flex:none;border:1px solid #dcdad2;background:#fff;color:#444;border-radius:11px;font:400 24px/1 inherit;cursor:pointer;padding:0}
-.stp input{width:52px;height:40px;text-align:center;border:1px solid #dcdad2;border-radius:11px;background:#fff;color:#111;font:600 18px inherit;margin:0 2px;-moz-appearance:textfield}
+.stp button{width:40px;height:40px;flex:none;border:1px solid #dcdad2;background:#fff;color:#444;border-radius:11px;font:400 24px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;cursor:pointer;padding:0}
+.stp input{width:52px;height:40px;text-align:center;border:1px solid #dcdad2;border-radius:11px;background:#fff;color:#111;font:600 18px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;margin:0 2px;-moz-appearance:textfield}
 .stp input::-webkit-outer-spin-button,.stp input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 .row.on .stp input{background:#0ca30c;border-color:#0ca30c;color:#fff}
-.free input[type=text]{flex:1;min-width:0;height:40px;padding:0 11px;border:1px solid #dcdad2;border-radius:11px;background:#fff;color:#111;font:16px inherit}
-.add{display:block;width:100%;margin-top:10px;padding:14px;font:600 16px inherit;background:#fff;color:#5a5852;border:1px dashed #c9c7bd;border-radius:14px;cursor:pointer}
+.free input[type=text]{flex:1;min-width:0;height:40px;padding:0 11px;border:1px solid #dcdad2;border-radius:11px;background:#fff;color:#111;font:16px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+.add{display:block;width:100%;margin-top:10px;padding:14px;font:600 16px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;background:#fff;color:#5a5852;border:1px dashed #c9c7bd;border-radius:14px;cursor:pointer}
 .note{border-left:4px solid #eb6834;background:#fff;border-radius:0 12px 12px 0;padding:12px 14px;margin:10px 0;font-size:15px;color:#5a5852}
-.fld{width:100%;height:46px;padding:0 13px;font:16px inherit;border:1px solid rgba(0,0,0,.12);border-radius:12px;background:#fff;color:#111;margin-top:8px}
-textarea{width:100%;min-height:96px;margin-top:8px;padding:13px;font:16px/1.45 inherit;border:1px solid rgba(0,0,0,.12);border-radius:12px;background:#fff;color:#111;resize:vertical}
-.send{display:block;width:100%;margin:22px 0 6px;padding:18px;font:700 18px inherit;text-align:center;background:#0ca30c;color:#fff;border:none;border-radius:14px;cursor:pointer;text-decoration:none}
-.pdf{display:block;width:100%;padding:15px;margin-top:8px;font:600 16px inherit;text-align:center;background:#fff;color:#444;border:1px solid #dcdad2;border-radius:14px;cursor:pointer}
+.fld{width:100%;height:46px;padding:0 13px;font:16px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;border:1px solid rgba(0,0,0,.12);border-radius:12px;background:#fff;color:#111;margin-top:8px}
+textarea{width:100%;min-height:96px;margin-top:8px;padding:13px;font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;border:1px solid rgba(0,0,0,.12);border-radius:12px;background:#fff;color:#111;resize:vertical}
+.send{display:block;width:100%;margin:22px 0 6px;padding:18px;font:700 18px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;text-align:center;background:#0ca30c;color:#fff;border:none;border-radius:14px;cursor:pointer;text-decoration:none}
+.pdf{display:block;width:100%;padding:15px;margin-top:8px;font:600 16px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;text-align:center;background:#fff;color:#444;border:1px solid #dcdad2;border-radius:14px;cursor:pointer}
 @media (prefers-color-scheme:dark){.pdf{background:#1a1a19;border-color:#3a3a36;color:#fff}}
 @media print{.pdf,.langs,.send,.reset,.add{display:none!important}}
-.reset{display:block;width:100%;padding:12px;font:15px inherit;background:transparent;color:#8a8880;border:none;cursor:pointer;text-align:center}
+.reset{display:block;width:100%;padding:12px;font:16px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;background:transparent;color:#8a8880;border:none;cursor:pointer;text-align:center}
 @media (prefers-color-scheme:dark){
  body{background:#0d0d0d;color:#fff}
  .sub,.note{color:#c3c2b7} h2{color:#a9a79e}
@@ -43,7 +43,7 @@ textarea{width:100%;min-height:96px;margin-top:8px;padding:13px;font:16px/1.45 i
  #l-pt:checked~.wrap label[for=l-pt],#l-en:checked~.wrap label[for=l-en],#l-de:checked~.wrap label[for=l-de],#l-es:checked~.wrap label[for=l-es]{background:#fff;color:#111;border-color:#fff}
  .card{background:#1a1a19;border-color:rgba(255,255,255,.10)} .row{border-color:#2c2c2a}
  .row.on{background:#122112}
- .stp button,.stp input,.free input[type=text],.fld,textarea{background:#1a1a19;border-color:#3a3a36;color:#fff}
+ .stp button,.stp input,.free input[type=text],.fld,textarea{background-color:#1a1a19;border-color:#3a3a36;color:#fff}
  .row.on .stp input{background:#0ca30c;border-color:#0ca30c}
  .note{background:#1a1a19} .add{background:#1a1a19;border-color:#3a3a36;color:#c3c2b7}
 }
@@ -149,7 +149,7 @@ function recordMode(o){
    '.send,.reset,.add,.addx,.del,.last{display:none!important}'+
    '.stamp{border:1px solid rgba(0,0,0,.14);background:#fff;border-radius:12px;padding:13px 15px;margin:10px 0 20px;font-size:15px;line-height:1.55}'+
    '.stamp b{font-weight:650}.stamp span{color:#8a8880}'+
-   '.prt{display:block;width:100%;margin:22px 0 40px;padding:16px;font:600 16px inherit;text-align:center;'+
+   '.prt{display:block;width:100%;margin:22px 0 40px;padding:16px;font:600 16px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;text-align:center;'+
    'background:#fff;color:#111;border:1px solid #dcdad2;border-radius:14px;cursor:pointer}'+
    '@media(prefers-color-scheme:dark){.stamp,.prt{background:#1a1a19;border-color:rgba(255,255,255,.14);color:#fff}}'+
    '@media print{.prt,.langs{display:none!important}}';
