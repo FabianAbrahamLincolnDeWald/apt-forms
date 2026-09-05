@@ -285,13 +285,13 @@ function buildCSV(o){
     var secs=Array.prototype.slice.call(document.querySelectorAll('.sec'));
     function sec(n){for(var i=0;i<secs.length;i++){if(txtIn(secs[i].querySelector('h3')).toLowerCase().indexOf(n)>=0)return secs[i]}return null}
     function items(s){return s?Array.prototype.slice.call(s.querySelectorAll('ul.vals li')).map(function(li){return txtIn(li)||li.textContent.trim()}):[]}
-    var a=(o.d&&o.d[1])||'', b=(o.d&&o.d[2])||'';
+    var a=CMIN, b=CMOUT;
     var dur='';
     if(/^\d\d:\d\d$/.test(a)&&/^\d\d:\d\d$/.test(b)){
       var p=function(x){return +x.slice(0,2)*60 + +x.slice(3)};
       dur=p(b)-p(a); if(dur<0)dur+=1440;
     }
-    var mn=(o.d&&o.d[32])||'';
+    var mn=CMMIN;
     rows.push(['date','author','document','from','to','duration_min','type','condition',
       'extra_work','common_parts','common_minutes','laundry','problem','problem_notes','missing','notes'].map(csvq).join(S));
     var probTxt='', notes='';
@@ -304,7 +304,7 @@ function buildCSV(o){
   }
   return '\ufeff'+rows.join(NL)+NL;
 }
-var CMEXTRA=[],CMCOMMON=[],SELMAP={};
+var CMEXTRA=[],CMCOMMON=[],SELMAP={},CMMIN="",CMIN="",CMOUT="";
 function recordMode(o){
   var d=new Date(o.t||Date.now());
   var st=document.createElement('style');st.id='s1';
@@ -320,6 +320,9 @@ function recordMode(o){
   applyState(o);
   var w=document.querySelector('.wrap');
   CMEXTRA=[];CMCOMMON=[];SELMAP={};
+  var _m=document.getElementById('f-min');CMMIN=_m?(_m.value||''):'';
+  var _a=document.getElementById('f-in'),_b=document.getElementById('f-out');
+  CMIN=_a?(_a.value||''):'';CMOUT=_b?(_b.value||''):'';
   Array.prototype.slice.call(document.querySelectorAll('select[data-g]')).forEach(function(s){
     var g=s.getAttribute('data-g'),L=s.getAttribute('lang');
     (SELMAP[g]=SELMAP[g]||{})[L]=s.options[s.selectedIndex].textContent.trim();});
