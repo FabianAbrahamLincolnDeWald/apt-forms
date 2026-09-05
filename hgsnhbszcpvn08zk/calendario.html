@@ -1,0 +1,165 @@
+<!doctype html><html lang="pt"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Calendário">
+<title>Calendário</title>
+<style id="s0">
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#f7f7f5;color:#111;font:17px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+.wrap{max-width:680px;margin:0 auto;padding:0 16px 60px}
+h1{font-size:25px;line-height:1.2;margin:6px 0 4px;letter-spacing:-.02em}
+.sub{color:#5a5852;font-size:15px;margin:0 0 18px}
+h2{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:#8a8880;margin:26px 0 10px;font-weight:700}
+i{font-style:normal;display:none}
+.langs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+.langs label{display:inline-block;padding:9px 15px;border-radius:999px;border:1px solid #dcdad2;background:#fff;font-size:15px;color:#5a5852;cursor:pointer}
+.sw{position:absolute;opacity:0;pointer-events:none}
+#l-pt:checked~.wrap label[for=l-pt],#l-en:checked~.wrap label[for=l-en],#l-de:checked~.wrap label[for=l-de],#l-es:checked~.wrap label[for=l-es]{background:#111;color:#fff;border-color:#111}
+#l-pt:checked~.wrap i[lang=pt],#l-en:checked~.wrap i[lang=en],#l-de:checked~.wrap i[lang=de],#l-es:checked~.wrap i[lang=es]{display:inline}
+.next{background:#111;color:#fff;border-radius:16px;padding:18px 18px 16px;margin:0 0 22px}
+.next .lbl{font-size:12.5px;letter-spacing:.09em;text-transform:uppercase;opacity:.65}
+.next .day{font-size:27px;font-weight:700;letter-spacing:-.02em;margin:4px 0 2px}
+.next .kind{font-size:16px;opacity:.9}
+.next .tm{font-size:14.5px;opacity:.7;margin-top:6px}
+.card{background:#fff;border:1px solid rgba(0,0,0,.09);border-radius:14px;overflow:hidden}
+.row{display:flex;gap:13px;align-items:flex-start;padding:13px 15px;border-bottom:1px solid #eeece4}
+.row:last-child{border-bottom:none}
+.dt{flex:0 0 62px;font-weight:650;font-size:16px;line-height:1.35}
+.dt small{display:block;font-weight:400;font-size:13px;color:#8a8880}
+.bd{flex:1;min-width:0}
+.tag{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+ padding:3px 9px;border-radius:999px;margin-bottom:3px}
+.t-WECHSEL{background:#fde8e6;color:#b3261e}
+.t-AUSZUG{background:#fdecdd;color:#a4500f}
+.t-VORBEREITUNG{background:#e6f0fb;color:#14539a}
+.t-ZWISCHEN{background:#e8f5ee;color:#0e6b3d}
+.t-LEERSTAND{background:#f0efe8;color:#6b6963}
+.note{font-size:14.5px;color:#6b6963;line-height:1.45}
+.ev{font-size:13.5px;color:#8a8880;margin-top:2px}
+.leg{background:#fff;border:1px solid rgba(0,0,0,.09);border-radius:14px;padding:14px 15px;font-size:14.5px;line-height:1.55}
+.leg div{margin-bottom:8px}.leg div:last-child{margin-bottom:0}
+.foot{color:#a09e95;font-size:13.5px;margin-top:22px}
+@media (prefers-color-scheme:dark){
+ body{background:#0d0d0d;color:#fff} .sub{color:#c3c2b7} h2{color:#a9a79e}
+ .langs label{background:#1a1a19;border-color:#2f2f2c;color:#c3c2b7}
+ #l-pt:checked~.wrap label[for=l-pt],#l-en:checked~.wrap label[for=l-en],#l-de:checked~.wrap label[for=l-de],#l-es:checked~.wrap label[for=l-es]{background:#fff;color:#111;border-color:#fff}
+ .next{background:#fff;color:#111}
+ .card,.leg{background:#1a1a19;border-color:rgba(255,255,255,.10)} .row{border-color:#2c2c2a}
+ .note,.dt small,.ev{color:#a9a79e}
+ .t-WECHSEL{background:#2b1614;color:#ff9c92} .t-AUSZUG{background:#2b1e12;color:#ffb877}
+ .t-VORBEREITUNG{background:#12202e;color:#8ab8ee} .t-ZWISCHEN{background:#12241a;color:#5fcb95}
+ .t-LEERSTAND{background:#232320;color:#a9a79e}
+}
+@media print{.langs{display:none}body{background:#fff}}
+</style></head><body>
+<input class="sw" type="radio" name="lang" id="l-pt" checked>
+<input class="sw" type="radio" name="lang" id="l-en">
+<input class="sw" type="radio" name="lang" id="l-de">
+<input class="sw" type="radio" name="lang" id="l-es">
+<div class="wrap">
+<div class="langs"><label for="l-pt">Português</label><label for="l-en">English</label><label for="l-de">Deutsch</label><label for="l-es">Español</label></div>
+<h1><i lang="pt">Calendário</i><i lang="en">Calendar</i><i lang="de">Kalender</i><i lang="es">Calendario</i></h1>
+<p class="sub"><i lang="pt">Entradas, saídas e dias de limpeza. Mantenho esta página atualizada — basta voltar aqui.</i><i lang="en">Arrivals, departures and cleaning days. I keep this page up to date — just come back here.</i><i lang="de">An- und Abreisen und Reinigungstage. Ich halte diese Seite aktuell — einfach hierher zurückkommen.</i><i lang="es">Entradas, salidas y días de limpieza. Mantengo esta página actualizada — basta con volver aquí.</i></p>
+<div id="next"></div>
+<div id="list"></div>
+<h2><i lang="pt">O que significa cada cor</i><i lang="en">What each colour means</i><i lang="de">Was die Farben bedeuten</i><i lang="es">Qué significa cada color</i></h2>
+<div class="leg" id="leg"></div>
+<p class="foot" id="foot"></p>
+</div>
+<script>
+/* ══════════════════════════════════════════════════════════════
+   NUR DIESE LISTE PFLEGEN — je Buchung: Anreise, Abreise
+   ══════════════════════════════════════════════════════════════ */
+var BOOKINGS=[
+  ['2026-09-06','2026-09-16'],
+  ['2026-09-23','2026-09-28']
+];
+var ANCHOR='2026-09-05';   /* letzte erfolgte Reinigung */
+var HORIZON=45;            /* Tage vorausplanen */
+/* ══════════════════════════════════════════════════════════════ */
+(function(){
+var L=function(){var r=document.querySelector('input[name=lang]:checked');return r?r.id.slice(2):'pt'};
+var WD={pt:['seg','ter','qua','qui','sex','sáb','dom'],en:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+        de:['Mo','Di','Mi','Do','Fr','Sa','So'],es:['lun','mar','mié','jue','vie','sáb','dom']};
+var MO={pt:['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'],
+        en:['January','February','March','April','May','June','July','August','September','October','November','December'],
+        de:['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'],
+        es:['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre']};
+var T={
+ WECHSEL:{pt:['Mudança de hóspedes','Limpeza completa entre as 10:00 e as 14:00. Roupa de cama e toalhas trocadas, fotos antes e depois.'],
+          en:['Guest changeover','Full clean between 10:00 and 14:00. Bed linen and towels changed, photos before and after.'],
+          de:['Gästewechsel','Komplette Reinigung zwischen 10:00 und 14:00. Bettwäsche und Handtücher wechseln, Fotos vorher und nachher.'],
+          es:['Cambio de huéspedes','Limpieza completa entre las 10:00 y las 14:00. Ropa de cama y toallas cambiadas, fotos antes y después.']},
+ AUSZUG:{pt:['Saída de hóspedes','Limpeza completa a partir das 10:00. Sem pressa, não entra ninguém a seguir.'],
+         en:['Guests check out','Full clean from 10:00. No rush, nobody arrives afterwards.'],
+         de:['Abreise','Komplette Reinigung ab 10:00. Ohne Eile, es kommt niemand direkt danach.'],
+         es:['Salida de huéspedes','Limpieza completa a partir de las 10:00. Sin prisa, no entra nadie después.']},
+ VORBEREITUNG:{pt:['Preparar para a chegada','Deixar a casa pronta para os hóspedes que chegam no dia seguinte: cama feita, toalhas, consumíveis.'],
+               en:['Prepare for arrival','Leave the flat ready for the guests arriving the next day: bed made, towels, consumables.'],
+               de:['Vorbereitung','Die Wohnung für die Gäste vorbereiten, die am Folgetag anreisen: Bett gemacht, Handtücher, Verbrauchsmaterial.'],
+               es:['Preparar para la llegada','Dejar la casa lista para los huéspedes que llegan al día siguiente: cama hecha, toallas, consumibles.']},
+ ZWISCHEN:{pt:['Com hóspedes na casa','Refrescar: pó, cama esticada, casa de banho, arejar. Sem mexer nas coisas do hóspede. Depois a entrada, o corredor e as escadas.'],
+           en:['With guests staying','Freshen up: dust, bed smoothed, bathroom, air it. Guest belongings untouched. Then entrance, corridor and stairs.'],
+           de:['Mit Gästen in der Wohnung','Auffrischen: Staub, Bett glatt ziehen, Bad, lüften. Sachen des Gastes bleiben unberührt. Danach Eingang, Flur und Treppen.'],
+           es:['Con huéspedes en la casa','Refrescar: polvo, cama estirada, baño, ventilar. Sin tocar las cosas del huésped. Después entrada, pasillo y escaleras.']},
+ LEERSTAND:{pt:['Apartamento vazio','Visita curta: arejar, ver se está tudo bem — e sobretudo a entrada, o corredor e as escadas do prédio.'],
+            en:['Flat empty','Short visit: air it, check all is well — and above all the entrance, corridor and building stairs.'],
+            de:['Wohnung leer','Kurzer Besuch: lüften, nachsehen, ob alles in Ordnung ist — und vor allem Eingang, Flur und Treppenhaus.'],
+            es:['Apartamento vacío','Visita corta: ventilar, ver que todo está bien — y sobre todo la entrada, el pasillo y las escaleras.']}};
+var EV={ein:{pt:'Chegada de hóspedes · 14:00',en:'Guests arrive · 14:00',de:'Anreise · 14:00',es:'Llegada de huéspedes · 14:00'},
+        aus:{pt:'Saída de hóspedes · 10:00',en:'Guests leave · 10:00',de:'Abreise · 10:00',es:'Salida de huéspedes · 10:00'}};
+var NX={pt:'Próximo dia de trabalho',en:'Next working day',de:'Nächster Einsatztag',es:'Próximo día de trabajo'};
+var FT={pt:'Se alguma coisa mudar, atualizo esta página e aviso-a.',en:'If anything changes I update this page and let you know.',
+        de:'Wenn sich etwas ändert, aktualisiere ich diese Seite und sage Bescheid.',es:'Si algo cambia actualizo esta página y le aviso.'};
+
+function D(s){var p=s.split('-');return new Date(+p[0],+p[1]-1,+p[2])}
+function key(d){return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
+function add(d,n){var x=new Date(d);x.setDate(x.getDate()+n);return x}
+var ins={},outs={},occ={};
+BOOKINGS.forEach(function(b){
+  ins[b[0]]=1;outs[b[1]]=1;
+  for(var x=D(b[0]);key(x)<b[1];x=add(x,1))occ[key(x)]=1;});
+var plan=[],last=D(ANCHOR);
+for(var c=add(last,1),i=0;i<HORIZON;c=add(c,1),i++){
+  var k=key(c),gap=Math.round((c-last)/864e5),t=null;
+  if(outs[k]&&ins[k])t='WECHSEL';
+  else if(outs[k])t='AUSZUG';
+  else if(ins[key(add(c,1))]&&gap>=2)t='VORBEREITUNG';
+  else if(gap>=3)t=occ[k]?'ZWISCHEN':'LEERSTAND';
+  if(t){plan.push({d:new Date(c),t:t});last=new Date(c);}
+}
+function render(){
+  var l=L(),today=new Date();today.setHours(0,0,0,0);
+  var up=plan.filter(function(p){return p.d>=today});
+  var n=up[0]||plan[0];
+  document.getElementById('next').innerHTML= n?
+    '<div class="next"><div class="lbl">'+NX[l]+'</div>'+
+    '<div class="day">'+WD[l][(n.d.getDay()+6)%7]+', '+n.d.getDate()+'. '+MO[l][n.d.getMonth()]+'</div>'+
+    '<div class="kind">'+T[n.t][l][0]+'</div>'+
+    '<div class="tm">'+T[n.t][l][1]+'</div></div>':'';
+  var html='',mon=-1;
+  up.forEach(function(p){
+    if(p.d.getMonth()!==mon){mon=p.d.getMonth();
+      if(html)html+='</div>';
+      html+='<h2>'+MO[l][mon]+' '+p.d.getFullYear()+'</h2><div class="card">';}
+    var k=key(p.d),ev='';
+    if(outs[k])ev+='<div class="ev">'+EV.aus[l]+'</div>';
+    if(ins[k])ev+='<div class="ev">'+EV.ein[l]+'</div>';
+    if(ins[key(add(p.d,1))])ev+='<div class="ev">'+EV.ein[l].replace(/·.*/,'· '+(l==='de'?'morgen':l==='en'?'next day':l==='es'?'al día siguiente':'no dia seguinte'))+'</div>';
+    html+='<div class="row"><div class="dt">'+p.d.getDate()+'.'+(p.d.getMonth()+1)+'.<small>'+WD[l][(p.d.getDay()+6)%7]+'</small></div>'+
+      '<div class="bd"><span class="tag t-'+p.t+'">'+T[p.t][l][0]+'</span>'+
+      '<div class="note">'+T[p.t][l][1]+'</div>'+ev+'</div></div>';});
+  if(html)html+='</div>';
+  document.getElementById('list').innerHTML=html;
+  var lg='';['WECHSEL','AUSZUG','VORBEREITUNG','ZWISCHEN','LEERSTAND'].forEach(function(t){
+    lg+='<div><span class="tag t-'+t+'">'+T[t][l][0]+'</span> — '+T[t][l][1]+'</div>';});
+  document.getElementById('leg').innerHTML=lg;
+  document.getElementById('foot').textContent=FT[l];
+}
+document.querySelectorAll('input[name=lang]').forEach(function(r){r.addEventListener('change',render)});
+render();
+})();
+</script></body></html>
