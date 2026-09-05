@@ -45,7 +45,7 @@ ul.vals li b{font-weight:650}
 @media (prefers-color-scheme:dark){.sec{border-color:#2c2c2a}.sec h3{color:#8a8880}ul.vals li::before{background:#4a4844}}
 @media print{.sec{break-inside:avoid}}
 @media print{.pdf,.langs,.send,.reset,.add{display:none!important}}
-.reset{display:block;width:100%;padding:12px;font:16px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;background:transparent;color:#8a8880;border:none;cursor:pointer;text-align:center}
+.reset{display:block;width:100%;margin:2px 0 16px;padding:15px;border:1px solid #dcdad2;border-radius:14px;background:#fff;font-weight:600;font-size:16px;font:16px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;background:transparent;color:#8a8880;border:none;cursor:pointer;text-align:center}
 @media (prefers-color-scheme:dark){
  body{background:#0d0d0d;color:#fff}
  .sub,.note{color:#c3c2b7} h2{color:#a9a79e}
@@ -106,7 +106,7 @@ html[data-doc] .prt{display:none}
 <input class="sw" type="radio" name="lang" id="l-de">
 <input class="sw" type="radio" name="lang" id="l-es">
 <div class="wrap">
-<div class="langs"><label for="l-pt">Português</label><label for="l-en">English</label><label for="l-de">Deutsch</label><label for="l-es">Español</label></div>
+<div class="langs"><label for="l-pt">Português</label><label for="l-en">English</label><label for="l-de">Deutsch</label><label for="l-es">Español</label></div><button class="reset" type="button"><i lang="pt">Apagar tudo</i><i lang="en">Clear everything</i><i lang="de">Einträge löschen</i><i lang="es">Borrar todo</i></button>
 <h1><i lang="pt">Lista de compras</i><i lang="en">Shopping list</i><i lang="de">Einkaufsliste</i><i lang="es">Lista de la compra</i></h1>
 <p class="sub"><i lang="pt">Esta lista é sua. Sempre que reparar que falta alguma coisa, marque a quantidade e envie-ma — assim ficamos os dois a saber e da próxima vez traz consigo. Eu devolvo-lhe sempre o valor contra o talão.</i><i lang="en">This list is yours. Whenever you notice something is missing, set the quantity and send it to me — then we both know, and next time you bring it with you. I always pay you back against the receipt.</i><i lang="de">Diese Liste gehört Ihnen. Immer wenn Ihnen auffällt, dass etwas fehlt, die Menge eintragen und mir schicken — dann wissen wir beide Bescheid und Sie bringen es beim nächsten Mal mit. Ich erstatte Ihnen den Betrag immer gegen den Beleg.</i><i lang="es">Esta lista es suya. Cuando note que falta algo, marque la cantidad y envíemela — así lo sabemos los dos y la próxima vez lo trae consigo. Yo le devuelvo siempre el importe contra el tique.</i></p>
 <p class="note"><i lang="pt"><strong>Importante na caixa:</strong> peça sempre fatura <strong>com contribuinte n.º <span class="nif"></span></strong>. Sem esse número a fatura não nos serve. E um talão à parte só com as coisas do apartamento.</i><i lang="en"><strong>Important at the till:</strong> always ask for the receipt <strong>with tax number <span class="nif"></span></strong>. Without that number the receipt is no use to us. And a separate receipt with only the flat's items.</i><i lang="de"><strong>Wichtig an der Kasse:</strong> immer die Rechnung <strong>mit Steuernummer <span class="nif"></span></strong> verlangen. Ohne diese Nummer nützt uns die Rechnung nichts. Und einen eigenen Bon nur mit den Sachen für die Wohnung.</i><i lang="es"><strong>Importante en caja:</strong> pida siempre la factura <strong>con NIF <span class="nif"></span></strong>. Sin ese número la factura no nos sirve. Y un tique aparte solo con las cosas del apartamento.</i></p>
@@ -175,8 +175,7 @@ html[data-doc] .prt{display:none}
 <textarea data-n="obs" placeholder="..."></textarea>
 <p class="note"><i lang="pt">Se faltar alguma coisa que não está aqui, carregue em «Acrescentar uma linha» e escreva o que é.</i><i lang="en">If something is missing that is not here, tap «Add a line» and write what it is.</i><i lang="de">Wenn etwas fehlt, das hier nicht steht, auf «Zeile hinzufügen» tippen und eintragen.</i><i lang="es">Si falta algo que no está aquí, pulse «Añadir una línea» y escriba qué es.</i></p>
 <a class="send" href="https://fabianabrahamlincolndewald.github.io/apt-forms/hgsnhbszcpvn08zk/lista_compras.html"><i lang="pt">Enviar</i><i lang="en">Send</i><i lang="de">Senden</i><i lang="es">Enviar</i></a>
-<button class="pdf" type="button"><i lang="pt">Guardar em PDF</i><i lang="en">Save as PDF</i><i lang="de">Als PDF sichern</i><i lang="es">Guardar en PDF</i></button><button class="reset" type="button"><i lang="pt">Recomeçar do zero</i><i lang="en">Start over</i><i lang="de">Neu beginnen</i><i lang="es">Empezar de nuevo</i></button>
-</div>
+<button class="pdf" type="button"><i lang="pt">Guardar em PDF</i><i lang="en">Save as PDF</i><i lang="de">Als PDF sichern</i><i lang="es">Guardar en PDF</i></button></div>
 
 <script>
 (function(){
@@ -435,74 +434,104 @@ function wrapText(s,size,bold,maxw){
   return lines.length?lines:[''];
 }
 function buildPDF(o,L){
-  var W=595.28,H=841.89,M=48,RIGHT=W-M,BODYW=RIGHT-M;
-  var LABW=140, VALX=M+LABW, VALW=RIGHT-VALX;
+  L='de';
+  var W=595.28,H=841.89,M=42.5,RIGHT=W-M,BW=RIGHT-M;
+  var LABW=128, VALX=M+LABW+10, VALW=RIGHT-VALX;
   var pages=[],cur=[],y=H-M;
-  function newPage(){if(cur.length)pages.push(cur);cur=[];y=H-M}
-  function need(h){if(y-h<M+26){newPage()}}
+  function push(s){cur.push(s)}
+  function newPage(){pages.push(cur);cur=[];y=H-M}
   function text(x,yy,s,size,bold,gray){
-    cur.push('BT /'+(bold?'F2':'F1')+' '+size+' Tf '+(gray?gray+' g ':'0 g ')+x.toFixed(2)+' '+yy.toFixed(2)+' Td ('+pdfEsc(s)+') Tj ET');}
+    push('BT /'+(bold?'F2':'F1')+' '+size+' Tf '+(gray||'0')+' g '+x.toFixed(2)+' '+yy.toFixed(2)+' Td ('+pdfEsc(s)+') Tj ET');}
   function line(x1,yy,x2,wid,gray){
-    cur.push((gray||'0')+' G '+wid+' w '+x1.toFixed(2)+' '+yy.toFixed(2)+' m '+x2.toFixed(2)+' '+yy.toFixed(2)+' l S');}
-  function rect(x,yy,w2,h2,gray){cur.push(gray+' g '+x.toFixed(2)+' '+yy.toFixed(2)+' '+w2.toFixed(2)+' '+h2.toFixed(2)+' re f');}
+    push((gray||'0')+' G '+wid+' w '+x1.toFixed(2)+' '+yy.toFixed(2)+' m '+x2.toFixed(2)+' '+yy.toFixed(2)+' l S');}
+  function rect(x,yy,w2,h2,gray){push((gray)+' g '+x.toFixed(2)+' '+yy.toFixed(2)+' '+w2.toFixed(2)+' '+h2.toFixed(2)+' re f');}
+  function box(x,yy,w2,h2,gray){push((gray||'0.8')+' G 0.6 w '+x.toFixed(2)+' '+yy.toFixed(2)+' '+w2.toFixed(2)+' '+h2.toFixed(2)+' re S');}
 
   var d=new Date(o.t||Date.now());
   var dt=pad(d.getDate())+'.'+pad(d.getMonth()+1)+'.'+d.getFullYear();
   var tm=pad(d.getHours())+':'+pad(d.getMinutes());
   var title=txtIn(document.querySelector('h1'),L)||FPREFIX;
 
-  line(M,y,RIGHT,1.4); y-=16;
-  text(M,y,title,15,true); 
-  text(RIGHT-pdfWidth(dt+'  '+tm,9,false),y,dt+'  '+tm,9,false,'0.35'); y-=8;
-  line(M,y,RIGHT,0.5,'0.4'); y-=16;
-  text(M,y,LBL[L].by+': '+(o.a||AUTOR),9,true); y-=20;
+  /* Kopf */
+  line(M,y,RIGHT,1.6); y-=13;
+  text(M,y,'Ausgefüllt von: '+(o.a||AUTOR),8.5,true);
+  text(RIGHT-pdfWidth(dt,8.5,false),y,dt,8.5,false);
+  y-=11;
+  text(M,y,'Alojamento Local · Funchal',8.5,false,'0.25');
+  text(RIGHT-pdfWidth(tm,8.5,false),y,tm,8.5,false,'0.25');
+  y-=9; line(M,y,RIGHT,0.7); y-=24;
 
-  var kl=kpiLine(L);
-  if(kl){ rect(M,y-6,BODYW,20,'0.94'); text(M+6,y,kl,9.5,true); y-=32; }
+  /* Titel */
+  text(M,y,title,15,true); y-=22;
 
+  /* Kennzahlen */
+  var cells=[];
+  if(!CMLIST){
+    var mm=mins(CMIN,CMOUT),cm=+CMMIN||0;
+    var dd=document.getElementById('f-data');
+    if(dd&&dd.value)cells.push([fmtDate(dd.value),'EINSATZTAG',false]);
+    if(mm!=null){cells.push([hm(mm),'GESAMT',false]);cells.push([hm(mm-cm),'WOHNUNG',false]);}
+    cells.push([cm?hm(cm):'—','GEMEINSCHAFTSFLÄCHEN',true]);
+  }else{
+    var n=0,tot=0;
+    Array.prototype.slice.call(document.querySelectorAll('ul.vals li')).forEach(function(li){
+      var m2=/^(\d+)/.exec(li.textContent.trim());if(m2){n++;tot+=+m2[1]}});
+    if(tot){cells.push([String(tot),'TEILE INSGESAMT',false]);cells.push([String(n),'POSITIONEN',true]);}
+  }
+  if(cells.length){
+    var ch=34, cw=BW/cells.length;
+    cells.forEach(function(c,i){
+      var x=M+i*cw;
+      if(c[2])rect(x,y-ch+12,cw,ch,'0.945');
+      box(x,y-ch+12,cw,ch);
+      text(x+7,y-2,c[0],12,true);
+      text(x+7,y-14,c[1],6.6,true,'0.35');});
+    y-=ch+18;
+  }
+
+  /* Tabelle */
+  var i=0;
   docSections(L).forEach(function(s){
-    need(30);
-    line(M,y+9,RIGHT,0.5,'0.75'); y-=4;
-    var labLines=wrapText(s.label.toUpperCase(),7.6,true,LABW-8);
-    var vh=0;
-    var blocks=s.values.map(function(v){var ls=wrapText(v,9.5,false,VALW);vh+=ls.length*12.5;return ls});
-    var lh=labLines.length*10;
-    need(Math.max(vh,lh)+8);
+    var labLines=wrapText(s.label.toUpperCase(),7.4,true,LABW);
+    var blocks=s.values.map(function(v){return wrapText(v,9,false,VALW)});
+    var vh=0;blocks.forEach(function(b){vh+=b.length*11.5});
+    var h2=Math.max(vh,labLines.length*9.5)+11;
+    if(y-h2<M+30){newPage();}
+    if(i%2===1)rect(M,y-h2+8,BW,h2,'0.973');
     var y0=y;
-    labLines.forEach(function(t,i){text(M,y0-i*10,t,7.6,true,'0.4')});
+    labLines.forEach(function(t,k){text(M,y0-k*9.5,t,7.4,true,'0.33')});
     var yy=y0;
-    blocks.forEach(function(ls){ls.forEach(function(t){text(VALX,yy,t,9.5,false);yy-=12.5})});
-    y=Math.min(y0-lh, yy)-8;
+    blocks.forEach(function(b){b.forEach(function(t){text(VALX,yy,t,9,false);yy-=11.5})});
+    y-=h2;
+    line(M,y+6,RIGHT,0.4,'0.87');
+    i++;
   });
 
-  newPage();
-  var objs=[],n=0;
-  function add(s){objs.push(s);return ++n}
-  var fontN1,fontN2,contentIds=[],pageIds=[];
-  var body=[],xref=[],out='%PDF-1.4\n';
-  var pieces=[];
-  var total=pages.length;
-  var idFont1=3+total*2, idFont2=idFont1+1;
-  var s='';
+  /* Fuß */
+  var fy=M+16;
+  line(M,fy+10,RIGHT,0.8);
+  text(M,fy,'Automatisch erzeugtes Dokument',7.5,false,'0.3');
+  var right2=dt+' '+tm;
+  text(RIGHT-pdfWidth(right2,7.5,false),fy,right2,7.5,false,'0.3');
+  pages.push(cur);
+
+  var total=pages.length, idF1=3+total*2, idF2=idF1+1;
+  var out='%PDF-1.4\n', pieces=[];
   pieces.push('1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n');
-  var kids='';
-  for(var i=0;i<total;i++)kids+=(3+i*2)+' 0 R ';
+  var kids='';for(var k=0;k<total;k++)kids+=(3+k*2)+' 0 R ';
   pieces.push('2 0 obj\n<< /Type /Pages /Count '+total+' /Kids ['+kids.trim()+'] >>\nendobj\n');
-  for(var i=0;i<total;i++){
-    var pid=3+i*2, cid=pid+1;
+  for(var k=0;k<total;k++){
+    var pid=3+k*2,cid=pid+1,stream=pages[k].join('\n');
     pieces.push(pid+' 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 '+W.toFixed(2)+' '+H.toFixed(2)+
-      '] /Resources << /Font << /F1 '+idFont1+' 0 R /F2 '+idFont2+' 0 R >> >> /Contents '+cid+' 0 R >>\nendobj\n');
-    var stream=pages[i].join('\n');
-    pieces.push(cid+' 0 obj\n<< /Length '+pdfBytes(stream).length+' >>\nstream\n'+stream+'\nendstream\nendobj\n');
-  }
-  pieces.push(idFont1+' 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>\nendobj\n');
-  pieces.push(idFont2+' 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>\nendobj\n');
+      '] /Resources << /Font << /F1 '+idF1+' 0 R /F2 '+idF2+' 0 R >> >> /Contents '+cid+' 0 R >>\nendobj\n');
+    pieces.push(cid+' 0 obj\n<< /Length '+pdfBytes(stream).length+' >>\nstream\n'+stream+'\nendstream\nendobj\n');}
+  pieces.push(idF1+' 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>\nendobj\n');
+  pieces.push(idF2+' 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>\nendobj\n');
   var offs=[],pos=pdfBytes(out).length;
   pieces.forEach(function(p){offs.push(pos);pos+=pdfBytes(p).length;out+=p});
-  var nobj=idFont2;
-  var x='xref\n0 '+(nobj+1)+'\n0000000000 65535 f \n';
+  var x='xref\n0 '+(idF2+1)+'\n0000000000 65535 f \n';
   offs.forEach(function(off){x+=('0000000000'+off).slice(-10)+' 00000 n \n'});
-  out+=x+'trailer\n<< /Size '+(nobj+1)+' /Root 1 0 R >>\nstartxref\n'+pos+'\n%%EOF';
+  out+=x+'trailer\n<< /Size '+(idF2+1)+' /Root 1 0 R >>\nstartxref\n'+pos+'\n%%EOF';
   return new Uint8Array(pdfBytes(out));
 }
 
@@ -567,45 +596,59 @@ var DOCCSS = '@page{size:A4;margin:15mm 15mm 20mm 15mm}'
 +'.fuss{border-top:1px solid #111;margin-top:9mm;padding-top:2mm;font-size:7.5pt;color:#444;display:flex;justify-content:space-between}'
 +'@media print{html,body{background:#fff;padding:0}.document{width:auto;padding:0}.langs{display:none}}';
 
-function buildDocHTML(o){
+function formalBody(o,secs){
   var d=new Date(o.t||Date.now());
   var dt=pad(d.getDate())+'.'+pad(d.getMonth()+1)+'.'+d.getFullYear();
   var tm=pad(d.getHours())+':'+pad(d.getMinutes());
   var title=document.querySelector('h1')?document.querySelector('h1').innerHTML:FPREFIX;
   var rows='';
-  Array.prototype.slice.call(document.querySelectorAll('.sec')).forEach(function(s){
+  secs.forEach(function(s){
     var vals='';
     Array.prototype.slice.call(s.querySelectorAll('ul.vals li')).forEach(function(li){
       vals+='<div>'+li.innerHTML+'</div>';});
     rows+='<tr><th>'+s.querySelector('h3').innerHTML+'</th><td>'+vals+'</td></tr>';});
+  function cell(n,l,hi){return '<div class="'+(hi?'hi':'')+'"><span class="kn">'+n+'</span><span class="kl">'+l+'</span></div>'}
   var kb='';
   if(!CMLIST){
     var mm=mins(CMIN,CMOUT),cm=+CMMIN||0;
-    function cell(n,l,hi){return '<div class="'+(hi?'hi':'')+'"><span class="kn">'+n+'</span><span class="kl">'+l+'</span></div>'}
+    var dd=document.getElementById('f-data');
+    if(dd&&dd.value)kb+=cell(fmtDate(dd.value),langSpan({pt:'Dia',en:'Day',de:'Einsatztag',es:'Día'}));
     if(mm!=null){
       kb+=cell(hm(mm),langSpan({pt:'Total',en:'Total',de:'Gesamt',es:'Total'}));
       kb+=cell(hm(mm-cm),langSpan({pt:'Apartamento',en:'Flat',de:'Wohnung',es:'Apartamento'}));}
     kb+=cell(cm?hm(cm):'—',langSpan({pt:'Partes comuns',en:'Common parts',de:'Gemeinschaftsflächen',es:'Zonas comunes'}),true);
-    if(kb)kb='<div class="kband">'+kb+'</div>';
+  }else{
+    var n=0,tot=0;
+    secs.forEach(function(s){Array.prototype.slice.call(s.querySelectorAll('ul.vals li')).forEach(function(li){
+      var m2=/^(\d+)/.exec(li.textContent.trim());if(m2){n++;tot+=+m2[1]}})});
+    if(tot){kb+=cell(tot,langSpan({pt:'Peças no total',en:'Items in total',de:'Teile insgesamt',es:'Piezas en total'}));
+            kb+=cell(n,langSpan({pt:'Posições',en:'Entries',de:'Positionen',es:'Posiciones'}),true);}
   }
-  var radios='';['pt','en','de','es'].forEach(function(L){
-    radios+='<input class="sw" type="radio" name="lang" id="l-'+L+'"'+(L===curLang()?' checked':'')+'>';});
+  if(kb)kb='<div class="kband">'+kb+'</div>';
   var byL=langSpan({pt:'Preenchido por',en:'Filled in by',de:'Ausgefüllt von',es:'Rellenado por'});
   var ftL=langSpan({pt:'Documento gerado automaticamente',en:'Automatically generated document',
     de:'Automatisch erzeugtes Dokument',es:'Documento generado automáticamente'});
+  return '<div class="document">'
+    +'<div class="kopf"><div><strong>'+byL+':</strong> '+(o.a||AUTOR)+'<br>Alojamento Local · Funchal</div>'
+    +'<div class="kopf-rechts">'+dt+'<br>'+tm+'</div></div>'
+    +'<h1>'+title+'</h1>'+kb
+    +'<table><tbody>'+rows+'</tbody></table>'
+    +'<div class="fuss"><span>'+ftL+'</span><span>'+dt+' '+tm+'</span></div>'
+    +'</div>';
+}
+function buildDocHTML(o){
+  var d=new Date(o.t||Date.now());
+  var dt=pad(d.getDate())+'.'+pad(d.getMonth()+1)+'.'+d.getFullYear();
+  var radios='';['pt','en','de','es'].forEach(function(L){
+    radios+='<input class="sw" type="radio" name="lang" id="l-'+L+'"'+(L===curLang()?' checked':'')+'>';});
+  var secs=Array.prototype.slice.call(document.querySelectorAll('.sec'));
   return '<!doctype html>\n<html lang="pt"><head><meta charset="utf-8">'
     +'<meta name="viewport" content="width=device-width, initial-scale=1">'
     +'<title>'+FPREFIX+' '+dt+'</title><style>'+DOCCSS+'</style></head><body>'
     +radios
     +'<div class="langs"><label for="l-pt">Português</label><label for="l-en">English</label>'
     +'<label for="l-de">Deutsch</label><label for="l-es">Español</label></div>'
-    +'<div class="document">'
-    +'<div class="kopf"><div><strong>'+byL+':</strong> '+(o.a||AUTOR)+'<br>Alojamento Local · Funchal</div>'
-    +'<div class="kopf-rechts">'+dt+'<br>'+tm+'</div></div>'
-    +'<h1>'+title+'</h1>'+kb
-    +'<table><tbody>'+rows+'</tbody></table>'
-    +'<div class="fuss"><span>'+ftL+'</span><span>'+dt+' '+tm+'</span></div>'
-    +'</div></body></html>';
+    +formalBody(o,secs)+'</body></html>';
 }
 
 /* ---------- Sperrmodus ---------- */
@@ -675,13 +718,13 @@ function recordMode(o){
   var base=FPREFIX+'_'+d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+
            '_'+pad(d.getHours())+pad(d.getMinutes())+'_'+(o.a||AUTOR).replace(/\s+/g,'-');
   var btn=document.createElement('button');btn.className='dl';btn.type='button';
-  function label(){btn.textContent='↓  '+(LBL[curLang()]||LBL.pt).dl+'  ·  PDF + HTML + CSV'}
+  function label(){btn.textContent=(LBL[curLang()]||LBL.pt).dl}
   label();
   document.querySelectorAll('input[name=lang]').forEach(function(r){r.addEventListener('change',label)});
   btn.addEventListener('click',function(){
     var L=curLang();
     var files=[
-      {name:base+'.pdf', data:buildPDF(o,L)},
+      {name:base+'.pdf', data:buildPDF(o,'de')},
       {name:base+'.html',data:utf8(buildDocHTML(o))},
       {name:base+'.csv', data:utf8(buildCSV(o))}];
     var url=URL.createObjectURL(new Blob([zip(files)],{type:'application/zip'}));
@@ -707,6 +750,42 @@ window.__mkExtra=function(card){
     '<span class="last">↺ —</span><button class="del" type="button">×</button>';
   card.appendChild(l);return l;
 };
+/* Druck des Formulars zeigt dasselbe förmliche Dokument */
+function captureVars(){
+  CMEXTRA=[];CMCOMMON=[];SELMAP={};
+  Array.prototype.slice.call(document.querySelectorAll('select[data-g]')).forEach(function(s){
+    var g=s.getAttribute('data-g'),L=s.getAttribute('lang');
+    (SELMAP[g]=SELMAP[g]||{})[L]=s.options[s.selectedIndex].textContent.trim();});
+  var _m=document.getElementById('f-min');CMMIN=_m?(_m.value||''):'';
+  var _a=document.getElementById('f-in'),_b=document.getElementById('f-out');
+  CMIN=_a?(_a.value||''):'';CMOUT=_b?(_b.value||''):'';
+  CMLIST=!!document.querySelector('.row .stp');
+  var _p=document.getElementById('f-prob'),_o=document.getElementById('f-obs');
+  CMPROB=_p?_p.value.trim():'';CMOBS=_o?_o.value.trim():'';
+  Array.prototype.slice.call(document.querySelectorAll('input[data-x]')).forEach(function(c){
+    if(c.checked){var ci=c.parentNode.querySelector('.ci');var t=c.parentNode.querySelector('.t');
+      CMEXTRA.push(ci?{plain:ci.value.trim()}:{html:t?t.innerHTML:''})}});
+  Array.prototype.slice.call(document.querySelectorAll('input[data-cm]')).forEach(function(c){
+    if(c.checked){var t2=c.parentNode.querySelector('.t');CMCOMMON.push({html:t2?t2.innerHTML:''})}});
+}
+window.addEventListener('beforeprint',function(){
+  if(document.querySelector('.stamp'))return;
+  captureVars();
+  var tmp=document.createElement('div');tmp.innerHTML=buildCompact();
+  var host=document.createElement('div');host.id='printdoc';
+  host.appendChild(tmp);
+  document.body.appendChild(host);
+  var secs=Array.prototype.slice.call(tmp.querySelectorAll('.sec'));
+  host.innerHTML=formalBody({t:Date.now(),a:AUTOR},secs);
+  var st=document.createElement('style');st.id='pdst';
+  st.textContent='#printdoc{display:none}@media print{.wrap,.langs,.sw{display:none!important}'
+   +'#printdoc{display:block}'+DOCCSS.replace(/@page[^}]*}/,'')+'}';
+  document.head.appendChild(st);
+});
+window.addEventListener('afterprint',function(){
+  var p=document.getElementById('printdoc');if(p)p.remove();
+  var s=document.getElementById('pdst');if(s)s.remove();
+});
 function restore(){
   var m=/[#&?]r=([A-Za-z0-9\-_]+)/.exec(location.hash||location.search);
   if(!m)return false;
@@ -746,7 +825,7 @@ function panel(text){
 function deliver(text){
   try{
     var base=location.href.split('#')[0].split('?')[0];
-    if(/^https?:/.test(base))text+='\n\n'+base+'#r='+encodeState();
+    if(/^https?:/.test(base))text=base+'#r='+encodeState()+'\n\n'+text;
   }catch(e){}
   if(navigator.share){
     navigator.share({text:text}).then(function(){},function(err){
@@ -794,7 +873,9 @@ document.querySelectorAll('.fld,textarea').forEach(function(f){
 var pdfb=document.querySelector('.pdf');
 if(pdfb)pdfb.addEventListener('click',function(){window.print()});
 var rst=document.querySelector('.reset');
-if(rst)rst.addEventListener('click',function(){try{localStorage.removeItem(KEY)}catch(e){};location.reload()});
+if(rst)rst.addEventListener('click',function(){
+  var CF={"pt": "Apagar tudo o que preencheu?", "en": "Clear everything you entered?", "de": "Alle Einträge löschen?", "es": "¿Borrar todo lo que ha rellenado?"};
+  if(!confirm(CF[curLang()]||CF.pt))return;try{localStorage.removeItem(KEY)}catch(e){};location.reload()});
 document.querySelector('.send').addEventListener('click',function(ev){
   ev.preventDefault();
   var T=M();
