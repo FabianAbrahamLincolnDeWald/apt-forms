@@ -392,7 +392,7 @@ var LBL={
  en:{doc:'Document',by:'Filled in by',on:'Date',total:'Total',flat:'Flat',common:'Common parts',
      foot:'Automatically generated document',dl:'Download',send:'Send'},
  de:{doc:'Dokument',by:'Ausgefüllt von',on:'Datum',total:'Gesamt',flat:'Wohnung',common:'Gemeinschaftsflächen',
-     foot:P.foot,dl:'Herunterladen',send:'Senden'},
+     foot:'Automatisch erzeugtes Dokument',dl:'Herunterladen',send:'Senden'},
  es:{doc:'Documento',by:'Rellenado por',on:'Fecha',total:'Total',flat:'Apartamento',common:'Zonas comunes',
      foot:'Documento generado automáticamente',dl:'Descargar',send:'Enviar'}};
 
@@ -534,7 +534,7 @@ function buildPDF(o,L){
   /* Fuß */
   var fy=M+16;
   line(M,fy+10,RIGHT,0.8);
-  text(M,fy,'Automatisch erzeugtes Dokument',7.5,false,'0.3');
+  text(M,fy,P.foot,7.5,false,'0.3');
   var right2=dt+' '+tm;
   text(RIGHT-pdfWidth(right2,7.5,false),fy,right2,7.5,false,'0.3');
   pages.push(cur);
