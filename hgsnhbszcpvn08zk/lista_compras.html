@@ -184,7 +184,7 @@ var TEL=[49,173,4175,955].join(''),KEY='com-funchal',HEAD='LISTA DE COMPRAS';
 var FPREFIX='compras';
 
 var AUTOR='Diana Velosa';
-var CMEXTRA=[],CMCOMMON=[],SELMAP={},CMMIN='',CMIN='',CMOUT='',CMLIST=false,CMPROB='',CMOBS='';
+var CMEXTRA=[],CMCOMMON=[],SELMAP={},CMMIN='',CMIN='',CMOUT='',CMLIST=false,CMPROB='',CMOBS='',CMCODE='';
 Array.prototype.slice.call(document.querySelectorAll('.nif')).forEach(function(e){e.textContent=[304,927,660].join('')});
 function pad(x){return('0'+x).slice(-2)}
 function ctrls(){return Array.prototype.slice.call(
@@ -344,6 +344,65 @@ function buildKPI(){
 
 /* ---------- CSV ---------- */
 function csvq(s){return '"'+String(s==null?'':s).replace(/"/g,'""')+'"'}
+function yq(v){
+  if(v==null||v==='')return '""';
+  var s=String(v);
+  return /^[A-Za-z0-9ÄÖÜäöüß .:\/-]+$/.test(s)&&!/^\d+$/.test(s)? '"'+s.replace(/"/g,'\\"')+'"'
+       : (/^\d+$/.test(s)? s : '"'+s.replace(/"/g,'\\"')+'"');
+}
+function buildMD(o){
+  var L='de', P=PDFL[L];
+  var d=new Date(o.t||Date.now());
+  var iso=d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+'T'+pad(d.getHours())+':'+pad(d.getMinutes());
+  var dt=pad(d.getDate())+'.'+pad(d.getMonth()+1)+'.'+d.getFullYear();
+  var dd=document.getElementById('f-data');
+  var day=dd&&dd.value?dd.value:'';
+  var fm=[];
+  fm.push('document: '+yq(FPREFIX));
+  fm.push('author: '+yq(o.a||AUTOR));
+  fm.push('filled_at: '+yq(iso));
+  fm.push('language_filled: '+yq(o.l||'pt'));
+  if(day)fm.push('service_date: '+yq(day));
+  if(!CMLIST){
+    var du=mins(CMIN,CMOUT),cm=+CMMIN||0;
+    fm.push('time_from: '+yq(CMIN));
+    fm.push('time_to: '+yq(CMOUT));
+    if(du!=null){fm.push('duration_min: '+(du));fm.push('flat_min: '+(du-cm))}
+    fm.push('common_min: '+(cm||0));
+    if(CMCODE)fm.push('key_code: '+yq(CMCODE));
+    ['tipo','estado','roupa','prob','falta'].forEach(function(g,i){
+      var k=['type','condition','laundry','problem','missing'][i];
+      var v=selTxt(g,L); if(v)fm.push(k+': '+yq(v));});
+    if(CMEXTRA.length)fm.push('extra_work: ['+CMEXTRA.map(function(x){
+      var t=x.plain!=null?x.plain:'';if(!t){var dv=document.createElement('div');dv.innerHTML=x.html||'';
+      var i2=dv.querySelector('i[lang="de"]');t=(i2?i2.textContent:dv.textContent).trim()}return yq(t)}).join(', ')+']');
+    if(CMCOMMON.length)fm.push('common_parts: ['+CMCOMMON.map(function(x){
+      var dv=document.createElement('div');dv.innerHTML=x.html||'';
+      var i2=dv.querySelector('i[lang="de"]');return yq((i2?i2.textContent:dv.textContent).trim())}).join(', ')+']');
+    if(CMPROB)fm.push('problem_notes: '+yq(CMPROB));
+    if(CMOBS)fm.push('notes: '+yq(CMOBS));
+  }else{
+    var n=0,tot=0;
+    Array.prototype.slice.call(document.querySelectorAll('ul.vals li')).forEach(function(li){
+      var m2=/^(\d+)/.exec(li.textContent.trim());if(m2){n++;tot+=+m2[1]}});
+    fm.push('positions: '+n);fm.push('items_total: '+tot);
+  }
+  var title=txtIn(document.querySelector('h1'),L)||FPREFIX;
+  var out='---\n'+fm.join('\n')+'\n---\n\n# '+title+' — '+(day?fmtDate(day):dt)+'\n\n';
+  out+='**'+P.by+':** '+(o.a||AUTOR)+'  \n**'+(CMLIST?'Erstellt':'Ausgefüllt')+':** '+dt+' '+pad(d.getHours())+':'+pad(d.getMinutes())+'\n\n';
+  if(!CMLIST){
+    var du2=mins(CMIN,CMOUT),cm2=+CMMIN||0;
+    if(du2!=null)out+='| '+P.tot+' | '+P.flat+' | '+P.com+' |\n|---|---|---|\n| '+
+      hm(du2)+' | '+hm(du2-cm2)+' | '+(cm2?hm(cm2):'—')+' |\n\n';
+    if(CMCODE)out+='> **'+P.code+':** '+CMCODE+'\n\n';
+  }
+  docSections(L).forEach(function(s){
+    out+='## '+s.label+'\n\n';
+    s.values.forEach(function(v){out+='- '+v+'\n'});
+    out+='\n';});
+  out+='---\n*'+P.foot+' · '+dt+' '+pad(d.getHours())+':'+pad(d.getMinutes())+'*\n';
+  return out;
+}
 function buildCSV(o){
   var d=new Date(o.t||Date.now());
   var day=pad(d.getDate())+'.'+pad(d.getMonth()+1)+'.'+d.getFullYear();
@@ -736,7 +795,8 @@ function recordMode(o){
     var files=[
       {name:base+'.pdf', data:buildPDF(o,'de')},
       {name:base+'.html',data:utf8(buildDocHTML(o))},
-      {name:base+'.csv', data:utf8(buildCSV(o))}];
+      {name:base+'.csv', data:utf8(buildCSV(o))},
+      {name:base+'.md',  data:utf8(buildMD(o))}];
     var url=URL.createObjectURL(new Blob([zip(files)],{type:'application/zip'}));
     var a=document.createElement('a');a.href=url;a.download=base+'.zip';
     document.body.appendChild(a);a.click();
