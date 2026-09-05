@@ -343,12 +343,23 @@ document.querySelector('.addx').addEventListener('click',function(){
   st.custom.push(o);save();addRow(o,true);});
 
 var mi=document.getElementById('f-min'),mrow=document.querySelector('.mins');
+var mwarn=document.createElement('p');mwarn.className='hint';mwarn.style.color='#eb6834';mwarn.hidden=true;
+mwarn.textContent='';
+mrow.parentNode.insertBefore(mwarn,mrow.nextSibling);
+function mcheck(){
+  var any=[].slice.call(document.querySelectorAll('input[data-cm]')).some(function(c){return c.checked});
+  var L={pt:'Falta indicar os minutos.',en:'The minutes are still missing.',de:'Die Minuten fehlen noch.',es:'Faltan los minutos.'};
+  var r=document.querySelector('input[name=lang]:checked');
+  mwarn.textContent=L[r?r.id.slice(2):'pt']||L.pt;
+  mwarn.hidden=!(any && !(+mi.value||0));}
+document.querySelectorAll('input[data-cm]').forEach(function(c){c.addEventListener('change',mcheck)});
+document.querySelectorAll('input[name=lang]').forEach(function(c){c.addEventListener('change',mcheck)});
 function mpaint(){mrow.classList.toggle('on',(+mi.value||0)>0)}
 document.querySelectorAll('.mins button').forEach(function(b){
   b.addEventListener('click',function(){
     var v=(+mi.value||0)+(b.dataset.m==='+'?1:-1);
     if(v<0)v=0; mi.value=v||''; mpaint();});});
-mi.addEventListener('input',mpaint); mpaint();
+mi.addEventListener('input',function(){mpaint();mcheck()}); mpaint(); mcheck();
 document.querySelector('.pdf').addEventListener('click',function(){window.print()});
 document.querySelector('.reset').addEventListener('click',function(){
   document.querySelectorAll('input[type=checkbox]').forEach(function(c){c.checked=false});
@@ -383,7 +394,7 @@ document.querySelector('.send').addEventListener('click',function(ev){
   if(cm.length||mn){
     m+='\nPARTES COMUNS (condominio):\n';
     cm.forEach(function(x){m+='- '+x+'\n'});
-    m+='Tempo (incluido no total): '+mn+' min\n';}
+    m+= mn ? 'Tempo (incluido no total): '+mn+' min\n' : 'Tempo: NAO INDICADO\n';}
   m+='\nRoupa: '+txtPT('roupa')+'\n';
   m+='Problemas: '+txtPT('prob')+'\n';
   var p=document.getElementById('f-prob').value.trim();
