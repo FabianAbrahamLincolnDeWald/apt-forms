@@ -14,49 +14,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: iCal holen und bookings.json schreiben
+      - name: iCal holen, Plan rechnen, Dateien schreiben
         env:
           ICAL_URL: ${{ secrets.AIRBNB_ICAL_URL }}
           PFAD: hgsnhbszcpvn08zk
-        run: |
-          python3 - <<'PY'
-          import os, json, re, urllib.request, datetime
-          url = os.environ['ICAL_URL']
-          raw = urllib.request.urlopen(url, timeout=30).read().decode('utf-8', 'replace')
-          raw = raw.replace('\r\n ', '').replace('\r\n', '\n')   # gefaltete Zeilen
-          events, cur = [], None
-          for line in raw.split('\n'):
-              if line == 'BEGIN:VEVENT': cur = {}
-              elif line == 'END:VEVENT':
-                  if cur: events.append(cur); cur = None
-              elif cur is not None and ':' in line:
-                  k, v = line.split(':', 1)
-                  cur[k.split(';')[0]] = v.strip()
-          def d(s):
-              s = s[:8]
-              return '%s-%s-%s' % (s[:4], s[4:6], s[6:8])
-          res = [e for e in events if 'Reserved' in e.get('SUMMARY', '')]
-          if not res: res = events
-          today = datetime.date.today() - datetime.timedelta(days=30)
-          out = []
-          for e in res:
-              if 'DTSTART' not in e or 'DTEND' not in e: continue
-              a, b = d(e['DTSTART']), d(e['DTEND'])
-              if b >= today.isoformat(): out.append([a, b])
-          out.sort()
-          path = os.path.join(os.environ['PFAD'], 'bookings.json')
-          data = {'updated': datetime.datetime.utcnow().isoformat(timespec='minutes') + 'Z',
-                  'bookings': out}
-          old = None
-          if os.path.exists(path):
-              try: old = json.load(open(path)).get('bookings')
-              except Exception: pass
-          if old == out:
-              print('keine Aenderung —', len(out), 'Buchungen')
-          else:
-              json.dump(data, open(path, 'w'), indent=1, ensure_ascii=False)
-              print('aktualisiert —', len(out), 'Buchungen')
-          PY
+          ANCHOR: '2026-09-05'
+        run: python3 sync.py
 
       - name: Änderung übernehmen
         run: |
