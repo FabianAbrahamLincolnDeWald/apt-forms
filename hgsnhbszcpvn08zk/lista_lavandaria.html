@@ -111,7 +111,7 @@ html[data-doc] .prt{display:none}
 <h1><i lang="pt">Lista para a lavandaria</i><i lang="en">Laundry list</i><i lang="de">Wäschereiliste</i><i lang="es">Lista para la lavandería</i></h1>
 <p class="sub"><i lang="pt">Marque as quantidades, carregue em enviar — eu encaminho a lista por e-mail para a Iris Wash.</i><i lang="en">Set the quantities, tap send — I forward the list by e-mail to Iris Wash.</i><i lang="de">Mengen eintragen, senden — ich leite die Liste per E-Mail an Iris Wash weiter.</i><i lang="es">Marque las cantidades, pulse enviar — yo mando la lista por correo a Iris Wash.</i></p>
 <p class="note"><i lang="pt">Use esta lista sempre que levar roupa. Fica guardada no telemóvel; depois de enviar, carregue em «Recomeçar do zero».</i><i lang="en">Use this list every time you take laundry. It is saved on your phone; after sending, tap «Start over».</i><i lang="de">Diese Liste bei jeder Wäschefahrt verwenden. Sie bleibt auf dem Handy gespeichert; nach dem Senden auf «Neu beginnen» tippen.</i><i lang="es">Use esta lista cada vez que lleve ropa. Queda guardada en el móvil; después de enviar, pulse «Empezar de nuevo».</i></p>
-<h2><i lang="pt">Cama</i><i lang="en">Bed</i><i lang="de">Bett</i><i lang="es">Cama</i></h2>
+<h2><i lang="pt">Dia em que retirou a roupa</i><i lang="en">Day you took the laundry</i><i lang="de">Tag der Abholung</i><i lang="es">Día en que retiró la ropa</i></h2><input class="fld" type="date" id="f-datum" data-n="datum" data-lbl="Data"><p class="hint"><i lang="pt">É o dia em que tirou a roupa do apartamento, não o dia em que preenche esta lista.</i><i lang="en">The day you took the laundry out of the flat, not the day you fill in this list.</i><i lang="de">Der Tag, an dem die Wäsche aus der Wohnung geholt wurde, nicht der Tag des Ausfüllens.</i><i lang="es">El día en que sacó la ropa del apartamento, no el día en que rellena esta lista.</i></p><h2><i lang="pt">Cama</i><i lang="en">Bed</i><i lang="de">Bett</i><i lang="es">Cama</i></h2>
 <div class="card">
 <div class="row" data-k="1"><span class="t"><i lang="pt">Lençol de baixo (ajustável)</i><i lang="en">Fitted sheet</i><i lang="de">Spannbettlaken</i><i lang="es">Sábana bajera ajustable</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
 <div class="row" data-k="2"><span class="t"><i lang="pt">Lençol de cima</i><i lang="en">Top sheet</i><i lang="de">Oberlaken</i><i lang="es">Sábana encimera</i></span><span class="stp"><button type="button" data-d="-">−</button><input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span></div>
@@ -928,7 +928,9 @@ document.querySelector('.send').addEventListener('click',function(ev){
   ev.preventDefault();
   var T=M();
   var d=new Date(),z=function(x){return('0'+x).slice(-2)};
-  var m=HEAD+'  '+z(d.getDate())+'.'+z(d.getMonth()+1)+'.'+d.getFullYear()+'\n';
+  var dd=document.getElementById('f-datum');
+  var ds=dd&&dd.value?dd.value.split('-').reverse().join('.'):z(d.getDate())+'.'+z(d.getMonth()+1)+'.'+d.getFullYear();
+  var m=HEAD+'  '+ds+'\n';
   var any=false,cur='';
   document.querySelectorAll('.wrap > *').forEach(function(el){
     if(el.tagName==='H2'){cur=labCur(el)}
