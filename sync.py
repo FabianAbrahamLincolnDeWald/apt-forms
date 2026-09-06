@@ -44,6 +44,29 @@ for _ in range(HORIZON):
     if t: plan.append((cur_d, t)); last = cur_d
     cur_d += datetime.timedelta(1)
 
+VTIMEZONE = """BEGIN:VTIMEZONE
+TZID:Atlantic/Madeira
+BEGIN:DAYLIGHT
+TZOFFSETFROM:+0000
+TZOFFSETTO:+0100
+TZNAME:WEST
+DTSTART:19700329T010000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0000
+TZNAME:WET
+DTSTART:19701025T020000
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
+END:STANDARD
+END:VTIMEZONE"""
+
+# Zeitfenster je Einsatzart: Start (Ortszeit Madeira) und Dauer in Minuten
+SLOT = {'WECHSEL':('10:00',240), 'AUSZUG':('10:00',180), 'VORBEREITUNG':('10:00',90),
+        'ZWISCHEN':('11:30',90), 'LEERSTAND':('11:30',45),
+        'IN':('14:00',15), 'OUT':('10:00',15)}
+
 # ---------- Texte ----------
 TXT = {
  'pt': {'WECHSEL':('Limpeza — mudança de hóspedes','Limpeza completa entre a saída e a entrada. Roupa de cama e toalhas trocadas, fotos antes e depois.'),
@@ -70,15 +93,21 @@ def ics(lang):
          'CALSCALE:GREGORIAN', 'METHOD:PUBLISH',
          'X-WR-CALNAME:' + esc(T['NAME']), 'X-WR-TIMEZONE:Atlantic/Madeira',
          'REFRESH-INTERVAL;VALUE=DURATION:PT3H', 'X-PUBLISHED-TTL:PT3H']
+    L.extend(VTIMEZONE.split('\n'))
     def ev(day, title, desc, tag):
         uid = hashlib.md5(('%s|%s|%s' % (day, tag, lang)).encode()).hexdigest() + '@funchal'
+        hhmm, dur = SLOT[tag]
+        h, m = map(int, hhmm.split(':'))
+        st = datetime.datetime.combine(day, datetime.time(h, m))
+        en = st + datetime.timedelta(minutes=dur)
+        fmt = lambda x: x.strftime('%Y%m%dT%H%M%S')
         L.extend(['BEGIN:VEVENT', 'UID:' + uid, 'DTSTAMP:' + stamp,
-                  'DTSTART;VALUE=DATE:' + day.strftime('%Y%m%d'),
-                  'DTEND;VALUE=DATE:' + (day + datetime.timedelta(1)).strftime('%Y%m%d'),
-                  'SUMMARY:' + esc(title), 'TRANSP:TRANSPARENT'])
+                  'DTSTART;TZID=Atlantic/Madeira:' + fmt(st),
+                  'DTEND;TZID=Atlantic/Madeira:' + fmt(en),
+                  'SUMMARY:' + esc(title), 'TRANSP:OPAQUE'])
         if desc: L.append('DESCRIPTION:' + esc(desc))
         L.extend(['BEGIN:VALARM', 'ACTION:DISPLAY', 'DESCRIPTION:' + esc(title),
-                  'TRIGGER:-PT6H', 'END:VALARM', 'END:VEVENT'])
+                  'TRIGGER:-PT12H', 'END:VALARM', 'END:VEVENT'])
     for day, t in plan:
         ev(day, T[t][0], T[t][1], t)
     for a, b in bookings:
