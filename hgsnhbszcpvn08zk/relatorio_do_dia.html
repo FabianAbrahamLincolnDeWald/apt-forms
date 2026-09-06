@@ -193,7 +193,7 @@ html[data-doc] .prt{display:none}
 <select lang="pt" data-g="falta"><option value="0">Não faltou nada</option><option value="1">Sim — já pus na lista de compras</option><option value="2">Sim — está a ficar pouco, mas ainda dá</option></select><select lang="en" data-g="falta"><option value="0">Nothing was missing</option><option value="1">Yes — already on the shopping list</option><option value="2">Yes — running low, but still enough</option></select><select lang="de" data-g="falta"><option value="0">Es hat nichts gefehlt</option><option value="1">Ja — schon auf der Einkaufsliste</option><option value="2">Ja — wird knapp, reicht aber noch</option></select><select lang="es" data-g="falta"><option value="0">No faltó nada</option><option value="1">Sí — ya está en la lista de la compra</option><option value="2">Sí — queda poco, pero aún alcanza</option></select>
 <h2><i lang="pt">Observações</i><i lang="en">Notes</i><i lang="de">Anmerkungen</i><i lang="es">Observaciones</i></h2>
 <textarea id="f-obs" placeholder="..."></textarea>
-<a class="send" href="https://fabianabrahamlincolndewald.github.io/apt-forms/hgsnhbszcpvn08zk/relatorio_do_dia.html"><i lang="pt">Enviar</i><i lang="en">Send</i><i lang="de">Senden</i><i lang="es">Enviar</i></a>
+<h2><i lang="pt">Compras para o apartamento</i><i lang="en">Shopping for the flat</i><i lang="de">Einkauf für die Wohnung</i><i lang="es">Compras para el apartamento</i></h2><div class="card"><label><input type="checkbox" id="f-shop"><span class="t"><i lang="pt">Fiz compras para o apartamento neste dia</i><i lang="en">I did shopping for the flat on this day</i><i lang="de">Ich habe an diesem Tag für die Wohnung eingekauft</i><i lang="es">Hice compras para el apartamento este día</i></span></label></div><p class="hint"><i lang="pt">Sempre que fizer compras, conta <strong>meia hora de trabalho</strong>, seja qual for o tempo que demorar. Não precisa de somar nada às horas de entrada e saída — basta marcar aqui.</i><i lang="en">Whenever you do the shopping, it counts as <strong>half an hour of work</strong>, however long it takes. You do not need to add anything to your arrival and leaving times — just tick this.</i><i lang="de">Bei jedem Einkauf wird eine <strong>halbe Stunde Arbeitszeit</strong> angerechnet, unabhängig von der tatsächlichen Dauer. Sie müssen nichts zu Ankunft und Ende dazurechnen — hier ankreuzen genügt.</i><i lang="es">Cada vez que haga compras, cuenta <strong>media hora de trabajo</strong>, sea cual sea el tiempo que tarde. No hace falta sumar nada a las horas de entrada y salida — basta con marcar aquí.</i></p><a class="send" href="https://fabianabrahamlincolndewald.github.io/apt-forms/hgsnhbszcpvn08zk/relatorio_do_dia.html"><i lang="pt">Enviar</i><i lang="en">Send</i><i lang="de">Senden</i><i lang="es">Enviar</i></a>
 <button class="pdf" type="button"><i lang="pt">Guardar em PDF</i><i lang="en">Save as PDF</i><i lang="de">Als PDF sichern</i><i lang="es">Guardar en PDF</i></button>
 </div>
 
@@ -207,7 +207,7 @@ if(/[?&]reset=1/.test(location.search)){
   location.replace(location.pathname);
 }
 var AUTOR='Diana Velosa';
-var CMEXTRA=[],CMCOMMON=[],SELMAP={},CMMIN='',CMIN='',CMOUT='',CMLIST=false,CMPROB='',CMOBS='',CMCODE='';
+var CMEXTRA=[],CMCOMMON=[],SELMAP={},CMMIN='',CMIN='',CMOUT='',CMLIST=false,CMPROB='',CMOBS='',CMCODE='',CMSHOP=false;
 function pad(x){return('0'+x).slice(-2)}
 function ctrls(){return Array.prototype.slice.call(
   document.querySelectorAll('.wrap input,.wrap select,.wrap textarea'))}
@@ -244,16 +244,16 @@ function applyState(o){
   });
 }
 var MSG={
- pt:{rep:'RELATORIO',code:'Codigo novo da caixa',type:'Tipo',cond:'Estado a chegada',extra:'Trabalhos extra',
+ pt:{rep:'RELATORIO',code:'Codigo novo da caixa',shop:'Compras feitas: +30 min',type:'Tipo',cond:'Estado a chegada',extra:'Trabalhos extra',
      com:'PARTES COMUNS (condominio)',tm:'Tempo (incluido no total)',tmx:'Tempo: NAO INDICADO',
      lau:'Roupa',prob:'Problemas',miss:'Faltas',notes:'Notas',empty:'(vazio)'},
- en:{rep:'DAILY REPORT',code:'New key box code',type:'Type',cond:'Condition on arrival',extra:'Extra work',
+ en:{rep:'DAILY REPORT',code:'New key box code',shop:'Shopping done: +30 min',type:'Type',cond:'Condition on arrival',extra:'Extra work',
      com:'COMMON PARTS (building)',tm:'Time (already in the total)',tmx:'Time: NOT GIVEN',
      lau:'Laundry',prob:'Problems',miss:'Missing',notes:'Notes',empty:'(empty)'},
- de:{rep:'TAGESBERICHT',code:'Neuer Schluesselcode',type:'Art',cond:'Zustand bei Ankunft',extra:'Zusatzarbeiten',
+ de:{rep:'TAGESBERICHT',code:'Neuer Schluesselcode',shop:'Einkauf erledigt: +30 min',type:'Art',cond:'Zustand bei Ankunft',extra:'Zusatzarbeiten',
      com:'GEMEINSCHAFTSFLAECHEN (Haus)',tm:'Zeit (in der Gesamtzeit enthalten)',tmx:'Zeit: NICHT ANGEGEBEN',
      lau:'Waesche',prob:'Probleme',miss:'Fehlendes',notes:'Anmerkungen',empty:'(leer)'},
- es:{rep:'PARTE DEL DIA',code:'Codigo nuevo de la caja',type:'Tipo',cond:'Estado al llegar',extra:'Trabajos extra',
+ es:{rep:'PARTE DEL DIA',code:'Codigo nuevo de la caja',shop:'Compras hechas: +30 min',type:'Tipo',cond:'Estado al llegar',extra:'Trabajos extra',
      com:'ZONAS COMUNES (edificio)',tm:'Tiempo (ya incluido en el total)',tmx:'Tiempo: NO INDICADO',
      lau:'Ropa',prob:'Problemas',miss:'Faltas',notes:'Observaciones',empty:'(vacio)'}};
 function M(){return MSG[curLang()]||MSG.pt}
@@ -358,6 +358,8 @@ function buildKPI(){
     o+='<div class="k"><span class="kn">'+hm(d-m)+'</span>'+
       langSpan({pt:'no apartamento',en:'in the flat',de:'in der Wohnung',es:'en el apartamento'})+'</div>';
   }
+  if(CMSHOP)o+='<div class="k"><span class="kn">+30 min</span>'+
+    langSpan({pt:'compras (forfait)',en:'shopping (flat rate)',de:'Einkauf (Pauschale)',es:'compras (a tanto alzado)'})+'</div>';
   if(CMCODE)o+='<div class="k code"><span class="kn">'+esc(CMCODE)+'</span>'+
     langSpan({pt:'c\u00f3digo novo da caixa',en:'new key box code',de:'neuer Schl\u00fcsselcode',es:'nuevo c\u00f3digo de la caja'})+'</div>';
   o+='<div class="k'+(m?' hi':'')+'"><span class="kn">'+(m?hm(m):'—')+'</span>'+
@@ -394,6 +396,8 @@ function buildMD(o){
     if(du!=null){fm.push('duration_min: '+(du));fm.push('flat_min: '+(du-cm))}
     fm.push('common_min: '+(cm||0));
     if(CMCODE)fm.push('key_code: '+yq(CMCODE));
+    fm.push('shopping: '+(CMSHOP?'true':'false'));
+    if(CMSHOP)fm.push('shopping_min: 30');
     ['tipo','estado','roupa','prob','falta'].forEach(function(g,i){
       var k=['type','condition','laundry','problem','missing'][i];
       var v=selTxt(g,L); if(v)fm.push(k+': '+yq(v));});
@@ -444,10 +448,10 @@ function buildCSV(o){
   }else{
     var dur=mins(CMIN,CMOUT);
     rows.push(['date','author','document','from','to','duration_min','flat_min','common_min',
-      'key_code','type','condition','extra_work','common_parts','laundry','problem','problem_notes','missing','notes'].map(csvq).join(S));
+      'key_code','shopping','shopping_min','type','condition','extra_work','common_parts','laundry','problem','problem_notes','missing','notes'].map(csvq).join(S));
     rows.push([day,who,FPREFIX,CMIN,CMOUT,dur==null?'':dur,
       dur==null?'':(dur-(+CMMIN||0)),CMMIN,
-      CMCODE,selTxt('tipo'),selTxt('estado'),
+      CMCODE,(CMSHOP?'ja':'nein'),(CMSHOP?30:0),selTxt('tipo'),selTxt('estado'),
       CMEXTRA.map(resolveML).join(' | '),CMCOMMON.map(resolveML).join(' | '),
       selTxt('roupa'),selTxt('prob'),CMPROB,selTxt('falta'),CMOBS].map(csvq).join(S));
   }
@@ -518,13 +522,13 @@ function wrapText(s,size,bold,maxw){
   return lines.length?lines:[''];
 }
 var PDFL={
- pt:{by:'Preenchido por',day:'DIA',tot:'TOTAL',flat:'APARTAMENTO',com:'PARTES COMUNS',code:'CÓDIGO NOVO',
+ pt:{by:'Preenchido por',day:'DIA',tot:'TOTAL',flat:'APARTAMENTO',com:'PARTES COMUNS',code:'CÓDIGO NOVO',shop:'COMPRAS',
      items:'PEÇAS NO TOTAL',pos:'POSIÇÕES',foot:'Documento gerado automaticamente'},
- en:{by:'Filled in by',day:'DAY',tot:'TOTAL',flat:'FLAT',com:'COMMON PARTS',code:'NEW CODE',
+ en:{by:'Filled in by',day:'DAY',tot:'TOTAL',flat:'FLAT',com:'COMMON PARTS',code:'NEW CODE',shop:'SHOPPING',
      items:'ITEMS IN TOTAL',pos:'ENTRIES',foot:'Automatically generated document'},
- de:{by:'Ausgefüllt von',day:'EINSATZTAG',tot:'GESAMT',flat:'WOHNUNG',com:'GEMEINSCHAFTSFLÄCHEN',code:'NEUER CODE',
+ de:{by:'Ausgefüllt von',day:'EINSATZTAG',tot:'GESAMT',flat:'WOHNUNG',com:'GEMEINSCHAFTSFLÄCHEN',code:'NEUER CODE',shop:'EINKAUF',
      items:'TEILE INSGESAMT',pos:'POSITIONEN',foot:'Automatisch erzeugtes Dokument'},
- es:{by:'Rellenado por',day:'DÍA',tot:'TOTAL',flat:'APARTAMENTO',com:'ZONAS COMUNES',code:'CÓDIGO NUEVO',
+ es:{by:'Rellenado por',day:'DÍA',tot:'TOTAL',flat:'APARTAMENTO',com:'ZONAS COMUNES',code:'CÓDIGO NUEVO',shop:'COMPRAS',
      items:'PIEZAS EN TOTAL',pos:'POSICIONES',foot:'Documento generado automáticamente'}};
 function buildPDF(o,L){
   L=L||'de';var P=PDFL[L]||PDFL.de;
@@ -564,6 +568,7 @@ function buildPDF(o,L){
     var dd=document.getElementById('f-data');
     if(dd&&dd.value)cells.push([fmtDate(dd.value),P.day,false]);
     if(mm!=null){cells.push([hm(mm),P.tot,false]);cells.push([hm(mm-cm),P.flat,false]);}
+    if(CMSHOP)cells.push(['+30 min',P.shop,false]);
     if(CMCODE)cells.push([CMCODE,P.code,true]);
     cells.push([cm?hm(cm):'—',P.com,true]);
   }else{
@@ -710,6 +715,7 @@ function formalBody(o,secs){
     if(mm!=null){
       kb+=cell(hm(mm),langSpan({pt:'Total',en:'Total',de:'Gesamt',es:'Total'}));
       kb+=cell(hm(mm-cm),langSpan({pt:'Apartamento',en:'Flat',de:'Wohnung',es:'Apartamento'}));}
+    if(CMSHOP)kb+=cell('+30 min',langSpan({pt:'Compras',en:'Shopping',de:'Einkauf',es:'Compras'}));
     if(CMCODE)kb+=cell(esc(CMCODE),langSpan({pt:'Código novo',en:'New code',de:'Neuer Code',es:'Código nuevo'}),true);
     kb+=cell(cm?hm(cm):'—',langSpan({pt:'Partes comuns',en:'Common parts',de:'Gemeinschaftsflächen',es:'Zonas comunes'}),true);
   }else{
@@ -758,6 +764,7 @@ function recordMode(o){
   CMIN=_a?(_a.value||''):'';CMOUT=_b?(_b.value||''):'';
   CMLIST=!!document.querySelector('.row .stp');
   var _c=document.getElementById('f-code');CMCODE=_c?_c.value.trim():'';
+  var _s=document.getElementById('f-shop');CMSHOP=!!(_s&&_s.checked);
   var _p=document.getElementById('f-prob'),_o2=document.getElementById('f-obs');
   CMPROB=_p?_p.value.trim():'';CMOBS=_o2?_o2.value.trim():'';
   Array.prototype.slice.call(document.querySelectorAll('input[data-x]')).forEach(function(c){
@@ -1014,6 +1021,7 @@ document.querySelector('.reset').addEventListener('click',function(){
   document.getElementById('f-prob').value='';
   document.getElementById('f-obs').value='';
   document.getElementById('f-code').value='';
+  document.getElementById('f-shop').checked=false;
   document.getElementById('f-in').value='';
   document.getElementById('f-out').value='';
   mi.value='';mpaint();
@@ -1050,6 +1058,7 @@ document.querySelector('.send').addEventListener('click',function(ev){
   var p=document.getElementById('f-prob').value.trim();
   if(p)m+='   '+p+'\n';
   m+=T.miss+': '+selCur('falta')+'\n';
+  if(document.getElementById('f-shop').checked)m+=T.shop+'\n';
   var ob=document.getElementById('f-obs').value.trim();
   if(ob)m+='\n'+T.notes+': '+ob+'\n';
   save();paintLast();
