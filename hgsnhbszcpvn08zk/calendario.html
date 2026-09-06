@@ -80,7 +80,7 @@ var BOOKINGS=[
 var ANCHOR='2026-09-05';   /* letzte erfolgte Reinigung */
 var HORIZON=45;            /* Tage vorausplanen */
 /* ══════════════════════════════════════════════════════════════ */
-(function(){
+function boot(){
 var L=function(){var r=document.querySelector('input[name=lang]:checked');return r?r.id.slice(2):'pt'};
 var WD={pt:['seg','ter','qua','qui','sex','sáb','dom'],en:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
         de:['Mo','Di','Mi','Do','Fr','Sa','So'],es:['lun','mar','mié','jue','vie','sáb','dom']};
@@ -89,14 +89,14 @@ var MO={pt:['janeiro','fevereiro','março','abril','maio','junho','julho','agost
         de:['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'],
         es:['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre']};
 var T={
- WECHSEL:{pt:['Mudança de hóspedes','Limpeza completa entre as 10:00 e as 14:00. Roupa de cama e toalhas trocadas, fotos antes e depois.'],
-          en:['Guest changeover','Full clean between 10:00 and 14:00. Bed linen and towels changed, photos before and after.'],
-          de:['Gästewechsel','Komplette Reinigung zwischen 10:00 und 14:00. Bettwäsche und Handtücher wechseln, Fotos vorher und nachher.'],
-          es:['Cambio de huéspedes','Limpieza completa entre las 10:00 y las 14:00. Ropa de cama y toallas cambiadas, fotos antes y después.']},
- AUSZUG:{pt:['Saída de hóspedes','Limpeza completa a partir das 10:00. Sem pressa, não entra ninguém a seguir.'],
-         en:['Guests check out','Full clean from 10:00. No rush, nobody arrives afterwards.'],
-         de:['Abreise','Komplette Reinigung ab 10:00. Ohne Eile, es kommt niemand direkt danach.'],
-         es:['Salida de huéspedes','Limpieza completa a partir de las 10:00. Sin prisa, no entra nadie después.']},
+ WECHSEL:{pt:['Mudança de hóspedes','Limpeza completa na janela entre a saída e a entrada, normalmente das 10:00 às 14:00. Se as horas mudarem, aviso-a com antecedência. Roupa de cama e toalhas trocadas, fotos antes e depois.'],
+          en:['Guest changeover','Full clean in the window between check-out and check-in, normally 10:00 to 14:00. If the times change I let you know in advance. Bed linen and towels changed, photos before and after.'],
+          de:['Gästewechsel','Komplette Reinigung im Fenster zwischen Abreise und Anreise, normalerweise 10:00 bis 14:00. Ändern sich die Zeiten, sage ich rechtzeitig Bescheid. Bettwäsche und Handtücher wechseln, Fotos vorher und nachher.'],
+          es:['Cambio de huéspedes','Limpieza completa en la franja entre la salida y la entrada, normalmente de 10:00 a 14:00. Si cambian las horas le aviso con antelación. Ropa de cama y toallas cambiadas, fotos antes y después.']},
+ AUSZUG:{pt:['Saída de hóspedes','Limpeza completa no dia da saída, normalmente a partir das 10:00. A hora pode variar um pouco — combinamos sempre antes.'],
+         en:['Guests check out','Full clean on the day of departure, normally from 10:00. The time can shift a little — we always agree it beforehand.'],
+         de:['Abreise','Komplette Reinigung am Abreisetag, normalerweise ab 10:00. Die Uhrzeit kann etwas abweichen — wir stimmen sie immer vorher ab.'],
+         es:['Salida de huéspedes','Limpieza completa el día de la salida, normalmente a partir de las 10:00. La hora puede variar un poco — siempre lo acordamos antes.']},
  VORBEREITUNG:{pt:['Preparar para a chegada','Deixar a casa pronta para os hóspedes que chegam no dia seguinte: cama feita, toalhas, consumíveis.'],
                en:['Prepare for arrival','Leave the flat ready for the guests arriving the next day: bed made, towels, consumables.'],
                de:['Vorbereitung','Die Wohnung für die Gäste vorbereiten, die am Folgetag anreisen: Bett gemacht, Handtücher, Verbrauchsmaterial.'],
@@ -110,7 +110,7 @@ var T={
             de:['Wohnung leer','Kurzer Besuch: lüften, nachsehen, ob alles in Ordnung ist — und vor allem Eingang, Flur und Treppenhaus.'],
             es:['Apartamento vacío','Visita corta: ventilar, ver que todo está bien — y sobre todo la entrada, el pasillo y las escaleras.']}};
 var EV={ein:{pt:'Chegada de hóspedes · 14:00',en:'Guests arrive · 14:00',de:'Anreise · 14:00',es:'Llegada de huéspedes · 14:00'},
-        aus:{pt:'Saída de hóspedes · 10:00',en:'Guests leave · 10:00',de:'Abreise · 10:00',es:'Salida de huéspedes · 10:00'}};
+        aus:{pt:'Saída de hóspedes · aprox. 10:00',en:'Guests leave · approx. 10:00',de:'Abreise · ca. 10:00',es:'Salida de huéspedes · aprox. 10:00'}};
 var NX={pt:'Próximo dia de trabalho',en:'Next working day',de:'Nächster Einsatztag',es:'Próximo día de trabajo'};
 var FT={pt:'Se alguma coisa mudar, atualizo esta página e aviso-a.',en:'If anything changes I update this page and let you know.',
         de:'Wenn sich etwas ändert, aktualisiere ich diese Seite und sage Bescheid.',es:'Si algo cambia actualizo esta página y le aviso.'};
@@ -161,5 +161,12 @@ function render(){
 }
 document.querySelectorAll('input[name=lang]').forEach(function(r){r.addEventListener('change',render)});
 render();
-})();
+}
+/* Buchungen kommen automatisch aus bookings.json (von Airbnb synchronisiert).
+   Fehlt die Datei, gilt die Liste oben im Quelltext. */
+fetch('bookings.json?t='+Date.now()).then(function(r){return r.ok?r.json():null}).then(function(j){
+  if(j&&j.bookings&&j.bookings.length)BOOKINGS=j.bookings;
+  if(j&&j.anchor)ANCHOR=j.anchor;
+  boot();
+}).catch(function(){boot()});
 </script></body></html>
