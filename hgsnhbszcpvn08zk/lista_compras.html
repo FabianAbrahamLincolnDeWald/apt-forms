@@ -194,6 +194,28 @@ function dayVal(){var dd=document.getElementById('f-data')||document.getElementB
   return (dd&&dd.value)?dd.value:CMDAY;}
 Array.prototype.slice.call(document.querySelectorAll('.nif')).forEach(function(e){e.textContent=[304,927,660].join('')});
 function pad(x){return('0'+x).slice(-2)}
+
+/* Einzelpreise in Euro. Quelle: Continente Modelo Santa Luzia, Bon vom 08.09.2026
+   (dort belegte Artikel), sonst Schaetzung nach Continente-Regalpreis. */
+var PRICE={
+ '1':1.59,'2':2.79,'3':1.89,'4':0.99,'5':0.79,'6':2.29,'7':2.49,'8':1.98,'9':4.99,
+ '10':3.89,'11':1.79,'12':3.49,'13':1.19,'14':1.19,'15':0.58,'16':1.29,'17':3.20,'18':1.09,
+ '19':0.35,'20':1.85,'21':1.39,'23':1.49,'24':1.59,'25':1.59,'26':1.19,
+ '28':3.49,'29':0.99,'30':1.49,'31':0.45,'32':1.19,'901':2.49,'902':17.64,
+ '35':1.29,'36':1.49,'37':1.79,
+ '39':2.99,'40':2.49,'41':0.79,'42':1.99,'43':4.99,'44':7.99,'45':10.00};
+var PRICEDEF=2.00;
+function eur(x){return (Math.round(x*100)/100).toFixed(2).replace('.',',')+' €';}
+function unitPrice(k){return (k&&PRICE[k]!=null)?PRICE[k]:PRICEDEF;}
+function estimateLive(){
+  var sum=0,unk=0;
+  Array.prototype.slice.call(document.querySelectorAll('.row')).forEach(function(r){
+    var inp=r.querySelector('.stp input');if(!inp)return;
+    var q=+inp.value||0;if(!q)return;
+    var k=r.getAttribute('data-k');
+    if(!k||PRICE[k]==null)unk++;
+    sum+=q*unitPrice(k);});
+  return {sum:sum,unk:unk};}
 function ctrls(){return Array.prototype.slice.call(
   document.querySelectorAll('.wrap input,.wrap select,.wrap textarea'))}
 function curLang(){var r=document.querySelector('input[name=lang]:checked');return r?r.id.slice(2):'pt'}
@@ -324,10 +346,14 @@ function buildKPI(){
     Array.prototype.slice.call(document.querySelectorAll('.row')).forEach(function(r){
       var v=+((r.querySelector('.stp input')||{}).value||0);if(v){n++;tot+=v}});
     if(!tot)return '';
+    var ES=estimateLive();
     return '<div class="kpi"><div class="k"><span class="kn">'+tot+'</span>'+
       langSpan({pt:'peças no total',en:'items in total',de:'Teile insgesamt',es:'piezas en total'})+'</div>'+
       '<div class="k"><span class="kn">'+n+'</span>'+
-      langSpan({pt:'posições',en:'entries',de:'Positionen',es:'posiciones'})+'</div></div>';
+      langSpan({pt:'posições',en:'entries',de:'Positionen',es:'posiciones'})+'</div>'+
+      '<div class="k est"><span class="kn">≈ '+eur(ES.sum)+'</span>'+
+      langSpan({pt:'custo estimado',en:'estimated cost',de:'geschätzte Kosten',es:'coste estimado'})+
+      '<span class="ks">'+langSpan({pt:'preços Continente',en:'Continente prices',de:'Continente-Preise',es:'precios Continente'})+'</span></div></div>';
   }
   var d=mins(CMIN,CMOUT), m=+CMMIN||0;
   var _dy=dayVal();
@@ -788,6 +814,12 @@ function recordMode(o){
    +'.rvnote{display:block;margin:14px 0 4px;font-size:13px;color:#6b6963}'
    +'.rvnote textarea{display:block;width:100%;margin-top:6px;padding:10px;border-radius:10px;'
    +'border:1px solid rgba(0,0,0,.16);background:#fff;color:#111;font:400 16px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}'
+   +'.rvrow .rp{min-width:66px;text-align:right;font-size:14px;color:#8a8880;font-variant-numeric:tabular-nums}'
+   +'.rvrow.off .rp{text-decoration:none}'
+   +'.rvsum{display:flex;flex-wrap:wrap;gap:12px;align-items:baseline;border-top:1px solid #e6e5de;margin-top:12px;padding-top:11px;font-size:15px}'
+   +'.rvsum .tot{margin-left:auto;font-size:18px}'
+   +'.rvsum .unk{flex:0 0 100%;font-size:12.5px;color:#a09e95}'
+   +'.kpi .k.est .kn{font-size:22px}'
    +'.review .rvgo{margin:16px 0 0}'
    +'ul.vals li.rvno{text-decoration:line-through;color:#c0392b}'
    +'ul.vals li.rvno::before{background:#c0392b}'
@@ -911,7 +943,7 @@ function snapItems(){
     var q=+e.value||0; if(!q)return;
     var row=e.closest?e.closest('.row'):null; if(!row)return;
     var t=row.querySelector('.t'), tx=row.querySelector('input[type=text]');
-    out.push({i:i,q:q,html:t?cleanLab(t.innerHTML):'',txt:tx?tx.value.trim():''});});
+    out.push({i:i,q:q,k:row.getAttribute('data-k'),html:t?cleanLab(t.innerHTML):'',txt:tx?tx.value.trim():''});});
   return out;}
 function rvSecHTML(rv){
   if(!rv)return '';
@@ -943,6 +975,14 @@ function rvPanel(text){
       navigator.clipboard.writeText(text).then(done,legacy)}else legacy();});
   bx.querySelector('.b3').addEventListener('click',function(){ov.remove()});
   ov.addEventListener('click',function(e){if(e.target===ov)ov.remove()});}
+function rvTotal(){
+  var el=document.getElementById('rvsum');if(!el)return;
+  var sum=0,unk=0,n=0,q=0;
+  RVSNAP.forEach(function(it){var u=RVUI[it.i];if(!u||u.off)return;
+    n++;q+=u.q;if(!it.k||PRICE[it.k]==null)unk++;
+    sum+=u.q*unitPrice(it.k);});
+  el.innerHTML='<span>'+n+' Positionen · '+q+' Teile</span><span class="tot">≈ <b>'+eur(sum)+'</b></span>'
+    +(unk?'<span class="unk">'+unk+' ohne hinterlegten Preis, mit '+eur(PRICEDEF)+' gerechnet</span>':'');}
 function reviewUI(w){
   if(!RVSNAP.length)return;
   var open=document.createElement('button');
@@ -956,8 +996,10 @@ function reviewUI(w){
       +'<span class="rq"><button type="button" data-d="-">−</button>'
       +'<input type="number" min="0" inputmode="numeric" value="'+it.q+'">'
       +'<button type="button" data-d="+">+</button></span>'
+      +'<span class="rp"></span>'
       +'<button type="button" class="rx" title="nicht kaufen">✕</button></div>';});
-  h+='<label class="rvnote">Anmerkung für Diana<textarea rows="3" placeholder="optional"></textarea></label>'
+  h+='<div class="rvsum" id="rvsum"></div>'
+    +'<label class="rvnote">Anmerkung für Diana<textarea rows="3" placeholder="optional"></textarea></label>'
     +'<button type="button" class="dl rvgo">Geprüfte Liste für Diana erzeugen</button>';
   box.innerHTML=h;
   w.appendChild(box);
@@ -965,13 +1007,18 @@ function reviewUI(w){
     box.scrollIntoView({behavior:'smooth',block:'start'});});
   Array.prototype.slice.call(box.querySelectorAll('.rvrow')).forEach(function(r){
     var i=+r.getAttribute('data-i'), inp=r.querySelector('input');
+    var it0=RVSNAP.filter(function(x){return x.i===i})[0];
     function paint(){r.classList.toggle('off',RVUI[i].off);
-      r.classList.toggle('chg',!RVUI[i].off&&RVUI[i].q!==(RVSNAP.filter(function(x){return x.i===i})[0].q));}
+      r.classList.toggle('chg',!RVUI[i].off&&RVUI[i].q!==it0.q);
+      var rp=r.querySelector('.rp');
+      if(rp)rp.textContent=RVUI[i].off?'—':eur(RVUI[i].q*unitPrice(it0.k));
+      rvTotal();}
     r.querySelectorAll('.rq button').forEach(function(b){
       b.addEventListener('click',function(){
         var v=(+inp.value||0)+(b.getAttribute('data-d')==='+'?1:-1);
         if(v<0)v=0;inp.value=v;RVUI[i].q=v;RVUI[i].off=(v===0);paint();});});
     inp.addEventListener('input',function(){RVUI[i].q=+inp.value||0;RVUI[i].off=(RVUI[i].q===0);paint();});
+    paint();
     r.querySelector('.rx').addEventListener('click',function(){
       RVUI[i].off=!RVUI[i].off;if(RVUI[i].off){inp.value=0;RVUI[i].q=0}
       else{var orig=RVSNAP.filter(function(x){return x.i===i})[0].q;inp.value=orig;RVUI[i].q=orig}
