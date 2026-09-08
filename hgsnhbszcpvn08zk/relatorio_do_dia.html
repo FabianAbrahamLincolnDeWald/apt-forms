@@ -545,12 +545,16 @@ function buildCSV(o){
   }else{
     var dur=mins(CMIN,CMOUT);
     rows.push(['date','author','document','from','to','duration_min','flat_min','common_min',
-      'key_code','shopping','shopping_min','type','condition','extra_work','common_parts','laundry','problem','problem_notes','missing','notes'].map(csvq).join(S));
+      'key_code','shopping','shopping_min','type','condition','extra_work','common_parts','laundry','problem','problem_notes','missing','notes',
+      'paid_min','hourly_rate_eur','wage_eur','park_min','park_rate_eur','park_eur','total_eur'].map(csvq).join(S));
+    var AB=settleParts();
+    var n2=function(x){return String(Math.round(x*100)/100).replace('.',',')};
     rows.push([day,who,FPREFIX,CMIN,CMOUT,dur==null?'':dur,
       dur==null?'':(dur-(+CMMIN||0)),CMMIN,
-      CMCODE,(CMSHOP?'ja':'nein'),(CMSHOP?'':''),selTxt('tipo'),selTxt('estado'),
+      CMCODE,(CMSHOP?'ja':'nein'),AB.shop,selTxt('tipo'),selTxt('estado'),
       CMEXTRA.map(resolveML).join(' | '),CMCOMMON.map(resolveML).join(' | '),
-      selTxt('roupa'),selTxt('prob'),CMPROB,selTxt('falta'),CMOBS].map(csvq).join(S));
+      selTxt('roupa'),selTxt('prob'),CMPROB,selTxt('falta'),CMOBS,
+      AB.total,n2(SET.rate),n2(AB.wage),(AB.on?AB.pbill:0),(AB.on?n2(SET.prate):'0'),n2(AB.park),n2(AB.sum)].map(csvq).join(S));
   }
   return '\ufeff'+rows.join(NL)+NL;
 }
@@ -586,7 +590,7 @@ function kpiLine(L){
 }
 
 /* ---------- PDF (eigener Erzeuger, echter Text, keine Bibliothek) ---------- */
-var WIN={0x2013:0x96,0x2014:0x97,0x2018:0x91,0x2019:0x92,0x201C:0x93,0x201D:0x94,0x2022:0x95,0x2026:0x85,0x00D7:0xD7};
+var WIN={0x2013:0x96,0x2014:0x97,0x2018:0x91,0x2019:0x92,0x201C:0x93,0x201D:0x94,0x2022:0x95,0x2026:0x85,0x00D7:0xD7,0x20AC:0x80};
 function pdfBytes(str){
   var out=[];
   for(var i=0;i<str.length;i++){
