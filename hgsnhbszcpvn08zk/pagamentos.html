@@ -1,0 +1,103 @@
+<!DOCTYPE html><html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Transferencias — Diana</title>
+<style>
+:root{--bg:#f4f3ef;--card:#fff;--fg:#17181a;--mut:#7c7a73;--line:#e3e1d9;--ac:#0ca30c;--ac2:#1f7a8c}
+@media (prefers-color-scheme:dark){
+ :root{--bg:#101110;--card:#1a1a19;--fg:#f2f1ec;--mut:#a9a79e;--line:#2c2c2a;--ac:#3fbf3f;--ac2:#4fb3c8}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);
+ font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+ padding:20px 16px 60px}
+.wrap{max-width:520px;margin:0 auto}
+h1{font-size:22px;margin:0 0 4px;letter-spacing:-.01em}
+.sub{color:var(--mut);font-size:14px;margin:0 0 22px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:18px}
+.n{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+ color:var(--mut);margin-bottom:10px}
+.amt{font-size:34px;font-weight:700;letter-spacing:-.02em;line-height:1.1;margin-bottom:2px}
+.what{color:var(--mut);font-size:14px;margin-bottom:16px}
+.f{border-top:1px solid var(--line);padding-top:12px;margin-top:12px}
+.f:first-of-type{border-top:0;padding-top:0;margin-top:0}
+.lab{font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.val{font-size:17px;font-weight:600;word-break:break-all;margin-bottom:8px}
+.val.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:16px;letter-spacing:.02em}
+button.c{display:block;width:100%;padding:14px;border:none;border-radius:12px;background:var(--ac2);color:#fff;
+ font:700 16px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;cursor:pointer}
+button.c.ok{background:var(--ac)}
+.hint{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;
+ color:var(--mut);font-size:14px}
+.hint b{color:var(--fg)}
+ol{margin:8px 0 0;padding-left:20px}li{margin-bottom:5px}
+.warn{border-left:3px solid var(--ac2);padding-left:12px;margin-top:14px;font-size:14px;color:var(--mut)}
+</style></head><body><div class="wrap">
+
+<h1>Dos transferencias para Diana</h1>
+<p class="sub">Por separado, por favor — no juntes los importes.</p>
+
+<div class="card">
+  <span class="n">Transferencia 1</span>
+  <div class="amt">17,64 €</div>
+  <div class="what">Vino — segundo tique del Continente</div>
+  <div class="f"><div class="lab">Importe</div><div class="val">17,64</div>
+    <button class="c" data-v="17.64">Copiar importe</button></div>
+  <div class="f"><div class="lab">Concepto</div><div class="val">vinho 080926 continente</div>
+    <button class="c" data-v="vinho 080926 continente">Copiar concepto</button></div>
+</div>
+
+<div class="card">
+  <span class="n">Transferencia 2</span>
+  <div class="amt">8,50 €</div>
+  <div class="what">Aparcamiento Almirante Reis, 05.09.</div>
+  <div class="f"><div class="lab">Importe</div><div class="val">8,50</div>
+    <button class="c" data-v="8.50">Copiar importe</button></div>
+  <div class="f"><div class="lab">Concepto</div><div class="val">estacionamento 050926 almirante reis</div>
+    <button class="c" data-v="estacionamento 050926 almirante reis">Copiar concepto</button></div>
+</div>
+
+<div class="card">
+  <span class="n">Destinataria — la misma para las dos</span>
+  <div class="f"><div class="lab">Nombre</div><div class="val" id="nm"></div>
+    <button class="c" id="bn">Copiar nombre</button></div>
+  <div class="f"><div class="lab">IBAN</div><div class="val mono" id="ib"></div>
+    <button class="c" id="bi">Copiar IBAN</button></div>
+</div>
+
+<div class="hint">
+  <b>Cómo hacerlo</b>
+  <ol>
+    <li>Toca «Copiar IBAN», abre la app de Santander y pégalo.</li>
+    <li>Vuelve aquí, copia el importe, pégalo.</li>
+    <li>Vuelve otra vez, copia el concepto, pégalo. Envía.</li>
+    <li>Repite con la segunda transferencia.</li>
+  </ol>
+  <div class="warn">El concepto va en portugués a propósito: es lo que Diana ve en su extracto del Novo Banco, y así Fabian lo puede asignar al tique correspondiente.</div>
+</div>
+
+<script>
+(function(){
+  var IB=['PT50','0007','0000','0043','0806','0042','3'];
+  var NM=['Diana','Marina','Silva','Velosa'];
+  document.getElementById('ib').textContent=IB.join(' ');
+  document.getElementById('nm').textContent=NM.join(' ');
+  document.getElementById('bi').setAttribute('data-v',IB.join(''));
+  document.getElementById('bn').setAttribute('data-v',NM.join(' '));
+  function copy(t,btn){
+    var old=btn.textContent;
+    function done(){btn.textContent='Copiado ✓';btn.classList.add('ok');
+      setTimeout(function(){btn.textContent=old;btn.classList.remove('ok')},1800);}
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(t).then(done,function(){legacy(t,done)});}
+    else legacy(t,done);}
+  function legacy(t,done){
+    var ta=document.createElement('textarea');ta.value=t;
+    ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);
+    ta.focus();ta.setSelectionRange(0,t.length);
+    try{document.execCommand('copy');done()}catch(e){}
+    ta.remove();}
+  Array.prototype.slice.call(document.querySelectorAll('button.c')).forEach(function(b){
+    b.addEventListener('click',function(){copy(b.getAttribute('data-v'),b)});});
+})();
+</script>
+</div></body></html>
