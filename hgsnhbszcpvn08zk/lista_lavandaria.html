@@ -165,6 +165,9 @@ if(/[?&]reset=1/.test(location.search)){
 }
 var AUTOR='Diana Velosa';
 var CMEXTRA=[],CMCOMMON=[],SELMAP={},CMMIN='',CMIN='',CMOUT='',CMLIST=false,CMPROB='',CMOBS='',CMCODE='';
+var CMDAY='';
+function dayVal(){var dd=document.getElementById('f-data')||document.getElementById('f-datum');
+  return (dd&&dd.value)?dd.value:CMDAY;}
 function pad(x){return('0'+x).slice(-2)}
 function ctrls(){return Array.prototype.slice.call(
   document.querySelectorAll('.wrap input,.wrap select,.wrap textarea'))}
@@ -302,8 +305,8 @@ function buildKPI(){
       langSpan({pt:'posições',en:'entries',de:'Positionen',es:'posiciones'})+'</div></div>';
   }
   var d=mins(CMIN,CMOUT), m=+CMMIN||0;
-  var dd=document.getElementById('f-data');
-  var dv=dd?fmtDate(dd.value):'';
+  var _dy=dayVal();
+  var dv=_dy?fmtDate(_dy):'';
   if(d==null&&!m&&!dv)return '';
   var o='<div class="kpi">';
   if(dv)o+='<div class="k"><span class="kn">'+dv+'</span>'+
@@ -334,8 +337,7 @@ function buildMD(o){
   var d=new Date(o.t||Date.now());
   var iso=d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+'T'+pad(d.getHours())+':'+pad(d.getMinutes());
   var dt=pad(d.getDate())+'.'+pad(d.getMonth()+1)+'.'+d.getFullYear();
-  var dd=document.getElementById('f-data');
-  var day=dd&&dd.value?dd.value:'';
+  var day=dayVal();
   var fm=[];
   fm.push('document: '+yq(FPREFIX));
   fm.push('author: '+yq(o.a||AUTOR));
@@ -516,8 +518,8 @@ function buildPDF(o,L){
   var cells=[];
   if(!CMLIST){
     var mm=mins(CMIN,CMOUT),cm=+CMMIN||0;
-    var dd=document.getElementById('f-data');
-    if(dd&&dd.value)cells.push([fmtDate(dd.value),P.day,false]);
+    var _dy=dayVal();
+    if(_dy)cells.push([fmtDate(_dy),P.day,false]);
     if(mm!=null){cells.push([hm(mm),P.tot,false]);cells.push([hm(mm-cm),P.flat,false]);}
     cells.push([cm?hm(cm):'—',P.com,true]);
   }else{
@@ -659,8 +661,8 @@ function formalBody(o,secs){
   var kb='';
   if(!CMLIST){
     var mm=mins(CMIN,CMOUT),cm=+CMMIN||0;
-    var dd=document.getElementById('f-data');
-    if(dd&&dd.value)kb+=cell(fmtDate(dd.value),langSpan({pt:'Dia',en:'Day',de:'Einsatztag',es:'Día'}));
+    var _dy=dayVal();
+    if(_dy)kb+=cell(fmtDate(_dy),langSpan({pt:'Dia',en:'Day',de:'Einsatztag',es:'Día'}));
     if(mm!=null){
       kb+=cell(hm(mm),langSpan({pt:'Total',en:'Total',de:'Gesamt',es:'Total'}));
       kb+=cell(hm(mm-cm),langSpan({pt:'Apartamento',en:'Flat',de:'Wohnung',es:'Apartamento'}));}
@@ -702,6 +704,7 @@ function buildDocHTML(o){
 /* ---------- Sperrmodus ---------- */
 function recordMode(o){
   applyState(o);
+  CMDAY=dayVal();
   CMEXTRA=[];CMCOMMON=[];SELMAP={};
   Array.prototype.slice.call(document.querySelectorAll('select[data-g]')).forEach(function(s){
     var g=s.getAttribute('data-g'),L=s.getAttribute('lang');
@@ -742,7 +745,10 @@ function recordMode(o){
    +'@media (prefers-color-scheme:dark){.stamp{background:#1a1a19;border-color:rgba(255,255,255,.14)}'
    +'.kpi .k{background:#1a1a19;border-color:rgba(255,255,255,.10)}.kpi .k i{color:#a9a79e}'
    +'.dl{background:#fff;color:#111}.sec{border-color:#2c2c2a}ul.vals li::before{background:#4a4844}}'
-   +'@media print{.langs,.dl,.stamp{display:none!important}}';
+   +'.dl.mail{background:#fff;color:#111;border:1.5px solid #111;margin-top:-24px}'
+   +'.mailnote{font-size:13px;color:#8a8880;margin:-30px 0 40px;line-height:1.5}'
+   +'@media (prefers-color-scheme:dark){.dl.mail{background:transparent;color:#fff;border-color:#fff}}'
+   +'@media print{.langs,.dl,.stamp,.mailnote{display:none!important}}';
   document.head.appendChild(st);
 
   var kpi=buildKPI();
@@ -782,6 +788,32 @@ function recordMode(o){
     document.body.appendChild(a);a.click();
     setTimeout(function(){URL.revokeObjectURL(url);a.remove()},5000);});
   w.appendChild(btn);
+
+  var LAVMAIL='geral@iriswash.com';
+  function mailBody(){
+    var t='Bom dia,\n\nsegue a lista da roupa entregue (PDF em anexo).\n\n';
+    docSections('pt').forEach(function(sec){
+      t+=sec.label+'\n';
+      sec.values.forEach(function(v){t+='  '+v+'\n'});
+      t+='\n';});
+    t+='Obrigado e cumprimentos,\nFabian Dewald';
+    return t;}
+  var mb=document.createElement('button');mb.className='dl mail';mb.type='button';
+  mb.textContent='Per E-Mail an die Wäscherei';
+  mb.addEventListener('click',function(){
+    var url=URL.createObjectURL(new Blob([buildPDF(o,'pt')],{type:'application/pdf'}));
+    var a2=document.createElement('a');a2.href=url;a2.download=base+'_PT.pdf';
+    document.body.appendChild(a2);a2.click();
+    setTimeout(function(){URL.revokeObjectURL(url);a2.remove()},5000);
+    var dd2=document.getElementById('f-datum');
+    var sub='Lista de roupa - Alojamento Local'+(dd2&&dd2.value?' - '+fmtDate(dd2.value):'');
+    setTimeout(function(){
+      location.href='mailto:'+LAVMAIL+'?subject='+encodeURIComponent(sub)+'&body='+encodeURIComponent(mailBody());
+    },700);});
+  w.appendChild(mb);
+  var note=document.createElement('p');note.className='mailnote';
+  note.textContent='Lädt nur das portugiesische PDF herunter und öffnet den Mailentwurf an '+LAVMAIL+'. Die Datei noch anhängen — ein Browser darf das nicht selbst.';
+  w.appendChild(note);
   document.title=base;
 }
 window.__mkExtra=function(card){
@@ -802,6 +834,7 @@ window.__mkExtra=function(card){
 };
 /* Druck des Formulars zeigt dasselbe förmliche Dokument */
 function captureVars(){
+  CMDAY=dayVal();
   CMEXTRA=[];CMCOMMON=[];SELMAP={};
   Array.prototype.slice.call(document.querySelectorAll('select[data-g]')).forEach(function(s){
     var g=s.getAttribute('data-g'),L=s.getAttribute('lang');

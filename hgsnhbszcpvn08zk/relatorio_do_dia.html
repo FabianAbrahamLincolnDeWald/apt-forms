@@ -208,6 +208,9 @@ if(/[?&]reset=1/.test(location.search)){
 }
 var AUTOR='Diana Velosa';
 var CMEXTRA=[],CMCOMMON=[],SELMAP={},CMMIN='',CMIN='',CMOUT='',CMLIST=false,CMPROB='',CMOBS='',CMCODE='',CMSHOP=false;
+var CMDAY='';
+function dayVal(){var dd=document.getElementById('f-data')||document.getElementById('f-datum');
+  return (dd&&dd.value)?dd.value:CMDAY;}
 function pad(x){return('0'+x).slice(-2)}
 function ctrls(){return Array.prototype.slice.call(
   document.querySelectorAll('.wrap input,.wrap select,.wrap textarea'))}
@@ -289,7 +292,7 @@ function mins(a,b){
 function hm(m){if(m==null)return '';var h=Math.floor(m/60),r=m%60;return h?(h+' h '+(r?pad(r)+' min':'')).trim():(r+' min');}
 
 /* ================= Abrechnung (nur im Record-Modus fuer den Auftraggeber) ================= */
-var SET={shop:0,rate:11.5,prate:2.00,pmode:'none',pmin:null};
+var SET={shop:0,rate:11.5,prate:1.70,pmode:'none',pmin:null};
 function eur(x){return (Math.round(x*100)/100).toFixed(2).replace('.',',')+' €';}
 function settleParts(){
   var work=mins(CMIN,CMOUT); if(work==null)work=0;
@@ -352,7 +355,7 @@ function settleUI(w){
    +'<button type="button" data-v="none">kein Parken</button>'
    +'<button type="button" data-v="garage">Parkhaus</button>'
    +'<button type="button" data-v="street">Straße</button>'
-   +'<input class="pr" type="number" min="0" step="0.10" value="2.00" title="Euro pro Stunde"><span class="u">€/h</span>'
+   +'<input class="pr" type="number" min="0" step="0.10" value="1.70" title="Euro pro Stunde"><span class="u">€/h</span>'
    +'<input class="pm" type="number" min="0" step="15" title="Minuten"><span class="u">min</span></div></div>'
    +'<div class="hintx" id="abrstat"></div>'
    +'<div class="ssum" id="abrsum"></div>';
@@ -376,7 +379,7 @@ function settleUI(w){
   Array.prototype.slice.call(parkWrap.querySelectorAll('button')).forEach(function(b){
     b.addEventListener('click',function(){
       SET.pmode=b.getAttribute('data-v');
-      if(SET.pmode==='garage'){SET.prate=2.00;prIn.value='2.00';}
+      if(SET.pmode==='garage'){SET.prate=1.70;prIn.value='1.70';}
       markPark();settleRefresh();});});
   prIn.addEventListener('input',function(){SET.prate=parseFloat(prIn.value.replace(',','.'))||0;
     if(SET.pmode==='none'){SET.pmode='street';markPark();} settleRefresh();});
@@ -442,8 +445,8 @@ function buildKPI(){
       langSpan({pt:'posições',en:'entries',de:'Positionen',es:'posiciones'})+'</div></div>';
   }
   var d=mins(CMIN,CMOUT), m=+CMMIN||0;
-  var dd=document.getElementById('f-data');
-  var dv=dd?fmtDate(dd.value):'';
+  var _dy=dayVal();
+  var dv=_dy?fmtDate(_dy):'';
   if(d==null&&!m&&!dv)return '';
   var o='<div class="kpi">';
   if(dv)o+='<div class="k"><span class="kn">'+dv+'</span>'+
@@ -478,8 +481,7 @@ function buildMD(o){
   var d=new Date(o.t||Date.now());
   var iso=d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+'T'+pad(d.getHours())+':'+pad(d.getMinutes());
   var dt=pad(d.getDate())+'.'+pad(d.getMonth()+1)+'.'+d.getFullYear();
-  var dd=document.getElementById('f-data');
-  var day=dd&&dd.value?dd.value:'';
+  var day=dayVal();
   var fm=[];
   fm.push('document: '+yq(FPREFIX));
   fm.push('author: '+yq(o.a||AUTOR));
@@ -666,8 +668,8 @@ function buildPDF(o,L){
   var cells=[];
   if(!CMLIST){
     var mm=mins(CMIN,CMOUT),cm=+CMMIN||0;
-    var dd=document.getElementById('f-data');
-    if(dd&&dd.value)cells.push([fmtDate(dd.value),P.day,false]);
+    var _dy=dayVal();
+    if(_dy)cells.push([fmtDate(_dy),P.day,false]);
     if(mm!=null){cells.push([hm(mm),P.tot,false]);cells.push([hm(mm-cm),P.flat,false]);}
     if(CMSHOP)cells.push(['sim',P.shop,false]);
     if(CMCODE)cells.push([CMCODE,P.code,true]);
@@ -811,8 +813,8 @@ function formalBody(o,secs){
   var kb='';
   if(!CMLIST){
     var mm=mins(CMIN,CMOUT),cm=+CMMIN||0;
-    var dd=document.getElementById('f-data');
-    if(dd&&dd.value)kb+=cell(fmtDate(dd.value),langSpan({pt:'Dia',en:'Day',de:'Einsatztag',es:'Día'}));
+    var _dy=dayVal();
+    if(_dy)kb+=cell(fmtDate(_dy),langSpan({pt:'Dia',en:'Day',de:'Einsatztag',es:'Día'}));
     if(mm!=null){
       kb+=cell(hm(mm),langSpan({pt:'Total',en:'Total',de:'Gesamt',es:'Total'}));
       kb+=cell(hm(mm-cm),langSpan({pt:'Apartamento',en:'Flat',de:'Wohnung',es:'Apartamento'}));}
@@ -856,6 +858,7 @@ function buildDocHTML(o){
 /* ---------- Sperrmodus ---------- */
 function recordMode(o){
   applyState(o);
+  CMDAY=dayVal();
   CMEXTRA=[];CMCOMMON=[];SELMAP={};
   Array.prototype.slice.call(document.querySelectorAll('select[data-g]')).forEach(function(s){
     var g=s.getAttribute('data-g'),L=s.getAttribute('lang');
@@ -980,6 +983,7 @@ window.__mkExtra=function(card){
 };
 /* Druck des Formulars zeigt dasselbe förmliche Dokument */
 function captureVars(){
+  CMDAY=dayVal();
   CMEXTRA=[];CMCOMMON=[];SELMAP={};
   Array.prototype.slice.call(document.querySelectorAll('select[data-g]')).forEach(function(s){
     var g=s.getAttribute('data-g'),L=s.getAttribute('lang');
