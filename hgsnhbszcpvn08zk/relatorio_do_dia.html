@@ -288,6 +288,103 @@ function mins(a,b){
   var d=p(b)-p(a); if(d<0)d+=1440; return d;}
 function hm(m){if(m==null)return '';var h=Math.floor(m/60),r=m%60;return h?(h+' h '+(r?pad(r)+' min':'')).trim():(r+' min');}
 
+/* ================= Abrechnung (nur im Record-Modus fuer den Auftraggeber) ================= */
+var SET={shop:0,rate:11.5,prate:2.00,pmode:'none',pmin:null};
+function eur(x){return (Math.round(x*100)/100).toFixed(2).replace('.',',')+' €';}
+function settleParts(){
+  var work=mins(CMIN,CMOUT); if(work==null)work=0;
+  var shop=+SET.shop||0;
+  var total=work+shop;
+  var wage=total/60*SET.rate;
+  var on=SET.pmode!=='none';
+  var pm=on?(SET.pmin==null?work:(+SET.pmin||0)):0;
+  var pb=on?Math.ceil(pm/15)*15:0;
+  var park=on?pb/60*SET.prate:0;
+  return {work:work,shop:shop,total:total,wage:wage,pmin:pm,pbill:pb,park:park,sum:wage+park,on:on};
+}
+function settleSecHTML(){
+  var p=settleParts();
+  function row(pt,en,de,es){
+    return '<li><i lang="pt">'+pt+'</i><i lang="en">'+en+'</i><i lang="de">'+de+'</i><i lang="es">'+es+'</i></li>';}
+  var o='<div class="sec" id="secabr"><h3><i lang="pt">Acerto de contas</i><i lang="en">Settlement</i>'
+       +'<i lang="de">Abrechnung</i><i lang="es">Liquidación</i></h3><ul class="vals">';
+  o+=row('Tempo de trabalho: '+hm(p.work),'Working time: '+hm(p.work),
+         'Arbeitszeit: '+hm(p.work),'Tiempo de trabajo: '+hm(p.work));
+  if(p.shop)o+=row('Tempo de compras creditado: '+hm(p.shop),'Shopping time credited: '+hm(p.shop),
+         'Angerechnete Einkaufszeit: '+hm(p.shop),'Tiempo de compras acreditado: '+hm(p.shop));
+  o+=row('Tempo pago no total: '+hm(p.total),'Paid time in total: '+hm(p.total),
+         'Bezahlte Zeit gesamt: '+hm(p.total),'Tiempo pagado en total: '+hm(p.total));
+  o+=row('Valor à hora: '+eur(SET.rate),'Hourly rate: '+eur(SET.rate),
+         'Stundensatz: '+eur(SET.rate),'Precio por hora: '+eur(SET.rate));
+  o+=row('Trabalho: '+eur(p.wage),'Labour: '+eur(p.wage),'Lohn: '+eur(p.wage),'Trabajo: '+eur(p.wage));
+  if(p.on)o+=row('Estacionamento: '+hm(p.pbill)+' × '+eur(SET.prate)+'/h = '+eur(p.park),
+         'Parking: '+hm(p.pbill)+' × '+eur(SET.prate)+'/h = '+eur(p.park),
+         'Parkgebühr: '+hm(p.pbill)+' × '+eur(SET.prate)+'/h = '+eur(p.park),
+         'Aparcamiento: '+hm(p.pbill)+' × '+eur(SET.prate)+'/h = '+eur(p.park));
+  o+=row('<b>Total a transferir: '+eur(p.sum)+'</b>','<b>Total to transfer: '+eur(p.sum)+'</b>',
+         '<b>Gesamtbetrag zur Überweisung: '+eur(p.sum)+'</b>','<b>Total a transferir: '+eur(p.sum)+'</b>');
+  return o+'</ul></div>';
+}
+function settleRefresh(){
+  var old=document.getElementById('secabr');
+  if(old){var t=document.createElement('div');t.innerHTML=settleSecHTML();old.parentNode.replaceChild(t.firstChild,old);}
+  var s=document.getElementById('abrsum');
+  if(s){var p=settleParts();
+    s.innerHTML='<span>'+hm(p.total)+' × '+eur(SET.rate)+' = <b>'+eur(p.wage)+'</b></span>'
+      +(p.on?'<span>Parken '+hm(p.pbill)+' = <b>'+eur(p.park)+'</b></span>':'')
+      +'<span class="tot">Gesamt <b>'+eur(p.sum)+'</b></span>';}
+  var st=document.getElementById('abrstat');
+  if(st)st.textContent=SET.pmode==='none'?'ohne Parkgebühr':(hm(SET.pmin==null?(mins(CMIN,CMOUT)||0):SET.pmin)+' im Parkhaus');
+}
+function settleUI(w){
+  var box=document.createElement('div');box.className='settle';
+  var work=mins(CMIN,CMOUT); if(work==null)work=0;
+  SET.shop=CMSHOP?30:0;
+  SET.pmin=work;
+  box.innerHTML=
+    '<h4>Abrechnung <em>— nur für mich, erscheint im Download</em></h4>'
+   +'<div class="srow"><label>Einkaufszeit anrechnen</label><div class="opts" id="abrshop">'
+   +'<button type="button" data-v="0">keine</button>'
+   +'<button type="button" data-v="15">15 min</button>'
+   +'<button type="button" data-v="30">30 min</button>'
+   +'<input type="number" min="0" step="5" placeholder="eigene min"></div></div>'
+   +'<div class="srow"><label>Parken</label><div class="opts" id="abrpark">'
+   +'<button type="button" data-v="none">kein Parken</button>'
+   +'<button type="button" data-v="garage">Parkhaus</button>'
+   +'<button type="button" data-v="street">Straße</button>'
+   +'<input class="pr" type="number" min="0" step="0.10" value="2.00" title="Euro pro Stunde"><span class="u">€/h</span>'
+   +'<input class="pm" type="number" min="0" step="15" title="Minuten"><span class="u">min</span></div></div>'
+   +'<div class="hintx" id="abrstat"></div>'
+   +'<div class="ssum" id="abrsum"></div>';
+  w.appendChild(box);
+
+  var shopWrap=box.querySelector('#abrshop'), parkWrap=box.querySelector('#abrpark');
+  var shopIn=shopWrap.querySelector('input');
+  var prIn=parkWrap.querySelector('.pr'), pmIn=parkWrap.querySelector('.pm');
+  pmIn.value=work;
+  function markShop(){
+    Array.prototype.slice.call(shopWrap.querySelectorAll('button')).forEach(function(b){
+      b.classList.toggle('on',(+b.getAttribute('data-v'))===(+SET.shop));});
+    if([0,15,30].indexOf(+SET.shop)<0)shopIn.value=SET.shop; }
+  function markPark(){
+    Array.prototype.slice.call(parkWrap.querySelectorAll('button')).forEach(function(b){
+      b.classList.toggle('on',b.getAttribute('data-v')===SET.pmode);});
+    parkWrap.classList.toggle('off',SET.pmode==='none'); }
+  Array.prototype.slice.call(shopWrap.querySelectorAll('button')).forEach(function(b){
+    b.addEventListener('click',function(){SET.shop=+b.getAttribute('data-v');shopIn.value='';markShop();settleRefresh();});});
+  shopIn.addEventListener('input',function(){SET.shop=+shopIn.value||0;markShop();settleRefresh();});
+  Array.prototype.slice.call(parkWrap.querySelectorAll('button')).forEach(function(b){
+    b.addEventListener('click',function(){
+      SET.pmode=b.getAttribute('data-v');
+      if(SET.pmode==='garage'){SET.prate=2.00;prIn.value='2.00';}
+      markPark();settleRefresh();});});
+  prIn.addEventListener('input',function(){SET.prate=parseFloat(prIn.value.replace(',','.'))||0;
+    if(SET.pmode==='none'){SET.pmode='street';markPark();} settleRefresh();});
+  pmIn.addEventListener('input',function(){SET.pmin=pmIn.value===''?work:(+pmIn.value||0);settleRefresh();});
+  markShop();markPark();
+}
+
+
 /* ---------- Kompakte Zusammenfassung ---------- */
 function buildCompact(){
   var w=document.querySelector('.wrap');
@@ -799,7 +896,26 @@ function recordMode(o){
    +'@media (prefers-color-scheme:dark){.stamp{background:#1a1a19;border-color:rgba(255,255,255,.14)}'
    +'.kpi .k{background:#1a1a19;border-color:rgba(255,255,255,.10)}.kpi .k i{color:#a9a79e}'
    +'.dl{background:#fff;color:#111}.sec{border-color:#2c2c2a}ul.vals li::before{background:#4a4844}}'
-   +'@media print{.langs,.dl,.stamp{display:none!important}}';
+   +'.settle{border:1px solid rgba(0,0,0,.12);border-radius:14px;padding:15px 16px;margin:26px 0 0;background:#fff}'
+   +'.settle h4{margin:0 0 12px;font-size:12.5px;letter-spacing:.09em;text-transform:uppercase;color:#8a8880;font-weight:700}'
+   +'.settle h4 em{font-style:normal;text-transform:none;letter-spacing:0;font-weight:400;color:#b0aea5}'
+   +'.settle .srow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:10px}'
+   +'.settle .srow>label{flex:0 0 100%;font-size:13px;color:#6b6963}'
+   +'.settle .opts{display:flex;flex-wrap:wrap;align-items:center;gap:6px}'
+   +'.settle .opts.off input,.settle .opts.off .u{opacity:.35}'
+   +'.settle button{font:600 15px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;'
+   +'padding:9px 13px;border-radius:10px;border:1px solid rgba(0,0,0,.16);background:#fff;color:#111;cursor:pointer}'
+   +'.settle button.on{background:#111;color:#fff;border-color:#111}'
+   +'.settle input{font:600 15px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;'
+   +'width:88px;padding:9px 10px;border-radius:10px;border:1px solid rgba(0,0,0,.16);background:#fff;color:#111}'
+   +'.settle .u{font-size:13px;color:#8a8880}'
+   +'.settle .hintx{font-size:13px;color:#8a8880;margin:2px 0 10px}'
+   +'.settle .ssum{display:flex;flex-wrap:wrap;gap:14px;border-top:1px solid #e6e5de;padding-top:11px;font-size:15px}'
+   +'.settle .ssum .tot{margin-left:auto;font-size:17px}'
+   +'@media (prefers-color-scheme:dark){.settle{background:#1a1a19;border-color:rgba(255,255,255,.12)}'
+   +'.settle button,.settle input{background:#232322;color:#f2f1ec;border-color:rgba(255,255,255,.18)}'
+   +'.settle button.on{background:#fff;color:#111;border-color:#fff}.settle .ssum{border-color:#2c2c2a}}'
+   +'@media print{.langs,.dl,.stamp,.settle{display:none!important}}';
   document.head.appendChild(st);
 
   var kpi=buildKPI();
@@ -837,6 +953,7 @@ function recordMode(o){
     var a=document.createElement('a');a.href=url;a.download=base+'.zip';
     document.body.appendChild(a);a.click();
     setTimeout(function(){URL.revokeObjectURL(url);a.remove()},5000);});
+  if(!CMLIST){var sc=document.createElement('div');sc.innerHTML=settleSecHTML();w.appendChild(sc.firstChild);settleUI(w);settleRefresh();}
   w.appendChild(btn);
   document.title=base;
 }
