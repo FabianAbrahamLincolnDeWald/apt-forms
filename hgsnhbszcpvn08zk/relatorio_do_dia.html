@@ -140,6 +140,39 @@ html[data-doc] .langs{margin:0 0 6mm;padding:0;position:static;background:none}
 html[data-doc] .langs label{font:11px Arial,Helvetica,sans-serif;padding:5px 10px;border-radius:4px}
 html[data-doc] .prt{display:none}
 @media (max-width:520px){html[data-doc] .sec{display:block}html[data-doc] .sec h3{margin-bottom:2mm}}
+
+/* ---- Stempeluhr ---- */
+.clk{background:#fff;border:1px solid rgba(0,0,0,.12);border-radius:16px;padding:15px 16px;margin:0 0 14px}
+@media (prefers-color-scheme:dark){.clk{background:#1a1a19;border-color:rgba(255,255,255,.12)}}
+.clk .ch{font-size:12.5px;letter-spacing:.09em;text-transform:uppercase;color:#8a8880;font-weight:700;margin:0 0 4px}
+.clk .cs{font-size:13.5px;color:#8a8880;margin:0 0 12px;line-height:1.45}
+.clk .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.clk .grid button{padding:15px 8px;border-radius:12px;border:1.5px solid rgba(0,0,0,.16);background:#fff;color:#111;
+ font:700 15px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;cursor:pointer;line-height:1.25}
+@media (prefers-color-scheme:dark){.clk .grid button{background:#232322;color:#f2f1ec;border-color:rgba(255,255,255,.2)}}
+.clk .grid button.on{background:#0ca30c;border-color:#0ca30c;color:#fff}
+.clk .stop{display:block;width:100%;margin-top:8px;padding:15px;border-radius:12px;border:none;background:#111;color:#fff;
+ font:700 16px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;cursor:pointer}
+@media (prefers-color-scheme:dark){.clk .stop{background:#fff;color:#111}}
+.clk .stop[disabled]{opacity:.35}
+.tl{margin:14px 0 0;padding:0;list-style:none}
+.tl li{display:flex;align-items:center;gap:6px;padding:8px 0;border-top:1px solid #eceae2;font-size:15px}
+@media (prefers-color-scheme:dark){.tl li{border-color:#2c2c2a}}
+.tl .nm{flex:1;min-width:0;font-weight:600}
+.tl .nm em{display:block;font-style:normal;font-weight:400;font-size:12.5px;color:#8a8880}
+.tl input[type=time]{width:84px;padding:6px 4px;border-radius:8px;border:1px solid rgba(0,0,0,.16);
+ background:#fff;color:#111;font:600 14px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+@media (prefers-color-scheme:dark){.tl input[type=time]{background:#232322;color:#f2f1ec;border-color:rgba(255,255,255,.2)}}
+.tl .dur{min-width:56px;text-align:right;font-size:13.5px;color:#8a8880;font-variant-numeric:tabular-nums}
+.tl .rm{width:30px;height:30px;padding:0;border-radius:8px;border:1px solid rgba(0,0,0,.14);background:#fff;color:#c0392b;
+ font:700 15px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;cursor:pointer;flex:0 0 auto}
+@media (prefers-color-scheme:dark){.tl .rm{background:#232322;border-color:rgba(255,255,255,.18)}}
+.tl li.run{color:#0ca30c}.tl li.run .nm em{color:#0ca30c}
+.clk .tot{display:flex;justify-content:space-between;border-top:1px solid #eceae2;margin-top:10px;padding-top:10px;
+ font-size:16px;font-weight:700}
+@media (prefers-color-scheme:dark){.clk .tot{border-color:#2c2c2a}}
+.clk .tot span.s{font-weight:400;font-size:13.5px;color:#8a8880}
+@media print{.clk{display:none!important}}
 </style></head><body>
 <input class="sw" type="radio" name="lang" id="l-pt" checked>
 <input class="sw" type="radio" name="lang" id="l-en">
@@ -150,6 +183,14 @@ html[data-doc] .prt{display:none}
 <h1><i lang="pt">Relatório do dia</i><i lang="en">Daily report</i><i lang="de">Tagesbericht</i><i lang="es">Parte del día</i></h1>
 <p class="sub"><i lang="pt">Depois de cada limpeza, um minuto e está feito. No fim carregue no botão verde.</i><i lang="en">After each clean, one minute and it is done. Tap the green button at the end.</i><i lang="de">Nach jeder Reinigung, eine Minute und fertig. Am Ende auf den grünen Knopf tippen.</i><i lang="es">Después de cada limpieza, un minuto y listo. Al final pulse el botón verde.</i></p>
 <h2><i lang="pt">Dia e horas</i><i lang="en">Day and times</i><i lang="de">Tag und Uhrzeiten</i><i lang="es">Día y horas</i></h2>
+<div class="clk" id="clk">
+<p class="ch"><i lang="pt">Registo de tempo</i><i lang="en">Time log</i><i lang="de">Zeiterfassung</i><i lang="es">Registro de tiempo</i></p>
+<p class="cs"><i lang="pt">Toque no que vai começar. Ao mudar de tarefa, toque na seguinte. No fim, «Terminar». Não precisa de escrever horas nenhumas — e pode fechar o telemóvel entretanto, isto fica guardado.</i><i lang="en">Tap what you are starting. When you switch task, tap the next one. At the end, «Finish». No need to type any times — and you can close your phone in between, this is saved.</i><i lang="de">Antippen, was Sie beginnen. Beim Wechsel die nächste Tätigkeit antippen. Am Ende „Beenden". Sie müssen keine Uhrzeit eintragen — und Sie können das Handy zwischendurch zuklappen, der Stand bleibt erhalten.</i><i lang="es">Toque lo que va a empezar. Al cambiar de tarea, toque la siguiente. Al final, «Terminar». No hace falta escribir ninguna hora — y puede cerrar el móvil, esto queda guardado.</i></p>
+<div class="grid" id="clkb"></div>
+<button class="stop" type="button" id="clkstop" disabled></button>
+<ul class="tl" id="clktl"></ul>
+<div class="tot" id="clktot" hidden></div>
+</div>
 <input class="fld" type="date" id="f-data" min=""><p class="hint"><i lang="pt">Preencha o relatório <strong>no próprio dia da limpeza</strong>. Por isso o campo só aceita hoje ou uma data futura — se precisar de corrigir um dia que já passou, diga-me e eu trato disso.</i><i lang="en">Fill in the report <strong>on the day of the clean itself</strong>. That is why the field only accepts today or a future date — if a past day needs correcting, tell me and I will handle it.</i><i lang="de">Den Bericht bitte <strong>am Tag der Reinigung selbst</strong> ausfüllen. Deshalb nimmt das Feld nur heute oder ein späteres Datum an — muss ein vergangener Tag korrigiert werden, sagen Sie mir Bescheid, ich mache das.</i><i lang="es">Rellene el parte <strong>el mismo día de la limpieza</strong>. Por eso el campo solo acepta hoy o una fecha futura — si hay que corregir un día pasado, dígamelo y yo me encargo.</i></p>
 <div class="two"><div><span class="hint"><i lang="pt">Entrada</i><i lang="en">In</i><i lang="de">Ankunft</i><i lang="es">Entrada</i></span><input class="fld" type="time" id="f-in"><button class="now" type="button" data-t="f-in"><i lang="pt">agora</i><i lang="en">now</i><i lang="de">jetzt</i><i lang="es">ahora</i></button></div><div><span class="hint"><i lang="pt">Saída</i><i lang="en">Out</i><i lang="de">Ende</i><i lang="es">Salida</i></span><input class="fld" type="time" id="f-out"><button class="now" type="button" data-t="f-out"><i lang="pt">agora</i><i lang="en">now</i><i lang="de">jetzt</i><i lang="es">ahora</i></button></div></div>
 <h2><i lang="pt">Novo código da caixa das chaves</i><i lang="en">New key box code</i><i lang="de">Neuer Code am Schlüsselkasten</i><i lang="es">Nuevo código de la caja de llaves</i></h2><input class="fld" type="text" inputmode="numeric" autocomplete="off" id="f-code" placeholder="—"><p class="hint"><i lang="pt">Em cada mudança de hóspedes o código deve ser trocado. Escreva aqui o número novo — assim fica registado e eu sei sempre qual é o que está em uso.</i><i lang="en">At every guest changeover the code should be changed. Write the new number here — that way it is on record and I always know which one is in use.</i><i lang="de">Bei jedem Gästewechsel soll der Code gewechselt werden. Tragen Sie die neue Zahl hier ein — dann ist sie festgehalten und ich weiß immer, welche gerade gilt.</i><i lang="es">En cada cambio de huéspedes el código debe cambiarse. Escriba aquí el número nuevo — así queda registrado y yo sé siempre cuál está en uso.</i></p><h2><i lang="pt">Que tipo de limpeza foi</i><i lang="en">What kind of clean it was</i><i lang="de">Welche Art von Reinigung</i><i lang="es">Qué tipo de limpieza fue</i></h2>
@@ -194,6 +235,7 @@ html[data-doc] .prt{display:none}
 <h2><i lang="pt">Observações</i><i lang="en">Notes</i><i lang="de">Anmerkungen</i><i lang="es">Observaciones</i></h2>
 <textarea id="f-obs" placeholder="..."></textarea>
 <h2><i lang="pt">Compras para o apartamento</i><i lang="en">Shopping for the flat</i><i lang="de">Einkauf für die Wohnung</i><i lang="es">Compras para el apartamento</i></h2><div class="card"><label><input type="checkbox" id="f-shop"><span class="t"><i lang="pt">Fiz compras para o apartamento neste dia</i><i lang="en">I did shopping for the flat on this day</i><i lang="de">Ich habe an diesem Tag für die Wohnung eingekauft</i><i lang="es">Hice compras para el apartamento este día</i></span></label></div><a class="send" href="https://fabianabrahamlincolndewald.github.io/apt-forms/hgsnhbszcpvn08zk/relatorio_do_dia.html"><i lang="pt">Enviar</i><i lang="en">Send</i><i lang="de">Senden</i><i lang="es">Enviar</i></a>
+<input type="hidden" id="f-blocks">
 <button class="pdf" type="button"><i lang="pt">Guardar em PDF</i><i lang="en">Save as PDF</i><i lang="de">Als PDF sichern</i><i lang="es">Guardar en PDF</i></button>
 </div>
 
@@ -294,8 +336,11 @@ function hm(m){if(m==null)return '';var h=Math.floor(m/60),r=m%60;return h?(h+' 
 /* ================= Abrechnung (nur im Record-Modus fuer den Auftraggeber) ================= */
 var SET={shop:0,rate:11.5,prate:1.70,pmode:'none',pmin:null};
 function eur(x){return (Math.round(x*100)/100).toFixed(2).replace('.',',')+' €';}
+function hasBlocks(){return !!(CMBLOCKS&&CMBLOCKS.length)}
+function measuredShop(){return hasBlocks()?blkCat('shop'):0}
+function onSite(){return hasBlocks()?(blkCat('comum')+blkCat('flat')):(mins(CMIN,CMOUT)||0)}
 function settleParts(){
-  var work=mins(CMIN,CMOUT); if(work==null)work=0;
+  var work=hasBlocks()?onSite():(mins(CMIN,CMOUT)||0);
   var shop=+SET.shop||0;
   var total=work+shop;
   var wage=total/60*SET.rate;
@@ -337,16 +382,19 @@ function settleRefresh(){
       +(p.on?'<span>Parken '+hm(p.pbill)+' = <b>'+eur(p.park)+'</b></span>':'')
       +'<span class="tot">Gesamt <b>'+eur(p.sum)+'</b></span>';}
   var st=document.getElementById('abrstat');
-  if(st)st.textContent=SET.pmode==='none'?'ohne Parkgebühr':(hm(SET.pmin==null?(mins(CMIN,CMOUT)||0):SET.pmin)+' im Parkhaus');
+  if(st)st.textContent=SET.pmode==='none'?'ohne Parkgebühr'
+    :(hm(SET.pmin==null?onSite():SET.pmin)+' im Parkhaus'+(hasBlocks()?' (nur Zeit am Haus, ohne Supermarkt)':''));
 }
 function settleUI(w){
   var box=document.createElement('div');box.className='settle';
-  var work=mins(CMIN,CMOUT); if(work==null)work=0;
-  SET.shop=CMSHOP?30:0;
+  var work=onSite();
+  var meas=measuredShop();
+  SET.shop=meas?meas:(CMSHOP?30:0);
   SET.pmin=work;
   box.innerHTML=
     '<h4>Abrechnung <em>— nur für mich, erscheint im Download</em></h4>'
-   +'<div class="srow"><label>Einkaufszeit anrechnen</label><div class="opts" id="abrshop">'
+   +'<div class="srow"><label>Einkaufszeit anrechnen'+(meas?' <em>— gemessen: '+hm(meas)+'</em>':'')+'</label><div class="opts" id="abrshop">'
+   +(meas?'<button type="button" data-v="'+meas+'">gemessen</button>':'')
    +'<button type="button" data-v="0">keine</button>'
    +'<button type="button" data-v="15">15 min</button>'
    +'<button type="button" data-v="30">30 min</button>'
@@ -859,6 +907,10 @@ function buildDocHTML(o){
 function recordMode(o){
   applyState(o);
   CMDAY=dayVal();
+  CMOFF=(o.o==null?-new Date().getTimezoneOffset():o.o);
+  var _bl=document.getElementById('f-blocks');
+  CMBLOCKS=[];if(_bl&&_bl.value){try{CMBLOCKS=JSON.parse(_bl.value)||[]}catch(e){CMBLOCKS=[]}}
+  var _tp=document.querySelector('select[data-g=tipo]');CMTIPO=_tp?_tp.selectedIndex:-1;
   CMEXTRA=[];CMCOMMON=[];SELMAP={};
   Array.prototype.slice.call(document.querySelectorAll('select[data-g]')).forEach(function(s){
     var g=s.getAttribute('data-g'),L=s.getAttribute('lang');
@@ -903,11 +955,15 @@ function recordMode(o){
    +'@media (prefers-color-scheme:dark){.stamp{background:#1a1a19;border-color:rgba(255,255,255,.14)}'
    +'.kpi .k{background:#1a1a19;border-color:rgba(255,255,255,.10)}.kpi .k i{color:#a9a79e}'
    +'.dl{background:#fff;color:#111}.sec{border-color:#2c2c2a}ul.vals li::before{background:#4a4844}}'
+   +'.plaus{border:1px solid #eb6834;background:#fdf1ec;color:#8a3b16;border-radius:12px;padding:12px 14px;margin:0 0 18px;font-size:14px;line-height:1.5}'
+   +'.plaus b{color:#c0392b}'
+   +'@media (prefers-color-scheme:dark){.plaus{background:#2d1a12;border-color:#eb6834;color:#f0c3aa}}'
    +'.settle{border:1px solid rgba(0,0,0,.12);border-radius:14px;padding:15px 16px;margin:0 0 24px;background:#fff}'
    +'.settle h4{margin:0 0 12px;font-size:12.5px;letter-spacing:.09em;text-transform:uppercase;color:#8a8880;font-weight:700}'
    +'.settle h4 em{font-style:normal;text-transform:none;letter-spacing:0;font-weight:400;color:#b0aea5}'
    +'.settle .srow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:10px}'
    +'.settle .srow>label{flex:0 0 100%;font-size:13px;color:#6b6963}'
+   +'.settle .srow>label em{font-style:normal;color:#0ca30c;font-weight:600}'
    +'.settle .opts{display:flex;flex-wrap:wrap;align-items:center;gap:6px}'
    +'.settle .opts.off input,.settle .opts.off .u{opacity:.35}'
    +'.settle button{font:600 15px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;'
@@ -935,11 +991,29 @@ function recordMode(o){
   w.innerHTML='';keep.forEach(function(e){w.appendChild(e)});
 
   var box=document.createElement('div');box.className='stamp';
-  box.innerHTML='<b>'+(o.a||AUTOR)+'</b><br><span>Preenchido &middot; filled in &middot; ausgefüllt:</span> '+
-    pad(d.getDate())+'.'+pad(d.getMonth()+1)+'.'+d.getFullYear()+' &middot; '+pad(d.getHours())+':'+pad(d.getMinutes());
+  var her=new Date((o.t||Date.now())+CMOFF*60000);
+  var zn=(CMOFF===60?'Madeira':(CMOFF===0?'Madeira / UTC':'UTC'+(CMOFF<0?'':'+')+(CMOFF/60)));
+  var herTxt=pad(her.getUTCDate())+'.'+pad(her.getUTCMonth()+1)+'.'+her.getUTCFullYear()
+    +' &middot; '+pad(her.getUTCHours())+':'+pad(her.getUTCMinutes())+' <span>('+zn+')</span>';
+  var mine=-new Date().getTimezoneOffset();
+  var extra='';
+  if(mine!==CMOFF){
+    extra='<br><span>bei mir &middot; local:</span> '+pad(d.getDate())+'.'+pad(d.getMonth()+1)+'.'+d.getFullYear()
+      +' &middot; '+pad(d.getHours())+':'+pad(d.getMinutes());}
+  box.innerHTML='<b>'+(o.a||AUTOR)+'</b><br><span>Preenchido &middot; filled in &middot; ausgefüllt:</span> '+herTxt+extra;
   w.appendChild(box);
   var kb=document.createElement('div');kb.innerHTML=kpi;
   if(kpi)w.appendChild(kb.firstChild);
+  if(!CMLIST){
+    var tlh=blSecHTML();
+    if(tlh){var tc=document.createElement('div');tc.innerHTML=tlh;w.appendChild(tc.firstChild);}
+    var _du=mins(CMIN,CMOUT),_cm=+CMMIN||0;
+    if(CMTIPO===3&&_du!=null&&(_du-_cm)>15){
+      var wv=document.createElement('div');wv.className='plaus';
+      wv.innerHTML='<b>Prüfen:</b> Als Art der Reinigung steht „nur Flur und Treppenhaus", '
+        +'trotzdem bleiben '+hm(_du-_cm)+' Wohnungszeit übrig. Vermutlich gehört mehr davon zu den Gemeinschaftsflächen.';
+      w.appendChild(wv);}
+  }
   if(!CMLIST)settleUI(w);
   var body=document.createElement('div');body.innerHTML=compact;
   while(body.firstChild)w.appendChild(body.firstChild);
@@ -1019,6 +1093,33 @@ window.addEventListener('afterprint',function(){
   var p=document.getElementById('printdoc');if(p)p.remove();
   var s=document.getElementById('pdst');if(s)s.remove();
 });
+/* ---- Taetigkeiten der Stempeluhr (auch im Record-Modus gebraucht) ---- */
+var ACT=[
+ {k:'comum', cat:'comum', pt:'Corredor e escadas',en:'Corridor and stairs',de:'Flur und Treppe',es:'Pasillo y escaleras'},
+ {k:'apart', cat:'flat',  pt:'Apartamento',en:'Flat',de:'Wohnung',es:'Apartamento'},
+ {k:'compras',cat:'shop', pt:'Compras',en:'Shopping',de:'Einkauf',es:'Compras'},
+ {k:'desloc',cat:'shop',  pt:'Deslocação',en:'Travel',de:'Fahrt',es:'Desplazamiento'},
+ {k:'lavand',cat:'flat',  pt:'Lavandaria',en:'Laundrette',de:'Wäscherei',es:'Lavandería'},
+ {k:'outro', cat:'flat',  pt:'Outro',en:'Other',de:'Sonstiges',es:'Otro'}];
+var STOPL={pt:'Terminar',en:'Finish',de:'Beenden',es:'Terminar'};
+var RUNL={pt:'a decorrer',en:'running',de:'läuft',es:'en curso'};
+var TOTL={pt:'Total',en:'Total',de:'Gesamt',es:'Total'};
+var CMBLOCKS=[],CMTIPO=-1,CMOFF=0;
+function actOf(k){for(var i=0;i<ACT.length;i++)if(ACT[i].k===k)return ACT[i];return null}
+function actLab(k,L){var a=actOf(k);return a?(a[L||curLang()]||a.pt):k}
+function hhmm(ms){var x=new Date(ms);return pad(x.getHours())+':'+pad(x.getMinutes())}
+function blkMin(x){return (x&&x.e)?Math.max(0,Math.round((x.e-x.s)/60000)):0}
+function blkCat(cat){var t=0;(CMBLOCKS||[]).forEach(function(x){var a=actOf(x.k);if(a&&a.cat===cat)t+=blkMin(x)});return t}
+function blSecHTML(){
+  if(!CMBLOCKS||!CMBLOCKS.length)return '';
+  var b=CMBLOCKS.slice().sort(function(p,q){return p.s-q.s});
+  var o='<div class="sec" id="sectl"><h3><i lang="pt">Registo de tempo</i><i lang="en">Time log</i>'
+       +'<i lang="de">Zeiterfassung</i><i lang="es">Registro de tiempo</i></h3><ul class="vals">';
+  b.forEach(function(x){
+    var t=hhmm(x.s)+' – '+(x.e?hhmm(x.e):'—')+'  ·  '+blkMin(x)+' min';
+    o+='<li><b class="qt">'+t+'</b> <i lang="pt">'+actLab(x.k,'pt')+'</i><i lang="en">'+actLab(x.k,'en')
+      +'</i><i lang="de">'+actLab(x.k,'de')+'</i><i lang="es">'+actLab(x.k,'es')+'</i></li>';});
+  return o+'</ul></div>';}
 function restore(){
   var m=/[#&?]r=([A-Za-z0-9\-_]+)/.exec(location.hash||location.search);
   if(!m)return false;
@@ -1074,6 +1175,91 @@ var d=new Date();
 var dt=document.getElementById('f-data');
 dt.value=d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate());
 dt.min=dt.value;
+
+/* ================= Stempeluhr ================= */
+function BL(){st.bl=st.bl||[];return st.bl}
+function blOpen(){var b=BL();for(var i=b.length-1;i>=0;i--)if(!b[i].e)return b[i];return null}
+function blDur(x){var e=x.e||Date.now();return Math.max(0,Math.round((e-x.s)/60000))}
+function blStart(k){
+  var now=Date.now(),o=blOpen();
+  if(o){ if(o.k===k){return} o.e=now; }
+  BL().push({k:k,s:now,e:null}); save(); blPaint();}
+function blStop(){var o=blOpen();if(o){o.e=Date.now();save();blPaint()}}
+function blSum(cat){var t=0;BL().forEach(function(x){var a=actOf(x.k);if(a&&a.cat===cat)t+=blDur(x)});return t}
+function blDerive(){
+  var b=BL().slice().sort(function(p,q){return p.s-q.s});
+  var hid=document.getElementById('f-blocks');
+  if(hid)hid.value=b.length?JSON.stringify(b.map(function(x){return{k:x.k,s:x.s,e:x.e}})):'';
+  if(!b.length)return;
+  var first=b[0], last=b[b.length-1];
+  var fi=document.getElementById('f-in'), fo=document.getElementById('f-out'), fm=document.getElementById('f-min');
+  if(fi)fi.value=hhmm(first.s);
+  if(fo&&last.e)fo.value=hhmm(last.e);
+  if(fm){var c=blSum('comum'); fm.value=c?c:''; }
+  var ds=new Date(first.s);
+  var iso=ds.getFullYear()+'-'+z(ds.getMonth()+1)+'-'+z(ds.getDate());
+  if(dt){ if(iso<dt.min)dt.min=iso; dt.value=iso; }
+}
+function blPaint(){
+  var L=curLang();
+  var wrap=document.getElementById('clkb');
+  if(wrap&&!wrap.dataset.built){
+    ACT.forEach(function(a){
+      var btn=document.createElement('button');btn.type='button';btn.dataset.k=a.k;
+      ACT.forEach(function(){});
+      btn.innerHTML='<i lang="pt">'+a.pt+'</i><i lang="en">'+a.en+'</i><i lang="de">'+a.de+'</i><i lang="es">'+a.es+'</i>';
+      btn.addEventListener('click',function(){blStart(a.k)});
+      wrap.appendChild(btn);});
+    wrap.dataset.built='1';}
+  var open=blOpen();
+  if(wrap)Array.prototype.slice.call(wrap.querySelectorAll('button')).forEach(function(b2){
+    b2.classList.toggle('on',!!open&&open.k===b2.dataset.k)});
+  var sb=document.getElementById('clkstop');
+  if(sb){sb.textContent=STOPL[L]||STOPL.pt;sb.disabled=!open;}
+  var tl=document.getElementById('clktl');
+  if(tl){
+    tl.innerHTML='';
+    var b=BL().slice().sort(function(p,q){return p.s-q.s});
+    b.forEach(function(x){
+      var idx=BL().indexOf(x);
+      var li=document.createElement('li');
+      if(!x.e)li.className='run';
+      li.innerHTML='<span class="nm">'+actLab(x.k,L)+(x.e?'':' <em>'+(RUNL[L]||RUNL.pt)+'</em>')+'</span>'
+        +'<input type="time" class="ts" value="'+hhmm(x.s)+'">'
+        +'<input type="time" class="te" value="'+(x.e?hhmm(x.e):'')+'">'
+        +'<span class="dur">'+blDur(x)+' min</span>'
+        +'<button type="button" class="rm">\u00d7</button>';
+      li.querySelector('.ts').addEventListener('change',function(ev){
+        var v=ev.target.value;if(!/^\d\d:\d\d$/.test(v))return;
+        var dd=new Date(x.s);dd.setHours(+v.slice(0,2),+v.slice(3),0,0);
+        BL()[idx].s=dd.getTime();save();blPaint();});
+      li.querySelector('.te').addEventListener('change',function(ev){
+        var v=ev.target.value;
+        if(!/^\d\d:\d\d$/.test(v)){BL()[idx].e=null;save();blPaint();return}
+        var dd=new Date(x.e||x.s);dd.setHours(+v.slice(0,2),+v.slice(3),0,0);
+        if(dd.getTime()<BL()[idx].s)dd.setDate(dd.getDate()+1);
+        BL()[idx].e=dd.getTime();save();blPaint();});
+      li.querySelector('.rm').addEventListener('click',function(){
+        BL().splice(idx,1);save();blPaint();});
+      tl.appendChild(li);});
+  }
+  var tot=document.getElementById('clktot');
+  if(tot){
+    var b2=BL();
+    if(!b2.length){tot.hidden=true}
+    else{
+      tot.hidden=false;
+      var all=0;b2.forEach(function(x){all+=blDur(x)});
+      var h=Math.floor(all/60),m=all%60;
+      tot.innerHTML='<span>'+(TOTL[L]||TOTL.pt)+'</span><span>'+(h?h+' h '+(m?z(m)+' min':''):m+' min')+'</span>';}
+  }
+  blDerive();
+}
+var _sb=document.getElementById('clkstop');
+if(_sb)_sb.addEventListener('click',blStop);
+document.querySelectorAll('input[name=lang]').forEach(function(r){r.addEventListener('change',blPaint)});
+blPaint();
+setInterval(function(){if(blOpen())blPaint()},60000);
 
 // Sprachauswahl synchron halten
 var groups={};
