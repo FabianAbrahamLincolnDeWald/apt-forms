@@ -1108,6 +1108,7 @@ var CMBLOCKS=[],CMTIPO=-1,CMOFF=0;
 function actOf(k){for(var i=0;i<ACT.length;i++)if(ACT[i].k===k)return ACT[i];return null}
 function actLab(k,L){var a=actOf(k);return a?(a[L||curLang()]||a.pt):k}
 function hhmm(ms){var x=new Date(ms);return pad(x.getHours())+':'+pad(x.getMinutes())}
+function hhmmOff(ms){var x=new Date(ms+(CMOFF||0)*60000);return pad(x.getUTCHours())+':'+pad(x.getUTCMinutes())}
 function blkMin(x){return (x&&x.e)?Math.max(0,Math.round((x.e-x.s)/60000)):0}
 function blkCat(cat){var t=0;(CMBLOCKS||[]).forEach(function(x){var a=actOf(x.k);if(a&&a.cat===cat)t+=blkMin(x)});return t}
 function blSecHTML(){
@@ -1116,7 +1117,7 @@ function blSecHTML(){
   var o='<div class="sec" id="sectl"><h3><i lang="pt">Registo de tempo</i><i lang="en">Time log</i>'
        +'<i lang="de">Zeiterfassung</i><i lang="es">Registro de tiempo</i></h3><ul class="vals">';
   b.forEach(function(x){
-    var t=hhmm(x.s)+' – '+(x.e?hhmm(x.e):'—')+'  ·  '+blkMin(x)+' min';
+    var t=hhmmOff(x.s)+' – '+(x.e?hhmmOff(x.e):'—')+'  ·  '+blkMin(x)+' min';
     o+='<li><b class="qt">'+t+'</b> <i lang="pt">'+actLab(x.k,'pt')+'</i><i lang="en">'+actLab(x.k,'en')
       +'</i><i lang="de">'+actLab(x.k,'de')+'</i><i lang="es">'+actLab(x.k,'es')+'</i></li>';});
   return o+'</ul></div>';}
