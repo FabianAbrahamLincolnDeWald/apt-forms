@@ -501,9 +501,8 @@ function buildKPI(){
   if(dv)o+='<div class="k"><span class="kn">'+dv+'</span>'+
     langSpan({pt:'dia do servi\u00e7o',en:'day of service',de:'Einsatztag',es:'d\u00eda de servicio'})+'</div>';
   var _hb=(CMBLOCKS&&CMBLOCKS.length);
-  var _flat=_hb?blkCat('flat'):(d==null?null:d-m);
   var _shop=_hb?blkCat('shop'):0;
-  if(_hb)m=blkCat('comum');
+  var _flat=(d==null)?null:Math.max(0,d-m-_shop);
   if(d!=null){
     o+='<div class="k"><span class="kn">'+hm(d)+'</span>'+
       langSpan({pt:'no total',en:'in total',de:'insgesamt',es:'en total'})+
