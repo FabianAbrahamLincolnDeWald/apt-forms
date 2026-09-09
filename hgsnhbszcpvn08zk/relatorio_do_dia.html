@@ -173,6 +173,7 @@ html[data-doc] .prt{display:none}
 @media (prefers-color-scheme:dark){.clk .tot{border-color:#2c2c2a}}
 .clk .tot span.s{font-weight:400;font-size:13.5px;color:#8a8880}
 @media print{.clk{display:none!important}}
+.hint.manual{margin-top:-2px}
 </style></head><body>
 <input class="sw" type="radio" name="lang" id="l-pt" checked>
 <input class="sw" type="radio" name="lang" id="l-en">
@@ -192,7 +193,7 @@ html[data-doc] .prt{display:none}
 <div class="tot" id="clktot" hidden></div>
 </div>
 <input class="fld" type="date" id="f-data" min=""><p class="hint"><i lang="pt">Preencha o relatório <strong>no próprio dia da limpeza</strong>. Por isso o campo só aceita hoje ou uma data futura — se precisar de corrigir um dia que já passou, diga-me e eu trato disso.</i><i lang="en">Fill in the report <strong>on the day of the clean itself</strong>. That is why the field only accepts today or a future date — if a past day needs correcting, tell me and I will handle it.</i><i lang="de">Den Bericht bitte <strong>am Tag der Reinigung selbst</strong> ausfüllen. Deshalb nimmt das Feld nur heute oder ein späteres Datum an — muss ein vergangener Tag korrigiert werden, sagen Sie mir Bescheid, ich mache das.</i><i lang="es">Rellene el parte <strong>el mismo día de la limpieza</strong>. Por eso el campo solo acepta hoy o una fecha futura — si hay que corregir un día pasado, dígamelo y yo me encargo.</i></p>
-<div class="two"><div><span class="hint"><i lang="pt">Entrada</i><i lang="en">In</i><i lang="de">Ankunft</i><i lang="es">Entrada</i></span><input class="fld" type="time" id="f-in"><button class="now" type="button" data-t="f-in"><i lang="pt">agora</i><i lang="en">now</i><i lang="de">jetzt</i><i lang="es">ahora</i></button></div><div><span class="hint"><i lang="pt">Saída</i><i lang="en">Out</i><i lang="de">Ende</i><i lang="es">Salida</i></span><input class="fld" type="time" id="f-out"><button class="now" type="button" data-t="f-out"><i lang="pt">agora</i><i lang="en">now</i><i lang="de">jetzt</i><i lang="es">ahora</i></button></div></div>
+<p class="hint manual"><i lang="pt">Estes campos preenchem-se sozinhos a partir do registo de tempo lá em cima. Só mexa aqui se alguma coisa tiver corrido mal — a alteração fica registada no relatório.</i><i lang="en">These fields fill themselves from the time log above. Only touch them if something went wrong — the change is recorded in the report.</i><i lang="de">Diese Felder füllen sich von selbst aus der Zeiterfassung oben. Nur anfassen, wenn etwas schiefgelaufen ist — die Änderung wird im Bericht festgehalten.</i><i lang="es">Estos campos se rellenan solos con el registro de tiempo de arriba. Tóquelos solo si algo ha salido mal — el cambio queda registrado en el informe.</i></p><div class="two"><div><span class="hint"><i lang="pt">Entrada</i><i lang="en">In</i><i lang="de">Ankunft</i><i lang="es">Entrada</i></span><input class="fld" type="time" id="f-in"><button class="now" type="button" data-t="f-in"><i lang="pt">agora</i><i lang="en">now</i><i lang="de">jetzt</i><i lang="es">ahora</i></button></div><div><span class="hint"><i lang="pt">Saída</i><i lang="en">Out</i><i lang="de">Ende</i><i lang="es">Salida</i></span><input class="fld" type="time" id="f-out"><button class="now" type="button" data-t="f-out"><i lang="pt">agora</i><i lang="en">now</i><i lang="de">jetzt</i><i lang="es">ahora</i></button></div></div>
 <h2><i lang="pt">Novo código da caixa das chaves</i><i lang="en">New key box code</i><i lang="de">Neuer Code am Schlüsselkasten</i><i lang="es">Nuevo código de la caja de llaves</i></h2><input class="fld" type="text" inputmode="numeric" autocomplete="off" id="f-code" placeholder="—"><p class="hint"><i lang="pt">Em cada mudança de hóspedes o código deve ser trocado. Escreva aqui o número novo — assim fica registado e eu sei sempre qual é o que está em uso.</i><i lang="en">At every guest changeover the code should be changed. Write the new number here — that way it is on record and I always know which one is in use.</i><i lang="de">Bei jedem Gästewechsel soll der Code gewechselt werden. Tragen Sie die neue Zahl hier ein — dann ist sie festgehalten und ich weiß immer, welche gerade gilt.</i><i lang="es">En cada cambio de huéspedes el código debe cambiarse. Escriba aquí el número nuevo — así queda registrado y yo sé siempre cuál está en uso.</i></p><h2><i lang="pt">Que tipo de limpeza foi</i><i lang="en">What kind of clean it was</i><i lang="de">Welche Art von Reinigung</i><i lang="es">Qué tipo de limpieza fue</i></h2>
 <select lang="pt" data-g="tipo"><option value="0">Limpeza completa — mudança de hóspedes</option><option value="1">Limpeza rápida — sem mudança</option><option value="2">Limpeza a fundo</option><option value="3">Só o corredor e as escadas</option><option value="4">Só uma passagem para ver tudo</option><option value="5">Outro</option></select><select lang="en" data-g="tipo"><option value="0">Full clean — guest changeover</option><option value="1">Quick clean — no changeover</option><option value="2">Deep clean</option><option value="3">Only the corridor and stairs</option><option value="4">Just a look round</option><option value="5">Other</option></select><select lang="de" data-g="tipo"><option value="0">Komplette Reinigung — Gästewechsel</option><option value="1">Kurze Reinigung — ohne Wechsel</option><option value="2">Grundreinigung</option><option value="3">Nur Flur und Treppenhaus</option><option value="4">Nur kurz nach dem Rechten gesehen</option><option value="5">Anderes</option></select><select lang="es" data-g="tipo"><option value="0">Limpieza completa — cambio de huéspedes</option><option value="1">Limpieza rápida — sin cambio</option><option value="2">Limpieza a fondo</option><option value="3">Solo el pasillo y las escaleras</option><option value="4">Solo una vuelta para revisar</option><option value="5">Otro</option></select>
 <h2><i lang="pt">Como estava o apartamento à chegada</i><i lang="en">How the flat was on arrival</i><i lang="de">Zustand der Wohnung bei Ankunft</i><i lang="es">Cómo estaba el apartamento al llegar</i></h2>
@@ -915,7 +916,10 @@ function recordMode(o){
   CMDAY=dayVal();
   CMOFF=(o.o==null?-new Date().getTimezoneOffset():o.o);
   var _bl=document.getElementById('f-blocks');
-  CMBLOCKS=[];if(_bl&&_bl.value){try{CMBLOCKS=JSON.parse(_bl.value)||[]}catch(e){CMBLOCKS=[]}}
+  CMBLOCKS=[];CMDERIV=null;
+  if(_bl&&_bl.value){try{var _pj=JSON.parse(_bl.value);
+    if(_pj&&_pj.b){CMBLOCKS=_pj.b||[];CMDERIV=_pj.d||null}
+    else CMBLOCKS=_pj||[];}catch(e){CMBLOCKS=[]}}
   var _tp=document.querySelector('select[data-g=tipo]');CMTIPO=_tp?_tp.selectedIndex:-1;
   CMEXTRA=[];CMCOMMON=[];SELMAP={};
   Array.prototype.slice.call(document.querySelectorAll('select[data-g]')).forEach(function(s){
@@ -957,6 +961,7 @@ function recordMode(o){
    +'ul.vals li{position:relative;padding-left:18px;margin-bottom:6px;font-size:17px;line-height:1.5}'
    +'ul.vals li::before{content:"";position:absolute;left:2px;top:10px;width:5px;height:5px;border-radius:50%;background:#c2c0b6}'
    +'ul.vals li b.qt{font-weight:700}'
+   +'ul.vals li.tledit{color:#c0392b}ul.vals li.tledit::before{background:#c0392b}'
    +'.free{color:#5a5852}'
    +'@media (prefers-color-scheme:dark){.stamp{background:#1a1a19;border-color:rgba(255,255,255,.14)}'
    +'.kpi .k{background:#1a1a19;border-color:rgba(255,255,255,.10)}.kpi .k i{color:#a9a79e}'
@@ -1112,7 +1117,7 @@ var ACT=[
 var STOPL={pt:'Terminar',en:'Finish',de:'Beenden',es:'Terminar'};
 var RUNL={pt:'a decorrer',en:'running',de:'läuft',es:'en curso'};
 var TOTL={pt:'Total',en:'Total',de:'Gesamt',es:'Total'};
-var CMBLOCKS=[],CMTIPO=-1,CMOFF=0;
+var CMBLOCKS=[],CMTIPO=-1,CMOFF=0,CMDERIV=null;
 function actOf(k){for(var i=0;i<ACT.length;i++)if(ACT[i].k===k)return ACT[i];return null}
 function actLab(k,L){var a=actOf(k);return a?(a[L||curLang()]||a.pt):k}
 function hhmm(ms){var x=new Date(ms);return pad(x.getHours())+':'+pad(x.getMinutes())}
@@ -1128,7 +1133,27 @@ function blSecHTML(){
     var t=hhmmOff(x.s)+' – '+(x.e?hhmmOff(x.e):'—')+'  ·  '+blkMin(x)+' min';
     o+='<li><b class="qt">'+t+'</b> <i lang="pt">'+actLab(x.k,'pt')+'</i><i lang="en">'+actLab(x.k,'en')
       +'</i><i lang="de">'+actLab(x.k,'de')+'</i><i lang="es">'+actLab(x.k,'es')+'</i></li>';});
+  var ch=blEdits();
+  ch.forEach(function(c){
+    o+='<li class="tledit"><i lang="pt">Alterado à mão: '+c.pt+' '+c.a+' \u2192 '+c.b+'</i>'
+      +'<i lang="en">Changed by hand: '+c.en+' '+c.a+' \u2192 '+c.b+'</i>'
+      +'<i lang="de">Von Hand geändert: '+c.de+' '+c.a+' \u2192 '+c.b+'</i>'
+      +'<i lang="es">Modificado a mano: '+c.es+' '+c.a+' \u2192 '+c.b+'</i></li>';});
   return o+'</ul></div>';}
+function blEdits(){
+  if(!CMDERIV)return [];
+  var out=[];
+  function cmp(key,cur,pt,en,de,es,fmt){
+    var was=CMDERIV[key];
+    if(was==null||was==='')return;
+    var a=fmt?fmt(was):was, b=fmt?fmt(cur):cur;
+    if(String(was)!==String(cur||''))out.push({pt:pt,en:en,de:de,es:es,a:a,b:b});}
+  cmp('in',CMIN,'entrada','arrival','Ankunft','entrada');
+  cmp('out',CMOUT,'saída','end','Ende','salida');
+  cmp('min',(CMMIN===''?'0':CMMIN),'partes comuns','common parts','Gemeinschaftsflächen','zonas comunes',
+      function(v){return hm(+v||0)});
+  cmp('date',CMDAY,'dia','day','Tag','día');
+  return out;}
 function restore(){
   var m=/[#&?]r=([A-Za-z0-9\-_]+)/.exec(location.hash||location.search);
   if(!m)return false;
@@ -1198,16 +1223,20 @@ function blSum(cat){var t=0;BL().forEach(function(x){var a=actOf(x.k);if(a&&a.ca
 function blDerive(){
   var b=BL().slice().sort(function(p,q){return p.s-q.s});
   var hid=document.getElementById('f-blocks');
-  if(hid)hid.value=b.length?JSON.stringify(b.map(function(x){return{k:x.k,s:x.s,e:x.e}})):'';
-  if(!b.length)return;
+  if(!b.length){if(hid)hid.value='';return}
   var first=b[0], last=b[b.length-1];
   var fi=document.getElementById('f-in'), fo=document.getElementById('f-out'), fm=document.getElementById('f-min');
-  if(fi)fi.value=hhmm(first.s);
-  if(fo&&last.e)fo.value=hhmm(last.e);
-  if(fm){var c=blSum('comum'); fm.value=c?c:''; }
+  var dv={};
+  dv.in=hhmm(first.s);
+  if(last.e)dv.out=hhmm(last.e);
+  dv.min=String(blSum('comum')||0);
   var ds=new Date(first.s);
-  var iso=ds.getFullYear()+'-'+z(ds.getMonth()+1)+'-'+z(ds.getDate());
-  if(dt){ if(iso<dt.min)dt.min=iso; dt.value=iso; }
+  dv.date=ds.getFullYear()+'-'+z(ds.getMonth()+1)+'-'+z(ds.getDate());
+  if(fi)fi.value=dv.in;
+  if(fo&&dv.out)fo.value=dv.out;
+  if(fm)fm.value=(+dv.min)?dv.min:'';
+  if(dt){ if(dv.date<dt.min)dt.min=dv.date; dt.value=dv.date; }
+  if(hid)hid.value=JSON.stringify({b:b.map(function(x){return{k:x.k,s:x.s,e:x.e}}),d:dv});
 }
 function blPaint(){
   var L=curLang();
