@@ -499,14 +499,20 @@ function buildKPI(){
   var o='<div class="kpi">';
   if(dv)o+='<div class="k"><span class="kn">'+dv+'</span>'+
     langSpan({pt:'dia do servi\u00e7o',en:'day of service',de:'Einsatztag',es:'d\u00eda de servicio'})+'</div>';
+  var _hb=(CMBLOCKS&&CMBLOCKS.length);
+  var _flat=_hb?blkCat('flat'):(d==null?null:d-m);
+  var _shop=_hb?blkCat('shop'):0;
+  if(_hb)m=blkCat('comum');
   if(d!=null){
     o+='<div class="k"><span class="kn">'+hm(d)+'</span>'+
       langSpan({pt:'no total',en:'in total',de:'insgesamt',es:'en total'})+
       '<span class="ks">'+CMIN+' – '+CMOUT+'</span></div>';
-    o+='<div class="k"><span class="kn">'+hm(d-m)+'</span>'+
+    o+='<div class="k"><span class="kn">'+hm(_flat)+'</span>'+
       langSpan({pt:'no apartamento',en:'in the flat',de:'in der Wohnung',es:'en el apartamento'})+'</div>';
   }
-  if(CMSHOP)o+='<div class="k"><span class="kn">✓</span>'+
+  if(_shop)o+='<div class="k"><span class="kn">'+hm(_shop)+'</span>'+
+    langSpan({pt:'compras e deslocação',en:'shopping and travel',de:'Einkauf und Fahrt',es:'compras y desplazamiento'})+'</div>';
+  else if(CMSHOP)o+='<div class="k"><span class="kn">✓</span>'+
     langSpan({pt:'compras (forfait)',en:'shopping (flat rate)',de:'Einkauf (Pauschale)',es:'compras (a tanto alzado)'})+'</div>';
   if(CMCODE)o+='<div class="k code"><span class="kn">'+esc(CMCODE)+'</span>'+
     langSpan({pt:'c\u00f3digo novo da caixa',en:'new key box code',de:'neuer Schl\u00fcsselcode',es:'nuevo c\u00f3digo de la caja'})+'</div>';
@@ -1007,11 +1013,13 @@ function recordMode(o){
   if(!CMLIST){
     var tlh=blSecHTML();
     if(tlh){var tc=document.createElement('div');tc.innerHTML=tlh;w.appendChild(tc.firstChild);}
+    var _hb2=(CMBLOCKS&&CMBLOCKS.length);
     var _du=mins(CMIN,CMOUT),_cm=+CMMIN||0;
-    if(CMTIPO===3&&_du!=null&&(_du-_cm)>15){
+    var _rest=_hb2?blkCat('flat'):((_du==null)?0:_du-_cm);
+    if(CMTIPO===3&&_rest>15){
       var wv=document.createElement('div');wv.className='plaus';
       wv.innerHTML='<b>Prüfen:</b> Als Art der Reinigung steht „nur Flur und Treppenhaus", '
-        +'trotzdem bleiben '+hm(_du-_cm)+' Wohnungszeit übrig. Vermutlich gehört mehr davon zu den Gemeinschaftsflächen.';
+        +'trotzdem bleiben '+hm(_rest)+' Wohnungszeit übrig. Gehört das wirklich zur Wohnung?';
       w.appendChild(wv);}
   }
   if(!CMLIST)settleUI(w);
