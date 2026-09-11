@@ -255,8 +255,13 @@ var CMDAY='';
 function dayVal(){var dd=document.getElementById('f-data')||document.getElementById('f-datum');
   return (dd&&dd.value)?dd.value:CMDAY;}
 function pad(x){return('0'+x).slice(-2)}
+/* Die Felder der Stempeluhr (.ts/.te) entstehen erst beim Stempeln, und es sind je nach
+   Tag unterschiedlich viele. Sie duerfen NICHT mitgezaehlt werden: sonst verschiebt sich
+   die Nummerierung aller uebrigen Felder um zwei je gestempeltem Block, und der Empfaenger,
+   der den Link ohne Bloecke oeffnet, liest jeden Wert im falschen Feld. */
 function ctrls(){return Array.prototype.slice.call(
-  document.querySelectorAll('.wrap input,.wrap select,.wrap textarea'))}
+  document.querySelectorAll('.wrap input,.wrap select,.wrap textarea'))
+  .filter(function(e){return !(e.classList&&(e.classList.contains('ts')||e.classList.contains('te')))})}
 function curLang(){var r=document.querySelector('input[name=lang]:checked');return r?r.id.slice(2):'pt'}
 function extraCounts(){
   return Array.prototype.slice.call(document.querySelectorAll('.card')).map(function(c){
@@ -270,7 +275,8 @@ function encodeState(){
     else if(e.tagName==='SELECT'){if(e.selectedIndex>0)v[i]=e.selectedIndex}
     else if(e.value!=='')v[i]=e.value;});
   var d=new Date();
-  return b64e(JSON.stringify({v:1,a:AUTOR,l:curLang(),t:d.getTime(),
+  /* k:1 = die Feldnummerierung zaehlt die Stempeluhr nicht mehr mit (s. ctrls). */
+  return b64e(JSON.stringify({v:1,k:1,a:AUTOR,l:curLang(),t:d.getTime(),
     o:-d.getTimezoneOffset(),x:extraCounts(),d:v}));
 }
 function applyState(o){
@@ -1153,10 +1159,42 @@ function blEdits(){
       function(v){return hm(+v||0)});
   cmp('date',CMDAY,'dia','day','Tag','día');
   return out;}
+/* Berichte, die vor dem 11.09.2026 gestempelt wurden, tragen einen Versatz von zwei
+   Positionen je gestempeltem Block (s. Kommentar bei ctrls). Erkennbar daran, dass im
+   ersten Feld kein Datum steht: dann wird gesucht, wo das Datum gelandet ist, und der
+   ganze Satz um genau diesen Betrag zurueckgeschoben. Neue Berichte tragen k:1 und
+   laufen gar nicht erst durch diese Reparatur. */
+function fixShift(o){
+  if(!o||!o.d||o.k===1)return o;
+  var d=o.d,isDate=function(v){return typeof v==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(v)};
+  if(isDate(d['0']))return o;
+  var keys=Object.keys(d).map(Number).sort(function(a,b){return a-b}),off=-1;
+  for(var i=0;i<keys.length;i++){if(isDate(d[String(keys[i])])){off=keys[i];break}}
+  if(off<=0)return o;
+  var out={};
+  keys.forEach(function(k){var n=k-off;if(n>=0)out[String(n)]=d[String(k)]});
+  o.d=out;
+  return o;
+}
+/* Frueher fiel ein unlesbarer Link stillschweigend auf das leere Formular zurueck —
+   es sah dann so aus, als haette die Reinigungskraft nichts abgeschickt. */
+function readFail(){
+  try{
+    var w=document.querySelector('.wrap')||document.body;
+    var b=document.createElement('div');
+    b.style.cssText='margin:14px 0;padding:13px 15px;border:1px solid #e0b4ac;'+
+      'background:#fdf1ef;color:#7a2e22;border-radius:12px;font-size:15px;line-height:1.5';
+    b.textContent='Dieser Bericht liess sich nicht oeffnen — der Link stammt aus einer '+
+      'aelteren Fassung des Formulars. Der Berichtstext in der WhatsApp-Nachricht ist vollstaendig.';
+    w.insertBefore(b,w.firstChild);
+  }catch(e){}
+}
 function restore(){
   var m=/[#&?]r=([A-Za-z0-9\-_]+)/.exec(location.hash||location.search);
   if(!m)return false;
-  try{recordMode(JSON.parse(b64d(m[1])));return true}catch(e){return false}
+  var o;
+  try{o=fixShift(JSON.parse(b64d(m[1])))}catch(e){readFail();return false}
+  try{recordMode(o);return true}catch(e){readFail();return false}
 }
 
 var LB={
