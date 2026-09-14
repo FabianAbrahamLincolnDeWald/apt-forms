@@ -63,9 +63,21 @@ END:STANDARD
 END:VTIMEZONE"""
 
 # Zeitfenster je Einsatzart: Start (Ortszeit Madeira) und Dauer in Minuten
+# Samstag und Sonntag — dort ist die Verfügbarkeit unverändert.
 SLOT = {'WECHSEL':('10:00',240), 'AUSZUG':('10:00',180), 'VORBEREITUNG':('10:00',90),
         'ZWISCHEN':('11:30',90), 'LEERSTAND':('11:30',45),
         'IN':('14:00',15), 'OUT':('10:00',15)}
+
+# Montag bis Freitag: seit dem Studienbeginn ist die Reinigung erst ab 12:30 möglich.
+# Referenzzeit dort 12:30–14:00 (Anreise ist um 14:00), abgesprochen am 14.09.2026.
+# Ankunft und Abreise der Gäste (IN/OUT) bleiben davon unberührt.
+SLOT_WERKTAG = {'WECHSEL':('12:30',90), 'AUSZUG':('12:30',90), 'VORBEREITUNG':('12:30',90),
+                'ZWISCHEN':('12:30',90), 'LEERSTAND':('12:30',45)}
+
+def slot(day, tag):
+    if day.weekday() < 5 and tag in SLOT_WERKTAG:
+        return SLOT_WERKTAG[tag]
+    return SLOT[tag]
 
 # ---------- Texte ----------
 TXT = {
@@ -96,7 +108,7 @@ def ics(lang):
     L.extend(VTIMEZONE.split('\n'))
     def ev(day, title, desc, tag):
         uid = hashlib.md5(('%s|%s|%s' % (day, tag, lang)).encode()).hexdigest() + '@funchal'
-        hhmm, dur = SLOT[tag]
+        hhmm, dur = slot(day, tag)
         h, m = map(int, hhmm.split(':'))
         st = datetime.datetime.combine(day, datetime.time(h, m))
         en = st + datetime.timedelta(minutes=dur)
