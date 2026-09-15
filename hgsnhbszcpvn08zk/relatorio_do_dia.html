@@ -345,7 +345,29 @@ var SET={shop:0,rate:11.5,prate:1.70,pmode:'none',pmin:null};
 function eur(x){return (Math.round(x*100)/100).toFixed(2).replace('.',',')+' €';}
 function hasBlocks(){return !!(CMBLOCKS&&CMBLOCKS.length)}
 function measuredShop(){return hasBlocks()?blkCat('shop'):0}
-function onSite(){return hasBlocks()?(blkCat('comum')+blkCat('flat')):(mins(CMIN,CMOUT)||0)}
+/* Die Stempeluhr ist Hilfsmittel, nicht Wahrheit: laeuft sie weiter, weil das Telefon
+   leer war, korrigiert Diana Beginn und Ende von Hand. Diese Korrektur hat Vorrang —
+   vorher rechnete die Abrechnung stillschweigend mit der Uhr weiter. */
+function onSiteBlocks(){return blkCat('comum')+blkCat('flat')}
+function onSiteManual(){
+  var d=mins(CMIN,CMOUT);
+  if(d==null)return null;
+  var ab=blkCat('shop')+blkCat('desloc');   /* Supermarkt und Fahrt stehen ausserhalb */
+  var v=d-ab;
+  return v>=0?v:null;
+}
+function timeConflict(){
+  if(!hasBlocks())return null;
+  var m=onSiteManual();
+  if(m==null)return null;
+  var b=onSiteBlocks();
+  return m===b?null:{uhr:b,hand:m};
+}
+function onSite(){
+  if(!hasBlocks())return mins(CMIN,CMOUT)||0;
+  var m=onSiteManual();
+  return m==null?onSiteBlocks():m;
+}
 function settleParts(){
   var work=hasBlocks()?onSite():(mins(CMIN,CMOUT)||0);
   var shop=+SET.shop||0;
@@ -365,6 +387,11 @@ function settleSecHTML(){
        +'<i lang="de">Abrechnung</i><i lang="es">Liquidación</i></h3><ul class="vals">';
   o+=row('Tempo de trabalho: '+hm(p.work),'Working time: '+hm(p.work),
          'Arbeitszeit: '+hm(p.work),'Tiempo de trabajo: '+hm(p.work));
+  var cf=timeConflict();
+  if(cf)o+=row('Cronómetro: '+hm(cf.uhr)+' — corrigido à mão para '+hm(cf.hand)+', conta a correção',
+         'Stopwatch: '+hm(cf.uhr)+' — corrected by hand to '+hm(cf.hand)+'; the correction counts',
+         'Stoppuhr: '+hm(cf.uhr)+' — von Hand auf '+hm(cf.hand)+' korrigiert, gerechnet wird die Korrektur',
+         'Cronómetro: '+hm(cf.uhr)+' — corregido a mano a '+hm(cf.hand)+', cuenta la corrección');
   if(p.shop)o+=row('Tempo de compras creditado: '+hm(p.shop),'Shopping time credited: '+hm(p.shop),
          'Angerechnete Einkaufszeit: '+hm(p.shop),'Tiempo de compras acreditado: '+hm(p.shop));
   o+=row('Tempo pago no total: '+hm(p.total),'Paid time in total: '+hm(p.total),
@@ -438,7 +465,12 @@ function settleUI(w){
       markPark();settleRefresh();});});
   prIn.addEventListener('input',function(){SET.prate=parseFloat(prIn.value.replace(',','.'))||0;
     if(SET.pmode==='none'){SET.pmode='street';markPark();} settleRefresh();});
-  pmIn.addEventListener('input',function(){SET.pmin=pmIn.value===''?work:(+pmIn.value||0);settleRefresh();});
+  pmIn.addEventListener('input',function(){
+    SET.pmin=pmIn.value===''?work:(+pmIn.value||0);
+    /* Wer Parkminuten eintraegt, will Parken abrechnen: ohne das blieb der Modus
+       auf "kein Parken" und die Summe aenderte sich nicht. */
+    if(SET.pmode==='none'&&pmIn.value!==''){SET.pmode='garage';markPark();}
+    settleRefresh();});
   markShop();markPark();
 }
 
