@@ -37,9 +37,16 @@ cur_d = last + datetime.timedelta(1)
 for _ in range(HORIZON):
     gap = (cur_d - last).days
     t = None
+    morgen = cur_d + datetime.timedelta(1)
     if cur_d in outs and cur_d in ins:      t = 'WECHSEL'
     elif cur_d in outs:                     t = 'AUSZUG'
-    elif (cur_d + datetime.timedelta(1)) in ins and gap >= 2: t = 'VORBEREITUNG'
+    # Am Tag vor einer Abreise lohnt kein eigener Einsatz — morgen wird ohnehin
+    # komplett gereinigt. Sonst stuenden zwei Tage hintereinander im Kalender.
+    elif morgen in outs:                    t = None
+    # Vorbereiten nur, wenn die Wohnung an dem Tag leer steht. Verlaengert ein Gast
+    # bis zum Anreisetag der naechsten, war hier faelschlich "Vorbereiten" geplant,
+    # waehrend die Wohnung noch belegt war.
+    elif morgen in ins and gap >= 2 and cur_d not in occ: t = 'VORBEREITUNG'
     elif gap >= 3:                          t = 'ZWISCHEN' if cur_d in occ else 'LEERSTAND'
     if t: plan.append((cur_d, t)); last = cur_d
     cur_d += datetime.timedelta(1)
