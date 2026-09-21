@@ -341,7 +341,9 @@ function mins(a,b){
 function hm(m){if(m==null)return '';var h=Math.floor(m/60),r=m%60;return h?(h+' h '+(r?pad(r)+' min':'')).trim():(r+' min');}
 
 /* ================= Abrechnung (nur im Record-Modus fuer den Auftraggeber) ================= */
-var SET={shop:0,rate:11.5,prate:1.70,pmode:'none',pmin:null};
+// Parque Almirante Reis, Rua D. Carlos I: 0,50 EUR je angefangene 15 Minuten
+// tagsueber (06–24 Uhr), also 2,00 EUR/h. Nachts 0,30 EUR/15 min. Deckel 16 EUR/Tag.
+var SET={shop:0,rate:11.5,prate:2.00,pmode:'none',pmin:null};
 function eur(x){return (Math.round(x*100)/100).toFixed(2).replace('.',',')+' €';}
 function hasBlocks(){return !!(CMBLOCKS&&CMBLOCKS.length)}
 function measuredShop(){return hasBlocks()?blkCat('shop'):0}
@@ -377,6 +379,7 @@ function settleParts(){
   var pm=on?(SET.pmin==null?work:(+SET.pmin||0)):0;
   var pb=on?Math.ceil(pm/15)*15:0;
   var park=on?pb/60*SET.prate:0;
+  if(park>16)park=16;   // Tagesmaximum des Parkhauses
   return {work:work,shop:shop,total:total,wage:wage,pmin:pm,pbill:pb,park:park,sum:wage+park,on:on};
 }
 function settleSecHTML(){
@@ -437,7 +440,7 @@ function settleUI(w){
    +'<button type="button" data-v="none">kein Parken</button>'
    +'<button type="button" data-v="garage">Parkhaus</button>'
    +'<button type="button" data-v="street">Straße</button>'
-   +'<input class="pr" type="number" min="0" step="0.10" value="1.70" title="Euro pro Stunde"><span class="u">€/h</span>'
+   +'<input class="pr" type="number" min="0" step="0.10" value="2.00" title="Euro pro Stunde — Almirante Reis: 0,50 € je angefangene 15 min"><span class="u">€/h</span>'
    +'<input class="pm" type="number" min="0" step="15" title="Minuten"><span class="u">min</span></div></div>'
    +'<div class="hintx" id="abrstat"></div>'
    +'<div class="ssum" id="abrsum"></div>';
@@ -461,7 +464,7 @@ function settleUI(w){
   Array.prototype.slice.call(parkWrap.querySelectorAll('button')).forEach(function(b){
     b.addEventListener('click',function(){
       SET.pmode=b.getAttribute('data-v');
-      if(SET.pmode==='garage'){SET.prate=1.70;prIn.value='1.70';}
+      if(SET.pmode==='garage'){SET.prate=2.00;prIn.value='2.00';}
       markPark();settleRefresh();});});
   prIn.addEventListener('input',function(){SET.prate=parseFloat(prIn.value.replace(',','.'))||0;
     if(SET.pmode==='none'){SET.pmode='street';markPark();} settleRefresh();});
