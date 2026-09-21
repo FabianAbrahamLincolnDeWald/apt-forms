@@ -341,9 +341,7 @@ function mins(a,b){
 function hm(m){if(m==null)return '';var h=Math.floor(m/60),r=m%60;return h?(h+' h '+(r?pad(r)+' min':'')).trim():(r+' min');}
 
 /* ================= Abrechnung (nur im Record-Modus fuer den Auftraggeber) ================= */
-// Parque Almirante Reis, Rua D. Carlos I: 0,50 EUR je angefangene 15 Minuten
-// tagsueber (06–24 Uhr), also 2,00 EUR/h. Nachts 0,30 EUR/15 min. Deckel 16 EUR/Tag.
-var SET={shop:0,rate:11.5,prate:2.00,pmode:'none',pmin:null};
+var SET={shop:0,rate:11.5,prate:1.70,pmode:'none',pmin:null};
 function eur(x){return (Math.round(x*100)/100).toFixed(2).replace('.',',')+' €';}
 function hasBlocks(){return !!(CMBLOCKS&&CMBLOCKS.length)}
 function measuredShop(){return hasBlocks()?blkCat('shop'):0}
@@ -370,6 +368,20 @@ function onSite(){
   var m=onSiteManual();
   return m==null?onSiteBlocks():m;
 }
+/* Parque Almirante Reis, Rua D. Carlos I — gestaffelt, nicht pro Stunde:
+   Tag 06–24 Uhr: 0,50 / 0,90 / 1,30 / 1,70 fuer die ersten vier Viertelstunden,
+   danach 0,40 je weitere angefangene Viertelstunde, hoechstens 15,00 am Tag.
+   Nacht 00–06 Uhr: 0,30 / 0,60 / 0,80 / 1,00, danach 0,20. Die Einsaetze liegen
+   am Tag, deshalb ist der Tagtarif die Voreinstellung. */
+function parkStaffel(min, nacht){
+  if(min<=0)return 0;
+  var v=Math.ceil(min/15);
+  var tab=nacht?[0.30,0.60,0.80,1.00]:[0.50,0.90,1.30,1.70];
+  var step=nacht?0.20:0.40;
+  var p=v<=4?tab[v-1]:tab[3]+(v-4)*step;
+  if(!nacht&&p>15)p=15;
+  return Math.round(p*100)/100;
+}
 function settleParts(){
   var work=hasBlocks()?onSite():(mins(CMIN,CMOUT)||0);
   var shop=+SET.shop||0;
@@ -378,8 +390,7 @@ function settleParts(){
   var on=SET.pmode!=='none';
   var pm=on?(SET.pmin==null?work:(+SET.pmin||0)):0;
   var pb=on?Math.ceil(pm/15)*15:0;
-  var park=on?pb/60*SET.prate:0;
-  if(park>16)park=16;   // Tagesmaximum des Parkhauses
+  var park=on?(SET.pmode==='garage'?parkStaffel(pb):pb/60*SET.prate):0;
   return {work:work,shop:shop,total:total,wage:wage,pmin:pm,pbill:pb,park:park,sum:wage+park,on:on};
 }
 function settleSecHTML(){
@@ -402,10 +413,12 @@ function settleSecHTML(){
   o+=row('Valor à hora: '+eur(SET.rate),'Hourly rate: '+eur(SET.rate),
          'Stundensatz: '+eur(SET.rate),'Precio por hora: '+eur(SET.rate));
   o+=row('Trabalho: '+eur(p.wage),'Labour: '+eur(p.wage),'Lohn: '+eur(p.wage),'Trabajo: '+eur(p.wage));
-  if(p.on)o+=row('Estacionamento: '+hm(p.pbill)+' × '+eur(SET.prate)+'/h = '+eur(p.park),
-         'Parking: '+hm(p.pbill)+' × '+eur(SET.prate)+'/h = '+eur(p.park),
-         'Parkgebühr: '+hm(p.pbill)+' × '+eur(SET.prate)+'/h = '+eur(p.park),
-         'Aparcamiento: '+hm(p.pbill)+' × '+eur(SET.prate)+'/h = '+eur(p.park));
+  if(p.on){var pz=SET.pmode==='garage'?hm(p.pbill)+' (tabela do parque)':hm(p.pbill)+' × '+eur(SET.prate)+'/h';
+    var pzd=SET.pmode==='garage'?hm(p.pbill)+' (Tarif des Parkhauses)':hm(p.pbill)+' × '+eur(SET.prate)+'/h';
+    o+=row('Estacionamento: '+pz+' = '+eur(p.park),
+         'Parking: '+pzd.replace('Tarif des Parkhauses','car park tariff')+' = '+eur(p.park),
+         'Parkgebühr: '+pzd+' = '+eur(p.park),
+         'Aparcamiento: '+pz.replace('tabela do parque','tarifa del parking')+' = '+eur(p.park));}
   o+=row('<b>Total a transferir: '+eur(p.sum)+'</b>','<b>Total to transfer: '+eur(p.sum)+'</b>',
          '<b>Gesamtbetrag zur Überweisung: '+eur(p.sum)+'</b>','<b>Total a transferir: '+eur(p.sum)+'</b>');
   return o+'</ul></div>';
@@ -440,7 +453,7 @@ function settleUI(w){
    +'<button type="button" data-v="none">kein Parken</button>'
    +'<button type="button" data-v="garage">Parkhaus</button>'
    +'<button type="button" data-v="street">Straße</button>'
-   +'<input class="pr" type="number" min="0" step="0.10" value="2.00" title="Euro pro Stunde — Almirante Reis: 0,50 € je angefangene 15 min"><span class="u">€/h</span>'
+   +'<input class="pr" type="number" min="0" step="0.10" value="1.70" title="Euro pro Stunde — nur fuer Strassenparken; das Parkhaus rechnet nach eigener Tabelle"><span class="u">€/h</span>'
    +'<input class="pm" type="number" min="0" step="15" title="Minuten"><span class="u">min</span></div></div>'
    +'<div class="hintx" id="abrstat"></div>'
    +'<div class="ssum" id="abrsum"></div>';
@@ -464,7 +477,7 @@ function settleUI(w){
   Array.prototype.slice.call(parkWrap.querySelectorAll('button')).forEach(function(b){
     b.addEventListener('click',function(){
       SET.pmode=b.getAttribute('data-v');
-      if(SET.pmode==='garage'){SET.prate=2.00;prIn.value='2.00';}
+      if(SET.pmode==='garage'){prIn.disabled=true;}else{prIn.disabled=false;}
       markPark();settleRefresh();});});
   prIn.addEventListener('input',function(){SET.prate=parseFloat(prIn.value.replace(',','.'))||0;
     if(SET.pmode==='none'){SET.pmode='street';markPark();} settleRefresh();});
