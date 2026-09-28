@@ -255,8 +255,13 @@ var CMDAY='';
 function dayVal(){var dd=document.getElementById('f-data')||document.getElementById('f-datum');
   return (dd&&dd.value)?dd.value:CMDAY;}
 function pad(x){return('0'+x).slice(-2)}
+/* Die Felder der Stempeluhr (.ts/.te) entstehen erst beim Stempeln, und es sind je nach
+   Tag unterschiedlich viele. Sie duerfen NICHT mitgezaehlt werden: sonst verschiebt sich
+   die Nummerierung aller uebrigen Felder um zwei je gestempeltem Block, und der Empfaenger,
+   der den Link ohne Bloecke oeffnet, liest jeden Wert im falschen Feld. */
 function ctrls(){return Array.prototype.slice.call(
-  document.querySelectorAll('.wrap input,.wrap select,.wrap textarea'))}
+  document.querySelectorAll('.wrap input,.wrap select,.wrap textarea'))
+  .filter(function(e){return !(e.classList&&(e.classList.contains('ts')||e.classList.contains('te')))})}
 function curLang(){var r=document.querySelector('input[name=lang]:checked');return r?r.id.slice(2):'pt'}
 function extraCounts(){
   return Array.prototype.slice.call(document.querySelectorAll('.card')).map(function(c){
@@ -270,7 +275,8 @@ function encodeState(){
     else if(e.tagName==='SELECT'){if(e.selectedIndex>0)v[i]=e.selectedIndex}
     else if(e.value!=='')v[i]=e.value;});
   var d=new Date();
-  return b64e(JSON.stringify({v:1,a:AUTOR,l:curLang(),t:d.getTime(),
+  /* k:1 = die Feldnummerierung zaehlt die Stempeluhr nicht mehr mit (s. ctrls). */
+  return b64e(JSON.stringify({v:1,k:1,a:AUTOR,l:curLang(),t:d.getTime(),
     o:-d.getTimezoneOffset(),x:extraCounts(),d:v}));
 }
 function applyState(o){
@@ -339,7 +345,43 @@ var SET={shop:0,rate:11.5,prate:1.70,pmode:'none',pmin:null};
 function eur(x){return (Math.round(x*100)/100).toFixed(2).replace('.',',')+' €';}
 function hasBlocks(){return !!(CMBLOCKS&&CMBLOCKS.length)}
 function measuredShop(){return hasBlocks()?blkCat('shop'):0}
-function onSite(){return hasBlocks()?(blkCat('comum')+blkCat('flat')):(mins(CMIN,CMOUT)||0)}
+/* Die Stempeluhr ist Hilfsmittel, nicht Wahrheit: laeuft sie weiter, weil das Telefon
+   leer war, korrigiert Diana Beginn und Ende von Hand. Diese Korrektur hat Vorrang —
+   vorher rechnete die Abrechnung stillschweigend mit der Uhr weiter. */
+function onSiteBlocks(){return blkCat('comum')+blkCat('flat')}
+function onSiteManual(){
+  var d=mins(CMIN,CMOUT);
+  if(d==null)return null;
+  var ab=blkCat('shop')+blkCat('desloc');   /* Supermarkt und Fahrt stehen ausserhalb */
+  var v=d-ab;
+  return v>=0?v:null;
+}
+function timeConflict(){
+  if(!hasBlocks())return null;
+  var m=onSiteManual();
+  if(m==null)return null;
+  var b=onSiteBlocks();
+  return m===b?null:{uhr:b,hand:m};
+}
+function onSite(){
+  if(!hasBlocks())return mins(CMIN,CMOUT)||0;
+  var m=onSiteManual();
+  return m==null?onSiteBlocks():m;
+}
+/* Parque Almirante Reis, Rua D. Carlos I — gestaffelt, nicht pro Stunde:
+   Tag 06–24 Uhr: 0,50 / 0,90 / 1,30 / 1,70 fuer die ersten vier Viertelstunden,
+   danach 0,40 je weitere angefangene Viertelstunde, hoechstens 15,00 am Tag.
+   Nacht 00–06 Uhr: 0,30 / 0,60 / 0,80 / 1,00, danach 0,20. Die Einsaetze liegen
+   am Tag, deshalb ist der Tagtarif die Voreinstellung. */
+function parkStaffel(min, nacht){
+  if(min<=0)return 0;
+  var v=Math.ceil(min/15);
+  var tab=nacht?[0.30,0.60,0.80,1.00]:[0.50,0.90,1.30,1.70];
+  var step=nacht?0.20:0.40;
+  var p=v<=4?tab[v-1]:tab[3]+(v-4)*step;
+  if(!nacht&&p>15)p=15;
+  return Math.round(p*100)/100;
+}
 function settleParts(){
   var work=hasBlocks()?onSite():(mins(CMIN,CMOUT)||0);
   var shop=+SET.shop||0;
@@ -348,7 +390,7 @@ function settleParts(){
   var on=SET.pmode!=='none';
   var pm=on?(SET.pmin==null?work:(+SET.pmin||0)):0;
   var pb=on?Math.ceil(pm/15)*15:0;
-  var park=on?pb/60*SET.prate:0;
+  var park=on?(SET.pmode==='garage'?parkStaffel(pb):pb/60*SET.prate):0;
   return {work:work,shop:shop,total:total,wage:wage,pmin:pm,pbill:pb,park:park,sum:wage+park,on:on};
 }
 function settleSecHTML(){
@@ -359,6 +401,11 @@ function settleSecHTML(){
        +'<i lang="de">Abrechnung</i><i lang="es">Liquidación</i></h3><ul class="vals">';
   o+=row('Tempo de trabalho: '+hm(p.work),'Working time: '+hm(p.work),
          'Arbeitszeit: '+hm(p.work),'Tiempo de trabajo: '+hm(p.work));
+  var cf=timeConflict();
+  if(cf)o+=row('Cronómetro: '+hm(cf.uhr)+' — corrigido à mão para '+hm(cf.hand)+', conta a correção',
+         'Stopwatch: '+hm(cf.uhr)+' — corrected by hand to '+hm(cf.hand)+'; the correction counts',
+         'Stoppuhr: '+hm(cf.uhr)+' — von Hand auf '+hm(cf.hand)+' korrigiert, gerechnet wird die Korrektur',
+         'Cronómetro: '+hm(cf.uhr)+' — corregido a mano a '+hm(cf.hand)+', cuenta la corrección');
   if(p.shop)o+=row('Tempo de compras creditado: '+hm(p.shop),'Shopping time credited: '+hm(p.shop),
          'Angerechnete Einkaufszeit: '+hm(p.shop),'Tiempo de compras acreditado: '+hm(p.shop));
   o+=row('Tempo pago no total: '+hm(p.total),'Paid time in total: '+hm(p.total),
@@ -366,10 +413,12 @@ function settleSecHTML(){
   o+=row('Valor à hora: '+eur(SET.rate),'Hourly rate: '+eur(SET.rate),
          'Stundensatz: '+eur(SET.rate),'Precio por hora: '+eur(SET.rate));
   o+=row('Trabalho: '+eur(p.wage),'Labour: '+eur(p.wage),'Lohn: '+eur(p.wage),'Trabajo: '+eur(p.wage));
-  if(p.on)o+=row('Estacionamento: '+hm(p.pbill)+' × '+eur(SET.prate)+'/h = '+eur(p.park),
-         'Parking: '+hm(p.pbill)+' × '+eur(SET.prate)+'/h = '+eur(p.park),
-         'Parkgebühr: '+hm(p.pbill)+' × '+eur(SET.prate)+'/h = '+eur(p.park),
-         'Aparcamiento: '+hm(p.pbill)+' × '+eur(SET.prate)+'/h = '+eur(p.park));
+  if(p.on){var pz=SET.pmode==='garage'?hm(p.pbill)+' (tabela do parque)':hm(p.pbill)+' × '+eur(SET.prate)+'/h';
+    var pzd=SET.pmode==='garage'?hm(p.pbill)+' (Tarif des Parkhauses)':hm(p.pbill)+' × '+eur(SET.prate)+'/h';
+    o+=row('Estacionamento: '+pz+' = '+eur(p.park),
+         'Parking: '+pzd.replace('Tarif des Parkhauses','car park tariff')+' = '+eur(p.park),
+         'Parkgebühr: '+pzd+' = '+eur(p.park),
+         'Aparcamiento: '+pz.replace('tabela do parque','tarifa del parking')+' = '+eur(p.park));}
   o+=row('<b>Total a transferir: '+eur(p.sum)+'</b>','<b>Total to transfer: '+eur(p.sum)+'</b>',
          '<b>Gesamtbetrag zur Überweisung: '+eur(p.sum)+'</b>','<b>Total a transferir: '+eur(p.sum)+'</b>');
   return o+'</ul></div>';
@@ -404,7 +453,7 @@ function settleUI(w){
    +'<button type="button" data-v="none">kein Parken</button>'
    +'<button type="button" data-v="garage">Parkhaus</button>'
    +'<button type="button" data-v="street">Straße</button>'
-   +'<input class="pr" type="number" min="0" step="0.10" value="1.70" title="Euro pro Stunde"><span class="u">€/h</span>'
+   +'<input class="pr" type="number" min="0" step="0.10" value="1.70" title="Euro pro Stunde — nur fuer Strassenparken; das Parkhaus rechnet nach eigener Tabelle"><span class="u">€/h</span>'
    +'<input class="pm" type="number" min="0" step="15" title="Minuten"><span class="u">min</span></div></div>'
    +'<div class="hintx" id="abrstat"></div>'
    +'<div class="ssum" id="abrsum"></div>';
@@ -428,11 +477,16 @@ function settleUI(w){
   Array.prototype.slice.call(parkWrap.querySelectorAll('button')).forEach(function(b){
     b.addEventListener('click',function(){
       SET.pmode=b.getAttribute('data-v');
-      if(SET.pmode==='garage'){SET.prate=1.70;prIn.value='1.70';}
+      if(SET.pmode==='garage'){prIn.disabled=true;}else{prIn.disabled=false;}
       markPark();settleRefresh();});});
   prIn.addEventListener('input',function(){SET.prate=parseFloat(prIn.value.replace(',','.'))||0;
     if(SET.pmode==='none'){SET.pmode='street';markPark();} settleRefresh();});
-  pmIn.addEventListener('input',function(){SET.pmin=pmIn.value===''?work:(+pmIn.value||0);settleRefresh();});
+  pmIn.addEventListener('input',function(){
+    SET.pmin=pmIn.value===''?work:(+pmIn.value||0);
+    /* Wer Parkminuten eintraegt, will Parken abrechnen: ohne das blieb der Modus
+       auf "kein Parken" und die Summe aenderte sich nicht. */
+    if(SET.pmode==='none'&&pmIn.value!==''){SET.pmode='garage';markPark();}
+    settleRefresh();});
   markShop();markPark();
 }
 
@@ -1153,10 +1207,42 @@ function blEdits(){
       function(v){return hm(+v||0)});
   cmp('date',CMDAY,'dia','day','Tag','día');
   return out;}
+/* Berichte, die vor dem 11.09.2026 gestempelt wurden, tragen einen Versatz von zwei
+   Positionen je gestempeltem Block (s. Kommentar bei ctrls). Erkennbar daran, dass im
+   ersten Feld kein Datum steht: dann wird gesucht, wo das Datum gelandet ist, und der
+   ganze Satz um genau diesen Betrag zurueckgeschoben. Neue Berichte tragen k:1 und
+   laufen gar nicht erst durch diese Reparatur. */
+function fixShift(o){
+  if(!o||!o.d||o.k===1)return o;
+  var d=o.d,isDate=function(v){return typeof v==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(v)};
+  if(isDate(d['0']))return o;
+  var keys=Object.keys(d).map(Number).sort(function(a,b){return a-b}),off=-1;
+  for(var i=0;i<keys.length;i++){if(isDate(d[String(keys[i])])){off=keys[i];break}}
+  if(off<=0)return o;
+  var out={};
+  keys.forEach(function(k){var n=k-off;if(n>=0)out[String(n)]=d[String(k)]});
+  o.d=out;
+  return o;
+}
+/* Frueher fiel ein unlesbarer Link stillschweigend auf das leere Formular zurueck —
+   es sah dann so aus, als haette die Reinigungskraft nichts abgeschickt. */
+function readFail(){
+  try{
+    var w=document.querySelector('.wrap')||document.body;
+    var b=document.createElement('div');
+    b.style.cssText='margin:14px 0;padding:13px 15px;border:1px solid #e0b4ac;'+
+      'background:#fdf1ef;color:#7a2e22;border-radius:12px;font-size:15px;line-height:1.5';
+    b.textContent='Dieser Bericht liess sich nicht oeffnen — der Link stammt aus einer '+
+      'aelteren Fassung des Formulars. Der Berichtstext in der WhatsApp-Nachricht ist vollstaendig.';
+    w.insertBefore(b,w.firstChild);
+  }catch(e){}
+}
 function restore(){
   var m=/[#&?]r=([A-Za-z0-9\-_]+)/.exec(location.hash||location.search);
   if(!m)return false;
-  try{recordMode(JSON.parse(b64d(m[1])));return true}catch(e){return false}
+  var o;
+  try{o=fixShift(JSON.parse(b64d(m[1])))}catch(e){readFail();return false}
+  try{recordMode(o);return true}catch(e){readFail();return false}
 }
 
 var LB={
