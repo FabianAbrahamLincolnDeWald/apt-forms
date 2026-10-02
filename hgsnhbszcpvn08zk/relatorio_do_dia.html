@@ -520,7 +520,7 @@ function buildCompact(){
       cur.items.push(langSpan(map));});
     var fl=(el.matches&&el.matches('input,textarea'))?[el]:q(el,'input,textarea');
     fl.forEach(function(x){
-      if(x.type==='checkbox'||x.type==='radio')return;
+      if(x.type==='checkbox'||x.type==='radio'||x.type==='hidden')return;
       if(x.closest&&x.closest('.row'))return;
       var v=(x.value||'').trim();if(!v)return;
       if(x.id==='f-data'||x.id==='f-in'||x.id==='f-out'||x.id==='f-min'||x.id==='f-code')return;
