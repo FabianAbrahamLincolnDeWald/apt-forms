@@ -49,6 +49,9 @@ for _ in range(HORIZON):
     elif morgen in ins and gap >= 2 and cur_d not in occ: t = 'VORBEREITUNG'
     elif gap >= 3:                          t = 'ZWISCHEN' if cur_d in occ else 'LEERSTAND'
     if t: plan.append((cur_d, t)); last = cur_d
+    # Mit jeder Anreise beginnt der Drei-Tage-Takt neu: erste Zwischenreinigung
+    # drei Tage nach dem Check-in, nicht im alten Takt ab ANCHOR weiter.
+    if cur_d in ins: last = cur_d
     cur_d += datetime.timedelta(1)
 
 VTIMEZONE = """BEGIN:VTIMEZONE
