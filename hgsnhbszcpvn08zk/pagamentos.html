@@ -33,45 +33,57 @@ ol{margin:8px 0 0;padding-left:20px}li{margin-bottom:5px}
 .warn{border-left:3px solid var(--ac2);padding-left:12px;margin-top:14px;font-size:14px;color:var(--mut)}
 </style></head><body><div class="wrap">
 
-<h1>Una transferencia para Diana</h1>
-<p class="sub">Limpieza, semana del 21 al 27 de septiembre.</p>
+<h1>Dos transferencias</h1>
+<p class="sub">Semana del 28 de septiembre al 4 de octubre. Por separado, por favor: son dos destinatarios distintos.</p>
 
 <div class="card">
-  <span class="n">Transferencia</span>
-  <div class="amt">47,53 €</div>
-  <div class="what">22.09. cambio de huéspedes 30,33 € · 26.09. desplazamiento 4,58 € · 27.09. limpieza corta 12,62 €</div>
-  <div class="f"><div class="lab">Importe</div><div class="val">47,53</div>
-    <button class="c" data-v="47.53">Copiar importe</button></div>
-  <div class="f"><div class="lab">Concepto</div><div class="val">LIMPEZA 21-27 SETEMBRO 2026</div>
-    <button class="c" data-v="LIMPEZA 21-27 SETEMBRO 2026">Copiar concepto</button></div>
+  <span class="n">Transferencia 1 · Diana (limpieza)</span>
+  <div class="amt">38,30 €</div>
+  <div class="what">30.09. limpieza completa 30,55 € · 01.10. visita corta 3,97 € · 02.10. visita corta 3,78 €</div>
+  <div class="f"><div class="lab">Nombre</div><div class="val" id="nm1"></div>
+    <button class="c" id="bn1">Copiar nombre</button></div>
+  <div class="f"><div class="lab">IBAN</div><div class="val mono" id="ib1"></div>
+    <button class="c" id="bi1">Copiar IBAN</button></div>
+  <div class="f"><div class="lab">Importe</div><div class="val">38,30</div>
+    <button class="c" data-v="38.30">Copiar importe</button></div>
+  <div class="f"><div class="lab">Concepto</div><div class="val">LIMPEZA 28 SETEMBRO-04 OUTUBRO 2026</div>
+    <button class="c" data-v="LIMPEZA 28 SETEMBRO-04 OUTUBRO 2026">Copiar concepto</button></div>
 </div>
 
 <div class="card">
-  <span class="n">Destinataria</span>
-  <div class="f"><div class="lab">Nombre</div><div class="val" id="nm"></div>
-    <button class="c" id="bn">Copiar nombre</button></div>
-  <div class="f"><div class="lab">IBAN</div><div class="val mono" id="ib"></div>
-    <button class="c" id="bi">Copiar IBAN</button></div>
+  <span class="n">Transferencia 2 · Lavandería</span>
+  <div class="amt">15,37 €</div>
+  <div class="what">Factura FAC CE26/2340 del 30.09. · 6 kg de ropa · vence el 30.10.</div>
+  <div class="f"><div class="lab">Nombre</div><div class="val" id="nm2"></div>
+    <button class="c" id="bn2">Copiar nombre</button></div>
+  <div class="f"><div class="lab">IBAN</div><div class="val mono" id="ib2"></div>
+    <button class="c" id="bi2">Copiar IBAN</button></div>
+  <div class="f"><div class="lab">Importe</div><div class="val">15,37</div>
+    <button class="c" data-v="15.37">Copiar importe</button></div>
+  <div class="f"><div class="lab">Concepto</div><div class="val">FAC CE26/2340 CLIENTE 547</div>
+    <button class="c" data-v="FAC CE26/2340 CLIENTE 547">Copiar concepto</button></div>
 </div>
 
 <div class="hint">
-  <b>Cómo hacerlo</b>
+  <b>Cómo hacerlo (para cada transferencia)</b>
   <ol>
-    <li>Toca «Copiar IBAN», abre la app de Santander y pégalo.</li>
+    <li>Toca «Copiar IBAN», abre la app de Santander y pégalo. Igual con el nombre.</li>
     <li>Vuelve aquí, copia el importe, pégalo.</li>
     <li>Vuelve otra vez, copia el concepto, pégalo. Envía.</li>
+    <li>Repite con la segunda transferencia.</li>
   </ol>
-  <div class="warn">El concepto va en portugués a propósito: es lo que Diana ve en su extracto del Novo Banco, y así Fabian lo puede asignar a la semana correspondiente.</div>
+  <div class="warn">Los conceptos van así a propósito: el de Diana en portugués para su extracto del Novo Banco, el de la lavandería con el número de factura para que la puedan asignar.</div>
 </div>
 
 <script>
 (function(){
-  var IB=['PT50','0007','0000','0043','0806','0042','3'];
-  var NM=['Diana','Marina','Silva','Velosa'];
-  document.getElementById('ib').textContent=IB.join(' ');
-  document.getElementById('nm').textContent=NM.join(' ');
-  document.getElementById('bi').setAttribute('data-v',IB.join(''));
-  document.getElementById('bn').setAttribute('data-v',NM.join(' '));
+  function put(n,ib,nm){
+    document.getElementById('ib'+n).textContent=ib.join(' ');
+    document.getElementById('nm'+n).textContent=nm.join(' ');
+    document.getElementById('bi'+n).setAttribute('data-v',ib.join(''));
+    document.getElementById('bn'+n).setAttribute('data-v',nm.join(' '));}
+  put(1,['PT50','0007','0000','0043','0806','0042','3'],['Diana','Marina','Silva','Velosa']);
+  put(2,['PT50','0036','0158','9910','0080','0151','7'],['YONERUSA,','LDA']);
   function copy(t,btn){
     var old=btn.textContent;
     function done(){btn.textContent='Copiado ✓';btn.classList.add('ok');
