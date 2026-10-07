@@ -78,7 +78,8 @@ var BOOKINGS=[
   ['2026-09-23','2026-09-28']
 ];
 var ANCHOR='2026-09-05';   /* letzte erfolgte Reinigung */
-var HORIZON=45;            /* Tage vorausplanen */
+var HORIZON=45;
+var PLAN=null;             /* kommt aus bookings.json (sync.py), inkl. Absprachen */            /* Tage vorausplanen */
 /* ══════════════════════════════════════════════════════════════ */
 function boot(){
 var L=function(){var r=document.querySelector('input[name=lang]:checked');return r?r.id.slice(2):'pt'};
@@ -123,6 +124,8 @@ BOOKINGS.forEach(function(b){
   ins[b[0]]=1;outs[b[1]]=1;
   for(var x=D(b[0]);key(x)<b[1];x=add(x,1))occ[key(x)]=1;});
 var plan=[],last=D(ANCHOR);
+if(PLAN){PLAN.forEach(function(p){plan.push({d:D(p[0]),t:p[1],h:p[2]})});}
+else
 for(var c=add(last,1),i=0;i<HORIZON;c=add(c,1),i++){
   var k=key(c),gap=Math.round((c-last)/864e5),t=null;
   if(outs[k]&&ins[k])t='WECHSEL';
@@ -138,7 +141,7 @@ function render(){
   document.getElementById('next').innerHTML= n?
     '<div class="next"><div class="lbl">'+NX[l]+'</div>'+
     '<div class="day">'+WD[l][(n.d.getDay()+6)%7]+', '+n.d.getDate()+'. '+MO[l][n.d.getMonth()]+'</div>'+
-    '<div class="kind">'+T[n.t][l][0]+'</div>'+
+    '<div class="kind">'+T[n.t][l][0]+(n.h?' · '+n.h:'')+'</div>'+
     '<div class="tm">'+T[n.t][l][1]+'</div></div>':'';
   var html='',mon=-1;
   up.forEach(function(p){
@@ -150,7 +153,7 @@ function render(){
     if(ins[k])ev+='<div class="ev">'+EV.ein[l]+'</div>';
     if(ins[key(add(p.d,1))])ev+='<div class="ev">'+EV.ein[l].replace(/·.*/,'· '+(l==='de'?'morgen':l==='en'?'next day':l==='es'?'al día siguiente':'no dia seguinte'))+'</div>';
     html+='<div class="row"><div class="dt">'+p.d.getDate()+'.'+(p.d.getMonth()+1)+'.<small>'+WD[l][(p.d.getDay()+6)%7]+'</small></div>'+
-      '<div class="bd"><span class="tag t-'+p.t+'">'+T[p.t][l][0]+'</span>'+
+      '<div class="bd"><span class="tag t-'+p.t+'">'+T[p.t][l][0]+(p.h?' · '+p.h:'')+'</span>'+
       '<div class="note">'+T[p.t][l][1]+'</div>'+ev+'</div></div>';});
   if(html)html+='</div>';
   document.getElementById('list').innerHTML=html;
@@ -167,6 +170,7 @@ render();
 fetch('bookings.json?t='+Date.now()).then(function(r){return r.ok?r.json():null}).then(function(j){
   if(j&&j.bookings&&j.bookings.length)BOOKINGS=j.bookings;
   if(j&&j.anchor)ANCHOR=j.anchor;
+  if(j&&j.plan&&j.plan.length)PLAN=j.plan;
   boot();
 }).catch(function(){boot()});
 </script></body></html>

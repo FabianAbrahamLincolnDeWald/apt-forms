@@ -6,6 +6,15 @@ PFAD   = os.environ.get('PFAD', 'hgsnhbszcpvn08zk')
 ANCHOR = os.environ.get('ANCHOR', '2026-09-05')
 HORIZON = 120
 
+# Von Hand abgesprochene Abweichungen vom gerechneten Plan.
+# None = an dem Tag kein Einsatz; (Art, 'HH:MM') = Einsatz zu dieser Zeit.
+# Der Takt läuft danach vom neuen Termin aus weiter.
+ANPASSUNGEN = {
+    '2026-10-07': None,                     # Gäste baten um Ruhetag
+    '2026-10-08': None,                     # Diana erst ab 17:30, daher Freitag
+    '2026-10-09': ('ZWISCHEN', '13:30'),    # mit Diana und Gästen am 07.10. abgestimmt
+}
+
 # ---------- iCal einlesen ----------
 raw = urllib.request.urlopen(os.environ['ICAL_URL'], timeout=30).read().decode('utf-8', 'replace')
 raw = raw.replace('\r\n ', '').replace('\r\n', '\n')
@@ -48,6 +57,9 @@ for _ in range(HORIZON):
     # waehrend die Wohnung noch belegt war.
     elif morgen in ins and gap >= 2 and cur_d not in occ: t = 'VORBEREITUNG'
     elif gap >= 3:                          t = 'ZWISCHEN' if cur_d in occ else 'LEERSTAND'
+    if cur_d.isoformat() in ANPASSUNGEN:
+        a = ANPASSUNGEN[cur_d.isoformat()]
+        t = a[0] if a else None
     if t: plan.append((cur_d, t)); last = cur_d
     # Mit jeder Anreise beginnt der Drei-Tage-Takt neu: erste Zwischenreinigung
     # drei Tage nach dem Check-in, nicht im alten Takt ab ANCHOR weiter.
@@ -85,6 +97,9 @@ SLOT_WERKTAG = {'WECHSEL':('12:30',90), 'AUSZUG':('12:30',90), 'VORBEREITUNG':('
                 'ZWISCHEN':('12:30',90), 'LEERSTAND':('12:30',45)}
 
 def slot(day, tag):
+    a = ANPASSUNGEN.get(day.isoformat())
+    if a and a[0] == tag:
+        return (a[1], {**SLOT, **SLOT_WERKTAG}[tag][1])
     if day.weekday() < 5 and tag in SLOT_WERKTAG:
         return SLOT_WERKTAG[tag]
     return SLOT[tag]
@@ -160,7 +175,8 @@ def write(path, content):
 
 write(os.path.join(PFAD, 'bookings.json'),
       json.dumps({'updated': datetime.datetime.utcnow().isoformat(timespec='minutes') + 'Z',
-                  'bookings': bookings}, indent=1, ensure_ascii=False))
+                  'bookings': bookings,
+                  'plan': [[d.isoformat(), t, slot(d, t)[0]] for d, t in plan]}, indent=1, ensure_ascii=False))
 write(os.path.join(PFAD, 'limpezas_pt.ics'), ics('pt'))
 write(os.path.join(PFAD, 'limpezas_de.ics'), ics('de'))
 print(len(bookings), 'Buchungen,', len(plan), 'Einsätze im Plan')
