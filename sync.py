@@ -13,6 +13,7 @@ ANPASSUNGEN = {
     '2026-10-07': None,                     # Gäste baten um Ruhetag
     '2026-10-08': None,                     # Diana erst ab 17:30, daher Freitag
     '2026-10-09': ('ZWISCHEN', '13:30'),    # mit Diana und Gästen am 07.10. abgestimmt
+    '2026-10-15': None,                     # Wohnung am 13.10. schon fertig für die Anreise am 16.10.
 }
 
 # ---------- iCal einlesen ----------
