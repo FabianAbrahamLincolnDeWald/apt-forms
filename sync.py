@@ -15,6 +15,12 @@ ANPASSUNGEN = {
     '2026-10-09': ('ZWISCHEN', '13:30'),    # mit Diana und Gästen am 07.10. abgestimmt
     '2026-10-15': None,                     # Wohnung am 13.10. schon fertig für die Anreise am 16.10.
     '2026-10-16': ('VORBEREITUNG', '10:30'), # Ausziehsofa beziehen + Flur/Treppe, fertig bis 12:00 (am 15.10. angefragt)
+    # Buchung Michael 23.-31.10. (am 20.10. eingegangen): Reinigung am 20.10. nach
+    # Taylors Abreise genügt, kein Vorbereiten am 22. und kein Einsatz am Anreisetag.
+    '2026-10-22': None,
+    '2026-10-23': None,
+    '2026-10-26': ('ZWISCHEN', '12:30'),    # drei Tage nach Anreise
+    '2026-10-29': ('ZWISCHEN', '12:30'),    # danach Wechsel am 31.10.
 }
 
 # ---------- iCal einlesen ----------
