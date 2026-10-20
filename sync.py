@@ -23,6 +23,12 @@ ANPASSUNGEN = {
     '2026-10-29': ('ZWISCHEN', '12:30'),    # danach Wechsel am 31.10.
 }
 
+# Zusatzhinweis zu einem Einsatztag, je Sprache an die Beschreibung angehängt.
+HINWEISE = {
+    '2026-10-31': {'pt': 'O hóspede sai por volta das 4h da manhã (voo às 6h45). O apartamento já está livre às 10h, pode limpar logo.',
+                   'de': 'Der Gast bricht gegen 4 Uhr nachts auf (Flug 6:45). Die Wohnung ist um 10 Uhr frei, direkt reinigen.'},
+}
+
 # ---------- iCal einlesen ----------
 raw = urllib.request.urlopen(os.environ['ICAL_URL'], timeout=30).read().decode('utf-8', 'replace')
 raw = raw.replace('\r\n ', '').replace('\r\n', '\n')
@@ -154,7 +160,8 @@ def ics(lang):
         L.extend(['BEGIN:VALARM', 'ACTION:DISPLAY', 'DESCRIPTION:' + esc(title),
                   'TRIGGER:-PT12H', 'END:VALARM', 'END:VEVENT'])
     for day, t in plan:
-        ev(day, T[t][0], T[t][1], t)
+        h = HINWEISE.get(day.isoformat(), {}).get(lang)
+        ev(day, T[t][0], T[t][1] + (' ' + h if h else ''), t)
     for a, b in bookings:
         if D(a) >= datetime.date.today(): ev(D(a), T['IN'][0], '', 'IN')
         if D(b) >= datetime.date.today(): ev(D(b), T['OUT'][0], '', 'OUT')
