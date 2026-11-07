@@ -1,0 +1,1511 @@
+<!doctype html><html lang="pt"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="Relatório">
+<title>Relatório</title><style id="s0">
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#f7f7f5;color:#111;font:17px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+.wrap{max-width:680px;margin:0 auto;padding:0 16px 70px}
+h1{font-size:25px;line-height:1.2;margin:20px 0 4px;letter-spacing:-.02em}
+.sub{color:#5a5852;font-size:15px;margin:0 0 14px}
+h2{font-size:14px;text-transform:uppercase;letter-spacing:.07em;color:#6b6963;margin:26px 0 8px;font-weight:700}
+i{font-style:normal;display:none}
+select{display:none}
+.langs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+.langs label{display:inline-block;padding:9px 15px;border-radius:999px;border:1px solid #dcdad2;background:#fff;font-size:15px;color:#5a5852;cursor:pointer}
+.sw{position:absolute;opacity:0;pointer-events:none}
+#l-pt:checked~.wrap label[for=l-pt],#l-en:checked~.wrap label[for=l-en],#l-de:checked~.wrap label[for=l-de],#l-es:checked~.wrap label[for=l-es]{background:#111;color:#fff;border-color:#111}
+#l-pt:checked~.wrap i[lang=pt],#l-en:checked~.wrap i[lang=en],#l-de:checked~.wrap i[lang=de],#l-es:checked~.wrap i[lang=es]{display:inline}
+#l-pt:checked~.wrap select[lang=pt],#l-en:checked~.wrap select[lang=en],#l-de:checked~.wrap select[lang=de],#l-es:checked~.wrap select[lang=es]{display:block}
+.hint{display:block;font-size:14.5px;color:#8a8880;margin-top:4px;line-height:1.45}
+.card{background:#fff;border:1px solid rgba(0,0,0,.09);border-radius:14px;overflow:hidden}
+.card label{display:flex;gap:13px;align-items:center;padding:14px;border-bottom:1px solid #eeece4;cursor:pointer}
+.card label:last-child{border-bottom:none}
+.card input[type=checkbox]{appearance:none;-webkit-appearance:none;width:27px;height:27px;flex:none;margin:0;border-radius:8px;border:2px solid #b3b1a8;background:#fff;position:relative}
+.card input[type=checkbox]:checked{background:#0ca30c;border-color:#0ca30c}
+.card input[type=checkbox]:checked::after{content:"";position:absolute;left:8px;top:3px;width:7px;height:14px;border:solid #fff;border-width:0 3px 3px 0;transform:rotate(45deg)}
+.t{flex:1;min-width:0}
+.last{flex:none;font-size:13px;color:#9a9890;background:#f2f1ea;border-radius:99px;padding:4px 10px;white-space:nowrap}
+.fld,select{width:100%;height:52px;padding:0 13px;font:17px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;border:1px solid rgba(0,0,0,.12);border-radius:12px;background:#fff;color:#111;margin-top:8px;-webkit-appearance:none;appearance:none}
+select{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='9'><path d='M1 1l6 6 6-6' stroke='%23888' stroke-width='2' fill='none'/></svg>");background-repeat:no-repeat;background-position:right 15px center;padding-right:40px}
+input[type=date],input[type=time]{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='9'><path d='M1 1l6 6 6-6' stroke='%23999' stroke-width='2' fill='none'/></svg>");background-repeat:no-repeat;background-position:right 15px center;padding-right:40px}
+.now{display:block;width:100%;margin-top:6px;padding:9px;font:600 14px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;background:#fff;color:#5a5852;border:1px solid #dcdad2;border-radius:10px;cursor:pointer}
+@media (prefers-color-scheme:dark){.now{background:#1a1a19;border-color:#3a3a36;color:#c3c2b7}}
+@media (prefers-color-scheme:dark){.reset{background:#2b1917;color:#ff9c92;border-color:#5e2f2b}}
+@media print{.now{display:none!important}}
+.yest{display:block;width:100%;margin-top:8px;padding:11px;font:600 15px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;background:#fff;color:#5a5852;border:1px solid #dcdad2;border-radius:11px;cursor:pointer}
+.yest.on{background:#0ca30c;border-color:#0ca30c;color:#fff}
+@media (prefers-color-scheme:dark){.yest{background:#1a1a19;border-color:#3a3a36;color:#c3c2b7}}
+@media print{.yest{display:none!important}}
+.two{display:flex;gap:10px}.two>div{flex:1;min-width:0}
+textarea{width:100%;min-height:96px;margin-top:8px;padding:13px;font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;border:1px solid rgba(0,0,0,.12);border-radius:12px;background:#fff;color:#111;resize:vertical}
+.send{display:block;width:100%;margin:24px 0 8px;padding:18px;font:700 18px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;text-align:center;background:#0ca30c;color:#fff;border:none;border-radius:14px;cursor:pointer;text-decoration:none}
+.pdf{display:block;width:100%;padding:15px;font:600 16px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;text-align:center;background:#fff;color:#444;border:1px solid #dcdad2;border-radius:14px;cursor:pointer}
+.reset{display:block;width:100%;margin:18px 0 22px;padding:15px;font:600 16px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;text-align:center;cursor:pointer;background:#fdecec;color:#b3261e;border:1px solid #e9b4b1;border-radius:14px}
+@media (prefers-color-scheme:dark){
+ body{background:#0d0d0d;color:#fff} .sub{color:#c3c2b7} h2{color:#a9a79e}
+ .langs label{background:#1a1a19;border-color:#2f2f2c;color:#c3c2b7}
+ #l-pt:checked~.wrap label[for=l-pt],#l-en:checked~.wrap label[for=l-en],#l-de:checked~.wrap label[for=l-de],#l-es:checked~.wrap label[for=l-es]{background:#fff;color:#111;border-color:#fff}
+ .card{background:#1a1a19;border-color:rgba(255,255,255,.10)} .card label{border-color:#2c2c2a}
+ .card input[type=checkbox]{background:#1a1a19;border-color:#6f6d66}
+ .last{background:#26261f;color:#8f8d84}
+ .fld,select,textarea,.pdf{background-color:#1a1a19;border-color:#3a3a36;color:#fff}
+}
+
+.ci{width:100%;border:none;background:transparent;color:inherit;font:17px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;padding:0}
+.ci:focus{outline:none}
+.del{flex:none;width:30px;height:30px;border:none;background:transparent;color:#b3b1a8;font:300 24px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;cursor:pointer;padding:0}
+.addx{display:block;width:100%;margin-top:10px;padding:14px;font:600 16px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;background:#fff;color:#5a5852;border:1px dashed #c9c7bd;border-radius:14px;cursor:pointer}
+@media (prefers-color-scheme:dark){.addx{background:#1a1a19;border-color:#3a3a36;color:#c3c2b7}}
+
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:99;display:flex;align-items:flex-end;justify-content:center}
+.ov .bx{background:#f7f7f5;color:#111;width:100%;max-width:680px;max-height:92vh;overflow:auto;
+ border-radius:18px 18px 0 0;padding:20px 18px calc(20px + env(safe-area-inset-bottom))}
+.ov h3{margin:0 0 4px;font-size:20px;letter-spacing:-.01em}
+.ov p{margin:0 0 12px;font-size:15px;color:#5a5852;line-height:1.5}
+.ov textarea{width:100%;height:190px;padding:13px;font:16px/1.45 ui-monospace,Menlo,monospace;
+ border:1px solid rgba(0,0,0,.12);border-radius:12px;background:#fff;color:#111;resize:none}
+.ov .b1,.ov .b2,.ov .b3{display:block;width:100%;margin-top:10px;padding:16px;font:700 17px -apple-system,BlinkMacSystemFont,sans-serif;
+ text-align:center;border-radius:14px;border:none;cursor:pointer;text-decoration:none}
+.ov .b1{background:#0ca30c;color:#fff}
+.ov .b2{background:#fff;color:#111;border:1px solid #dcdad2;font-weight:600}
+.ov .b3{background:transparent;color:#8a8880;font-weight:400;font-size:15px;padding:12px}
+@media (prefers-color-scheme:dark){
+ .ov .bx{background:#141413;color:#fff} .ov p{color:#c3c2b7}
+ .ov textarea{background:#1a1a19;border-color:#3a3a36;color:#fff}
+ .ov .b2{background:#1a1a19;color:#fff;border-color:#3a3a36}}
+
+.mins{display:flex;align-items:center;gap:6px;margin-top:10px}
+.mins .lb{flex:1;min-width:0;font-size:16px}
+.mins button{width:46px;height:52px;flex:none;border:1px solid rgba(0,0,0,.12);background:#fff;color:#444;border-radius:12px;font:400 26px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;cursor:pointer;padding:0}
+.mins input{width:74px;height:52px;flex:none;text-align:center;border:1px solid rgba(0,0,0,.12);border-radius:12px;background:#fff;color:#111;font:600 19px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;margin:0;-moz-appearance:textfield}
+.mins input::-webkit-outer-spin-button,.mins input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.mins .un{flex:none;font-size:16px;color:#8a8880;width:32px}
+.mins.on input{background:#0ca30c;border-color:#0ca30c;color:#fff}
+@media (prefers-color-scheme:dark){.mins button,.mins input{background-color:#1a1a19;border-color:#3a3a36;color:#fff}.mins.on input{background:#0ca30c;border-color:#0ca30c}}
+.sec{border-top:1px solid #e6e5de;padding-top:14px;margin:0 0 18px}
+.sec h3{margin:0 0 8px;font-size:12.5px;letter-spacing:.09em;text-transform:uppercase;color:#8a8880;font-weight:700}
+ul.vals{margin:0;padding:0;list-style:none}
+ul.vals li{position:relative;padding-left:18px;margin-bottom:6px;font-size:17px;line-height:1.5}
+ul.vals li::before{content:"";position:absolute;left:2px;top:10px;width:5px;height:5px;border-radius:50%;background:#c2c0b6}
+ul.vals li b{font-weight:650}
+.sec .hint{display:none}
+@media (prefers-color-scheme:dark){.sec{border-color:#2c2c2a}.sec h3{color:#8a8880}ul.vals li::before{background:#4a4844}}
+@media print{.sec{break-inside:avoid}}
+@media print{.addx,.del{display:none!important}}
+@media print{
+ .langs,.send,.pdf,.reset,.last{display:none!important}
+ body{background:#fff;color:#000} .card{border-color:#bbb} .fld,select,textarea{border-color:#bbb}
+}
+
+/* FORMALE ANSICHT — nur beim Drucken und in der gespeicherten Datei */
+@media print{
+
+body{background:#fff!important;color:#000!important;font:12pt/1.6 Georgia,"Times New Roman",serif}
+.wrap{max-width:180mm;margin:0 auto;padding:10mm 8mm 20mm}
+h1{font:400 21pt/1.15 Georgia,serif;letter-spacing:0;margin:0 0 4mm;padding-bottom:3mm;border-bottom:2px solid #000}
+.addr{font:9.5pt/1.4 Arial,Helvetica,sans-serif;color:#444;margin:0 0 8mm}
+.stamp{border:none!important;background:none!important;border-radius:0;padding:0;margin:0 0 9mm;
+ font:10.5pt/1.6 Arial,Helvetica,sans-serif;color:#000}
+.stamp b{font-weight:700}
+.stamp span{color:#555}
+.sec{border:none;border-top:1px solid #bbb;padding:3.5mm 0 0;margin:0 0 5mm;
+ display:flex;flex-wrap:wrap;gap:2mm 8mm;break-inside:avoid}
+.sec h3{flex:0 0 48mm;min-width:48mm;margin:0;color:#555;
+ font:700 8.5pt/1.5 Arial,Helvetica,sans-serif;letter-spacing:.08em;text-transform:uppercase}
+ul.vals{flex:1 1 60mm;margin:0}
+ul.vals li{padding-left:0;margin:0 0 1.5mm;font-size:11.5pt;line-height:1.5}
+ul.vals li::before{display:none}
+ul.vals li b{font-weight:700}
+.langs,.prt,.send,.reset,.add,.addx{display:none!important}
+}
+html[data-doc] body{}
+html[data-doc] body{background:#fff!important;color:#000!important;font:12pt/1.6 Georgia,"Times New Roman",serif}
+html[data-doc] .wrap{max-width:180mm;margin:0 auto;padding:10mm 8mm 20mm}
+html[data-doc] h1{font:400 21pt/1.15 Georgia,serif;letter-spacing:0;margin:0 0 4mm;padding-bottom:3mm;border-bottom:2px solid #000}
+html[data-doc] .addr{font:9.5pt/1.4 Arial,Helvetica,sans-serif;color:#444;margin:0 0 8mm}
+html[data-doc] .stamp{border:none!important;background:none!important;border-radius:0;padding:0;margin:0 0 9mm;
+html[data-doc]  font:10.5pt/1.6 Arial,Helvetica,sans-serif;color:#000}
+html[data-doc] .stamp b{font-weight:700}
+html[data-doc] .stamp span{color:#555}
+html[data-doc] .sec{border:none;border-top:1px solid #bbb;padding:3.5mm 0 0;margin:0 0 5mm;
+html[data-doc]  display:flex;flex-wrap:wrap;gap:2mm 8mm;break-inside:avoid}
+html[data-doc] .sec h3{flex:0 0 48mm;min-width:48mm;margin:0;color:#555;
+html[data-doc]  font:700 8.5pt/1.5 Arial,Helvetica,sans-serif;letter-spacing:.08em;text-transform:uppercase}
+html[data-doc] ul.vals{flex:1 1 60mm;margin:0}
+html[data-doc] ul.vals li{padding-left:0;margin:0 0 1.5mm;font-size:11.5pt;line-height:1.5}
+html[data-doc] ul.vals li::before{display:none}
+html[data-doc] ul.vals li b{font-weight:700}
+html[data-doc] .langs{margin:0 0 6mm;padding:0;position:static;background:none}
+html[data-doc] .langs label{font:11px Arial,Helvetica,sans-serif;padding:5px 10px;border-radius:4px}
+html[data-doc] .prt{display:none}
+@media (max-width:520px){html[data-doc] .sec{display:block}html[data-doc] .sec h3{margin-bottom:2mm}}
+
+/* ---- Stempeluhr ---- */
+.clk{background:#fff;border:1px solid rgba(0,0,0,.12);border-radius:16px;padding:15px 16px;margin:0 0 14px}
+@media (prefers-color-scheme:dark){.clk{background:#1a1a19;border-color:rgba(255,255,255,.12)}}
+.clk .ch{font-size:12.5px;letter-spacing:.09em;text-transform:uppercase;color:#8a8880;font-weight:700;margin:0 0 4px}
+.clk .cs{font-size:13.5px;color:#8a8880;margin:0 0 12px;line-height:1.45}
+.clk .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.clk .grid button{padding:15px 8px;border-radius:12px;border:1.5px solid rgba(0,0,0,.16);background:#fff;color:#111;
+ font:700 15px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;cursor:pointer;line-height:1.25}
+@media (prefers-color-scheme:dark){.clk .grid button{background:#232322;color:#f2f1ec;border-color:rgba(255,255,255,.2)}}
+.clk .grid button.on{background:#0ca30c;border-color:#0ca30c;color:#fff}
+.clk .stop{display:block;width:100%;margin-top:8px;padding:15px;border-radius:12px;border:none;background:#111;color:#fff;
+ font:700 16px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;cursor:pointer}
+@media (prefers-color-scheme:dark){.clk .stop{background:#fff;color:#111}}
+.clk .stop[disabled]{opacity:.35}
+.tl{margin:14px 0 0;padding:0;list-style:none}
+.tl li{display:flex;align-items:center;gap:6px;padding:8px 0;border-top:1px solid #eceae2;font-size:15px}
+@media (prefers-color-scheme:dark){.tl li{border-color:#2c2c2a}}
+.tl .nm{flex:1;min-width:0;font-weight:600}
+.tl .nm em{display:block;font-style:normal;font-weight:400;font-size:12.5px;color:#8a8880}
+.tl input[type=time]{width:84px;padding:6px 4px;border-radius:8px;border:1px solid rgba(0,0,0,.16);
+ background:#fff;color:#111;font:600 14px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+@media (prefers-color-scheme:dark){.tl input[type=time]{background:#232322;color:#f2f1ec;border-color:rgba(255,255,255,.2)}}
+.tl .dur{min-width:56px;text-align:right;font-size:13.5px;color:#8a8880;font-variant-numeric:tabular-nums}
+.tl .rm{width:30px;height:30px;padding:0;border-radius:8px;border:1px solid rgba(0,0,0,.14);background:#fff;color:#c0392b;
+ font:700 15px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;cursor:pointer;flex:0 0 auto}
+@media (prefers-color-scheme:dark){.tl .rm{background:#232322;border-color:rgba(255,255,255,.18)}}
+.tl li.run{color:#0ca30c}.tl li.run .nm em{color:#0ca30c}
+.clk .tot{display:flex;justify-content:space-between;border-top:1px solid #eceae2;margin-top:10px;padding-top:10px;
+ font-size:16px;font-weight:700}
+@media (prefers-color-scheme:dark){.clk .tot{border-color:#2c2c2a}}
+.clk .tot span.s{font-weight:400;font-size:13.5px;color:#8a8880}
+@media print{.clk{display:none!important}}
+.hint.manual{margin-top:-2px}
+</style></head><body>
+<input class="sw" type="radio" name="lang" id="l-pt" checked>
+<input class="sw" type="radio" name="lang" id="l-en">
+<input class="sw" type="radio" name="lang" id="l-de">
+<input class="sw" type="radio" name="lang" id="l-es">
+<div class="wrap">
+<div class="langs"><label for="l-pt">Português</label><label for="l-en">English</label><label for="l-de">Deutsch</label><label for="l-es">Español</label></div><button class="reset" type="button"><i lang="pt">Apagar tudo</i><i lang="en">Clear everything</i><i lang="de">Einträge löschen</i><i lang="es">Borrar todo</i></button>
+<h1><i lang="pt">Relatório do dia</i><i lang="en">Daily report</i><i lang="de">Tagesbericht</i><i lang="es">Parte del día</i></h1>
+<p class="sub"><i lang="pt">Depois de cada limpeza, um minuto e está feito. No fim carregue no botão verde.</i><i lang="en">After each clean, one minute and it is done. Tap the green button at the end.</i><i lang="de">Nach jeder Reinigung, eine Minute und fertig. Am Ende auf den grünen Knopf tippen.</i><i lang="es">Después de cada limpieza, un minuto y listo. Al final pulse el botón verde.</i></p>
+<h2><i lang="pt">Dia e horas</i><i lang="en">Day and times</i><i lang="de">Tag und Uhrzeiten</i><i lang="es">Día y horas</i></h2>
+<div class="clk" id="clk">
+<p class="ch"><i lang="pt">Registo de tempo</i><i lang="en">Time log</i><i lang="de">Zeiterfassung</i><i lang="es">Registro de tiempo</i></p>
+<p class="cs"><i lang="pt">Toque no que vai começar. Ao mudar de tarefa, toque na seguinte. No fim, «Terminar». Não precisa de escrever horas nenhumas — e pode fechar o telemóvel entretanto, isto fica guardado.</i><i lang="en">Tap what you are starting. When you switch task, tap the next one. At the end, «Finish». No need to type any times — and you can close your phone in between, this is saved.</i><i lang="de">Antippen, was Sie beginnen. Beim Wechsel die nächste Tätigkeit antippen. Am Ende „Beenden". Sie müssen keine Uhrzeit eintragen — und Sie können das Handy zwischendurch zuklappen, der Stand bleibt erhalten.</i><i lang="es">Toque lo que va a empezar. Al cambiar de tarea, toque la siguiente. Al final, «Terminar». No hace falta escribir ninguna hora — y puede cerrar el móvil, esto queda guardado.</i></p>
+<div class="grid" id="clkb"></div>
+<button class="stop" type="button" id="clkstop" disabled></button>
+<ul class="tl" id="clktl"></ul>
+<div class="tot" id="clktot" hidden></div>
+</div>
+<input class="fld" type="date" id="f-data" min=""><p class="hint"><i lang="pt">Preencha o relatório <strong>no próprio dia da limpeza</strong>. Por isso o campo só aceita hoje ou uma data futura — se precisar de corrigir um dia que já passou, diga-me e eu trato disso.</i><i lang="en">Fill in the report <strong>on the day of the clean itself</strong>. That is why the field only accepts today or a future date — if a past day needs correcting, tell me and I will handle it.</i><i lang="de">Den Bericht bitte <strong>am Tag der Reinigung selbst</strong> ausfüllen. Deshalb nimmt das Feld nur heute oder ein späteres Datum an — muss ein vergangener Tag korrigiert werden, sagen Sie mir Bescheid, ich mache das.</i><i lang="es">Rellene el parte <strong>el mismo día de la limpieza</strong>. Por eso el campo solo acepta hoy o una fecha futura — si hay que corregir un día pasado, dígamelo y yo me encargo.</i></p>
+<p class="hint manual"><i lang="pt">Estes campos preenchem-se sozinhos a partir do registo de tempo lá em cima. Só mexa aqui se alguma coisa tiver corrido mal — a alteração fica registada no relatório.</i><i lang="en">These fields fill themselves from the time log above. Only touch them if something went wrong — the change is recorded in the report.</i><i lang="de">Diese Felder füllen sich von selbst aus der Zeiterfassung oben. Nur anfassen, wenn etwas schiefgelaufen ist — die Änderung wird im Bericht festgehalten.</i><i lang="es">Estos campos se rellenan solos con el registro de tiempo de arriba. Tóquelos solo si algo ha salido mal — el cambio queda registrado en el informe.</i></p><div class="two"><div><span class="hint"><i lang="pt">Entrada</i><i lang="en">In</i><i lang="de">Ankunft</i><i lang="es">Entrada</i></span><input class="fld" type="time" id="f-in"><button class="now" type="button" data-t="f-in"><i lang="pt">agora</i><i lang="en">now</i><i lang="de">jetzt</i><i lang="es">ahora</i></button></div><div><span class="hint"><i lang="pt">Saída</i><i lang="en">Out</i><i lang="de">Ende</i><i lang="es">Salida</i></span><input class="fld" type="time" id="f-out"><button class="now" type="button" data-t="f-out"><i lang="pt">agora</i><i lang="en">now</i><i lang="de">jetzt</i><i lang="es">ahora</i></button></div></div>
+<h2><i lang="pt">Novo código da caixa das chaves</i><i lang="en">New key box code</i><i lang="de">Neuer Code am Schlüsselkasten</i><i lang="es">Nuevo código de la caja de llaves</i></h2><input class="fld" type="text" inputmode="numeric" autocomplete="off" id="f-code" placeholder="—"><p class="hint"><i lang="pt">Em cada mudança de hóspedes o código deve ser trocado. Escreva aqui o número novo — assim fica registado e eu sei sempre qual é o que está em uso.</i><i lang="en">At every guest changeover the code should be changed. Write the new number here — that way it is on record and I always know which one is in use.</i><i lang="de">Bei jedem Gästewechsel soll der Code gewechselt werden. Tragen Sie die neue Zahl hier ein — dann ist sie festgehalten und ich weiß immer, welche gerade gilt.</i><i lang="es">En cada cambio de huéspedes el código debe cambiarse. Escriba aquí el número nuevo — así queda registrado y yo sé siempre cuál está en uso.</i></p><h2><i lang="pt">Que tipo de limpeza foi</i><i lang="en">What kind of clean it was</i><i lang="de">Welche Art von Reinigung</i><i lang="es">Qué tipo de limpieza fue</i></h2>
+<select lang="pt" data-g="tipo"><option value="0">Limpeza completa — mudança de hóspedes</option><option value="1">Limpeza rápida — sem mudança</option><option value="2">Limpeza a fundo</option><option value="3">Só o corredor e as escadas</option><option value="4">Só uma passagem para ver tudo</option><option value="5">Outro</option></select><select lang="en" data-g="tipo"><option value="0">Full clean — guest changeover</option><option value="1">Quick clean — no changeover</option><option value="2">Deep clean</option><option value="3">Only the corridor and stairs</option><option value="4">Just a look round</option><option value="5">Other</option></select><select lang="de" data-g="tipo"><option value="0">Komplette Reinigung — Gästewechsel</option><option value="1">Kurze Reinigung — ohne Wechsel</option><option value="2">Grundreinigung</option><option value="3">Nur Flur und Treppenhaus</option><option value="4">Nur kurz nach dem Rechten gesehen</option><option value="5">Anderes</option></select><select lang="es" data-g="tipo"><option value="0">Limpieza completa — cambio de huéspedes</option><option value="1">Limpieza rápida — sin cambio</option><option value="2">Limpieza a fondo</option><option value="3">Solo el pasillo y las escaleras</option><option value="4">Solo una vuelta para revisar</option><option value="5">Otro</option></select>
+<h2><i lang="pt">Como estava o apartamento à chegada</i><i lang="en">How the flat was on arrival</i><i lang="de">Zustand der Wohnung bei Ankunft</i><i lang="es">Cómo estaba el apartamento al llegar</i></h2>
+<select lang="pt" data-g="estado"><option value="0">Normal, como sempre</option><option value="1">Melhor do que o costume</option><option value="2">Pior do que o costume</option><option value="3">Muito mau — deu bastante trabalho a mais</option><option value="4">Não havia hóspedes</option></select><select lang="en" data-g="estado"><option value="0">Normal, as usual</option><option value="1">Better than usual</option><option value="2">Worse than usual</option><option value="3">Very bad — a lot of extra work</option><option value="4">No guests had been in</option></select><select lang="de" data-g="estado"><option value="0">Normal, wie immer</option><option value="1">Besser als sonst</option><option value="2">Schlechter als sonst</option><option value="3">Sehr schlecht — deutlich mehr Arbeit</option><option value="4">Es waren keine Gäste da</option></select><select lang="es" data-g="estado"><option value="0">Normal, como siempre</option><option value="1">Mejor de lo habitual</option><option value="2">Peor de lo habitual</option><option value="3">Muy malo — bastante trabajo extra</option><option value="4">No había huéspedes</option></select>
+<h2><i lang="pt">Trabalhos extra feitos hoje</i><i lang="en">Extra jobs done today</i><i lang="de">Heute zusätzlich erledigt</i><i lang="es">Trabajos extra hechos hoy</i></h2>
+<p class="hint"><i lang="pt">Estas coisas não são precisas em todas as limpezas. A data cinzenta mostra quando foi a última vez.</i><i lang="en">These are not needed at every clean. The grey date shows when it was last done.</i><i lang="de">Diese Dinge sind nicht bei jeder Reinigung nötig. Das graue Datum zeigt, wann es zuletzt gemacht wurde.</i><i lang="es">Estas cosas no hacen falta en cada limpieza. La fecha gris muestra cuándo fue la última vez.</i></p>
+<div class="card">
+<label><input type="checkbox" data-x="0"><span class="t"><i lang="pt">Vidros por dentro</i><i lang="en">Windows from the inside</i><i lang="de">Fenster von innen</i><i lang="es">Cristales por dentro</i></span><span class="last" data-l="0">↺ —</span></label>
+<label><input type="checkbox" data-x="1"><span class="t"><i lang="pt">Janelas / varanda por fora</i><i lang="en">Windows / balcony outside</i><i lang="de">Fenster / Balkon außen</i><i lang="es">Ventanas / balcón por fuera</i></span><span class="last" data-l="1">↺ —</span></label>
+<label><input type="checkbox" data-x="2"><span class="t"><i lang="pt">Cortinas lavadas</i><i lang="en">Curtains washed</i><i lang="de">Vorhänge gewaschen</i><i lang="es">Cortinas lavadas</i></span><span class="last" data-l="2">↺ —</span></label>
+<label><input type="checkbox" data-x="3"><span class="t"><i lang="pt">Filtro da máquina de lavar</i><i lang="en">Washing machine filter</i><i lang="de">Waschmaschinenfilter</i><i lang="es">Filtro de la lavadora</i></span><span class="last" data-l="3">↺ —</span></label>
+<label><input type="checkbox" data-x="4"><span class="t"><i lang="pt">Frigorífico a fundo</i><i lang="en">Fridge deep-cleaned</i><i lang="de">Kühlschrank gründlich</i><i lang="es">Frigorífico a fondo</i></span><span class="last" data-l="4">↺ —</span></label>
+<label><input type="checkbox" data-x="5"><span class="t"><i lang="pt">Forno / micro-ondas a fundo</i><i lang="en">Oven / microwave deep-cleaned</i><i lang="de">Backofen / Mikrowelle gründlich</i><i lang="es">Horno / microondas a fondo</i></span><span class="last" data-l="5">↺ —</span></label>
+<label><input type="checkbox" data-x="6"><span class="t"><i lang="pt">Grelha de contacto</i><i lang="en">Contact grill</i><i lang="de">Kontaktgrill</i><i lang="es">Grill de contacto</i></span><span class="last" data-l="6">↺ —</span></label>
+<label><input type="checkbox" data-x="7"><span class="t"><i lang="pt">Armários por dentro</i><i lang="en">Inside the cupboards</i><i lang="de">Schränke von innen</i><i lang="es">Armarios por dentro</i></span><span class="last" data-l="7">↺ —</span></label>
+<label><input type="checkbox" data-x="8"><span class="t"><i lang="pt">Atrás e por baixo dos móveis</i><i lang="en">Behind and under the furniture</i><i lang="de">Hinter und unter den Möbeln</i><i lang="es">Detrás y debajo de los muebles</i></span><span class="last" data-l="8">↺ —</span></label>
+<label><input type="checkbox" data-x="9"><span class="t"><i lang="pt">Capa do sofá lavada</i><i lang="en">Sofa cover washed</i><i lang="de">Sofabezug gewaschen</i><i lang="es">Funda de sofá lavada</i></span><span class="last" data-l="9">↺ —</span></label>
+<label><input type="checkbox" data-x="10"><span class="t"><i lang="pt">Arrumo organizado</i><i lang="en">Storage room organised</i><i lang="de">Abstellraum geordnet</i><i lang="es">Trastero organizado</i></span><span class="last" data-l="10">↺ —</span></label>
+</div>
+<button class="addx" type="button"><i lang="pt">+ Acrescentar outro trabalho</i><i lang="en">+ Add another job</i><i lang="de">+ Weitere Arbeit hinzufügen</i><i lang="es">+ Añadir otro trabajo</i></button>
+<h2><i lang="pt">Partes comuns do prédio</i><i lang="en">The building's common parts</i><i lang="de">Gemeinschaftsflächen des Hauses</i><i lang="es">Zonas comunes del edificio</i></h2>
+<p class="hint"><i lang="pt">Este trabalho não é do apartamento, é do prédio. Por isso apontamos o <strong>tempo à parte</strong> — é comunicado à administração do condomínio. Este tempo <strong>já está incluído</strong> nas horas de entrada e de saída lá em cima; é só para eu saber quanto do total foi para o prédio.</i><i lang="en">This work is not for the flat, it is for the building. That is why the <strong>time is noted separately</strong> — it is reported to the building management. This time is <strong>already part</strong> of the arrival and leaving times above; it just tells me how much of the total went to the building.</i><i lang="de">Diese Arbeit gehört nicht zur Wohnung, sondern zum Haus. Deshalb wird die <strong>Zeit gesondert</strong> notiert — sie wird der Hausverwaltung mitgeteilt. Diese Zeit ist in den Uhrzeiten oben <strong>bereits enthalten</strong>; sie sagt mir nur, wie viel von der Gesamtzeit auf das Haus entfiel.</i><i lang="es">Este trabajo no es del apartamento, es del edificio. Por eso se apunta el <strong>tiempo aparte</strong> — se comunica a la administración del edificio. Este tiempo <strong>ya está incluido</strong> en las horas de entrada y salida de arriba; solo me dice cuánto del total fue para el edificio.</i></p>
+<div class="card">
+<label><input type="checkbox" data-cm="0"><span class="t"><i lang="pt">A entrada do prédio</i><i lang="en">The building entrance</i><i lang="de">Der Hauseingang</i><i lang="es">La entrada del edificio</i></span></label>
+<label><input type="checkbox" data-cm="1"><span class="t"><i lang="pt">O corredor</i><i lang="en">The corridor</i><i lang="de">Der Flur</i><i lang="es">El pasillo</i></span></label>
+<label><input type="checkbox" data-cm="2"><span class="t"><i lang="pt">As escadas</i><i lang="en">The stairs</i><i lang="de">Die Treppen</i><i lang="es">Las escaleras</i></span></label>
+<label><input type="checkbox" data-cm="3"><span class="t"><i lang="pt">Retirei lixo deixado pelos vizinhos</i><i lang="en">Removed rubbish left by neighbours</i><i lang="de">Müll der Nachbarn entfernt</i><i lang="es">Retiré basura dejada por los vecinos</i></span></label>
+<label><input type="checkbox" data-cm="4"><span class="t"><i lang="pt">Limpei água ou poças</i><i lang="en">Cleared water or puddles</i><i lang="de">Wasser oder Pfützen beseitigt</i><i lang="es">Limpié agua o charcos</i></span></label>
+<label><input type="checkbox" data-cm="5"><span class="t"><i lang="pt">Fotografei o estado para a administração</i><i lang="en">Photographed the state for the management</i><i lang="de">Zustand für die Hausverwaltung fotografiert</i><i lang="es">Fotografié el estado para la administración</i></span></label>
+</div>
+<div class="mins"><span class="lb"><i lang="pt">Tempo gasto</i><i lang="en">Time spent</i><i lang="de">Aufgewendete Zeit</i><i lang="es">Tiempo empleado</i></span><button type="button" data-m="-">−</button><input type="number" inputmode="numeric" min="0" step="1" value="" id="f-min"><button type="button" data-m="+">+</button><span class="un">min</span></div>
+<h2><i lang="pt">Roupa</i><i lang="en">Laundry</i><i lang="de">Wäsche</i><i lang="es">Ropa</i></h2>
+<select lang="pt" data-g="roupa"><option value="0">Não houve roupa hoje</option><option value="1">Levei roupa suja à lavandaria</option><option value="2">Trouxe roupa lavada da lavandaria</option><option value="3">Levei e trouxe</option><option value="4">Lavei na máquina do apartamento</option></select><select lang="en" data-g="roupa"><option value="0">No laundry today</option><option value="1">Took dirty laundry to the laundrette</option><option value="2">Brought clean laundry back</option><option value="3">Took and brought back</option><option value="4">Washed in the flat's machine</option></select><select lang="de" data-g="roupa"><option value="0">Heute keine Wäsche</option><option value="1">Schmutzwäsche zur Wäscherei gebracht</option><option value="2">Saubere Wäsche abgeholt</option><option value="3">Gebracht und abgeholt</option><option value="4">In der Maschine der Wohnung gewaschen</option></select><select lang="es" data-g="roupa"><option value="0">Hoy no hubo ropa</option><option value="1">Llevé ropa sucia a la lavandería</option><option value="2">Traje ropa limpia de la lavandería</option><option value="3">Llevé y traje</option><option value="4">Lavé en la máquina del apartamento</option></select>
+<h2><i lang="pt">Houve algum problema?</i><i lang="en">Was there a problem?</i><i lang="de">Gab es ein Problem?</i><i lang="es">¿Hubo algún problema?</i></h2>
+<select lang="pt" data-g="prob"><option value="0">Não, tudo bem</option><option value="1">Uma coisa pequena</option><option value="2">Sim, é importante</option><option value="3">Sim, urgente</option></select><select lang="en" data-g="prob"><option value="0">No, all fine</option><option value="1">Something small</option><option value="2">Yes, it matters</option><option value="3">Yes, urgent</option></select><select lang="de" data-g="prob"><option value="0">Nein, alles in Ordnung</option><option value="1">Eine Kleinigkeit</option><option value="2">Ja, das ist wichtig</option><option value="3">Ja, dringend</option></select><select lang="es" data-g="prob"><option value="0">No, todo bien</option><option value="1">Algo pequeño</option><option value="2">Sí, es importante</option><option value="3">Sí, urgente</option></select>
+<textarea id="f-prob" placeholder="..."></textarea>
+<p class="hint"><i lang="pt">Uma torneira, uma lâmpada, uma mancha nova, um cheiro. Se puder, mande também uma foto aqui pelo WhatsApp.</i><i lang="en">A tap, a bulb, a new stain, a smell. If you can, send a photo here on WhatsApp too.</i><i lang="de">Ein Wasserhahn, eine Lampe, ein neuer Fleck, ein Geruch. Wenn möglich, schick auch ein Foto hier über WhatsApp.</i><i lang="es">Un grifo, una bombilla, una mancha nueva, un olor. Si puede, mande también una foto aquí por WhatsApp.</i></p>
+<h2><i lang="pt">Faltou alguma coisa?</i><i lang="en">Was anything missing?</i><i lang="de">Hat etwas gefehlt?</i><i lang="es">¿Faltó algo?</i></h2>
+<select lang="pt" data-g="falta"><option value="0">Não faltou nada</option><option value="1">Sim — já pus na lista de compras</option><option value="2">Sim — está a ficar pouco, mas ainda dá</option></select><select lang="en" data-g="falta"><option value="0">Nothing was missing</option><option value="1">Yes — already on the shopping list</option><option value="2">Yes — running low, but still enough</option></select><select lang="de" data-g="falta"><option value="0">Es hat nichts gefehlt</option><option value="1">Ja — schon auf der Einkaufsliste</option><option value="2">Ja — wird knapp, reicht aber noch</option></select><select lang="es" data-g="falta"><option value="0">No faltó nada</option><option value="1">Sí — ya está en la lista de la compra</option><option value="2">Sí — queda poco, pero aún alcanza</option></select>
+<h2><i lang="pt">Observações</i><i lang="en">Notes</i><i lang="de">Anmerkungen</i><i lang="es">Observaciones</i></h2>
+<textarea id="f-obs" placeholder="..."></textarea>
+<h2><i lang="pt">Compras para o apartamento</i><i lang="en">Shopping for the flat</i><i lang="de">Einkauf für die Wohnung</i><i lang="es">Compras para el apartamento</i></h2><div class="card"><label><input type="checkbox" id="f-shop"><span class="t"><i lang="pt">Fiz compras para o apartamento neste dia</i><i lang="en">I did shopping for the flat on this day</i><i lang="de">Ich habe an diesem Tag für die Wohnung eingekauft</i><i lang="es">Hice compras para el apartamento este día</i></span></label></div><a class="send" href="https://fabianabrahamlincolndewald.github.io/apt-forms/hgsnhbszcpvn08zk/relatorio_do_dia.html"><i lang="pt">Enviar</i><i lang="en">Send</i><i lang="de">Senden</i><i lang="es">Enviar</i></a>
+<input type="hidden" id="f-blocks">
+<button class="pdf" type="button"><i lang="pt">Guardar em PDF</i><i lang="en">Save as PDF</i><i lang="de">Als PDF sichern</i><i lang="es">Guardar en PDF</i></button>
+</div>
+
+<script>
+(function(){
+var TEL=[49,173,4175,955].join(''),KEY='rel-funchal';
+var FPREFIX='relatorio';
+
+if(/[?&]reset=1/.test(location.search)){
+  try{localStorage.removeItem(KEY)}catch(e){}
+  location.replace(location.pathname);
+}
+var AUTOR='Valeria';
+var CMEXTRA=[],CMCOMMON=[],SELMAP={},CMMIN='',CMIN='',CMOUT='',CMLIST=false,CMPROB='',CMOBS='',CMCODE='',CMSHOP=false;
+var CMDAY='';
+function dayVal(){var dd=document.getElementById('f-data')||document.getElementById('f-datum');
+  return (dd&&dd.value)?dd.value:CMDAY;}
+function pad(x){return('0'+x).slice(-2)}
+/* Die Felder der Stempeluhr (.ts/.te) entstehen erst beim Stempeln, und es sind je nach
+   Tag unterschiedlich viele. Sie duerfen NICHT mitgezaehlt werden: sonst verschiebt sich
+   die Nummerierung aller uebrigen Felder um zwei je gestempeltem Block, und der Empfaenger,
+   der den Link ohne Bloecke oeffnet, liest jeden Wert im falschen Feld. */
+function ctrls(){return Array.prototype.slice.call(
+  document.querySelectorAll('.wrap input,.wrap select,.wrap textarea'))
+  .filter(function(e){return !(e.classList&&(e.classList.contains('ts')||e.classList.contains('te')))})}
+function curLang(){var r=document.querySelector('input[name=lang]:checked');return r?r.id.slice(2):'pt'}
+function extraCounts(){
+  return Array.prototype.slice.call(document.querySelectorAll('.card')).map(function(c){
+    return c.querySelectorAll('.free,.cust').length});}
+function b64e(s){return btoa(unescape(encodeURIComponent(s))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
+function b64d(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';return decodeURIComponent(escape(atob(s)))}
+function encodeState(){
+  var v={};
+  ctrls().forEach(function(e,i){
+    if(e.type==='checkbox'){if(e.checked)v[i]=1}
+    else if(e.tagName==='SELECT'){if(e.selectedIndex>0)v[i]=e.selectedIndex}
+    else if(e.value!=='')v[i]=e.value;});
+  var d=new Date();
+  /* k:1 = die Feldnummerierung zaehlt die Stempeluhr nicht mehr mit (s. ctrls). */
+  return b64e(JSON.stringify({v:1,k:1,a:AUTOR,l:curLang(),t:d.getTime(),
+    o:-d.getTimezoneOffset(),x:extraCounts(),d:v}));
+}
+function applyState(o){
+  if(o.l){var r=document.getElementById('l-'+o.l);if(r)r.checked=true}
+  if(o.x&&window.__mkExtra){
+    var cards=Array.prototype.slice.call(document.querySelectorAll('.card'));
+    o.x.forEach(function(n,ci){for(var k=0;k<n;k++)window.__mkExtra(cards[ci])});}
+  var cs=ctrls();
+  Object.keys(o.d||{}).forEach(function(k){
+    var e=cs[+k];if(!e)return;
+    if(e.type==='checkbox')e.checked=!!o.d[k];
+    else if(e.tagName==='SELECT')e.selectedIndex=+o.d[k];
+    else{e.value=o.d[k];if(e.tagName==='TEXTAREA')e.textContent=o.d[k]}
+    if(e.parentNode&&e.parentNode.classList){
+      e.parentNode.classList.toggle('done',e.type==='checkbox'&&e.checked);}
+    if(e.closest){var row=e.closest('.row');if(row&&e.type==='number')row.classList.toggle('on',(+e.value||0)>0)}
+  });
+}
+var MSG={
+ pt:{rep:'RELATORIO',code:'Codigo novo da caixa',shop:'Compras feitas neste dia',type:'Tipo',cond:'Estado a chegada',extra:'Trabalhos extra',
+     com:'PARTES COMUNS (condominio)',tm:'Tempo (incluido no total)',tmx:'Tempo: NAO INDICADO',
+     lau:'Roupa',prob:'Problemas',miss:'Faltas',notes:'Notas',empty:'(vazio)'},
+ en:{rep:'DAILY REPORT',code:'New key box code',shop:'Shopping done on this day',type:'Type',cond:'Condition on arrival',extra:'Extra work',
+     com:'COMMON PARTS (building)',tm:'Time (already in the total)',tmx:'Time: NOT GIVEN',
+     lau:'Laundry',prob:'Problems',miss:'Missing',notes:'Notes',empty:'(empty)'},
+ de:{rep:'TAGESBERICHT',code:'Neuer Schluesselcode',shop:'Einkauf an diesem Tag erledigt',type:'Art',cond:'Zustand bei Ankunft',extra:'Zusatzarbeiten',
+     com:'GEMEINSCHAFTSFLAECHEN (Haus)',tm:'Zeit (in der Gesamtzeit enthalten)',tmx:'Zeit: NICHT ANGEGEBEN',
+     lau:'Waesche',prob:'Probleme',miss:'Fehlendes',notes:'Anmerkungen',empty:'(leer)'},
+ es:{rep:'PARTE DEL DIA',code:'Codigo nuevo de la caja',shop:'Compras hechas este día',type:'Tipo',cond:'Estado al llegar',extra:'Trabajos extra',
+     com:'ZONAS COMUNES (edificio)',tm:'Tiempo (ya incluido en el total)',tmx:'Tiempo: NO INDICADO',
+     lau:'Ropa',prob:'Problemas',miss:'Faltas',notes:'Observaciones',empty:'(vacio)'}};
+function M(){return MSG[curLang()]||MSG.pt}
+function selCur(g){var s=document.querySelector('select[lang="'+curLang()+'"][data-g="'+g+'"]');
+  return s?s.options[s.selectedIndex].textContent.trim():''}
+function labCur(node){var i=node?node.querySelector('i[lang="'+curLang()+'"]'):null;return i?i.textContent.trim():''}
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function fmtDate(v){var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(v);return m?m[3]+'.'+m[2]+'.'+m[1]:v}
+function langSpan(map){var o='';['pt','en','de','es'].forEach(function(L){o+='<i lang="'+L+'">'+map[L]+'</i>'});return o}
+function resolveML(o){
+  if(!o)return '';
+  if(o.plain!=null)return o.plain;
+  var d=document.createElement('div');d.innerHTML=o.html||'';
+  var i=d.querySelector('i[lang="'+curLang()+'"]');
+  return (i?i.textContent:d.textContent).trim();}
+function txtIn(node,L){
+  if(!node)return '';
+  L=L||curLang();
+  var i=node.querySelector?node.querySelector('i[lang="'+L+'"]'):null;
+  if(i)return i.textContent.trim();
+  var ci=node.querySelector?node.querySelector('.ci'):null;
+  if(ci)return ci.value.trim();
+  return (node.textContent||'').trim();}
+function selTxt(g,L){
+  L=L||curLang();
+  var m=SELMAP[g];if(m)return m[L]||m.pt||'';
+  var s=document.querySelector('select[lang="'+L+'"][data-g="'+g+'"]');
+  return s?s.options[s.selectedIndex].textContent.trim():'';}
+function mins(a,b){
+  if(!/^\d\d:\d\d$/.test(a)||!/^\d\d:\d\d$/.test(b))return null;
+  var p=function(x){return +x.slice(0,2)*60 + +x.slice(3)};
+  var d=p(b)-p(a); if(d<0)d+=1440; return d;}
+function hm(m){if(m==null)return '';var h=Math.floor(m/60),r=m%60;return h?(h+' h '+(r?pad(r)+' min':'')).trim():(r+' min');}
+
+/* ================= Abrechnung (nur im Record-Modus fuer den Auftraggeber) ================= */
+var SET={shop:0,rate:null,prate:1.70,pmode:'none',pmin:null};
+function eur(x){return (Math.round(x*100)/100).toFixed(2).replace('.',',')+' €';}
+function hasBlocks(){return !!(CMBLOCKS&&CMBLOCKS.length)}
+function measuredShop(){return hasBlocks()?blkCat('shop'):0}
+/* Die Stempeluhr ist Hilfsmittel, nicht Wahrheit: laeuft sie weiter, weil das Telefon
+   leer war, korrigiert Diana Beginn und Ende von Hand. Diese Korrektur hat Vorrang —
+   vorher rechnete die Abrechnung stillschweigend mit der Uhr weiter. */
+function onSiteBlocks(){return blkCat('comum')+blkCat('flat')}
+function onSiteManual(){
+  var d=mins(CMIN,CMOUT);
+  if(d==null)return null;
+  var ab=blkCat('shop')+blkCat('desloc');   /* Supermarkt und Fahrt stehen ausserhalb */
+  var v=d-ab;
+  return v>=0?v:null;
+}
+function timeConflict(){
+  if(!hasBlocks())return null;
+  var m=onSiteManual();
+  if(m==null)return null;
+  var b=onSiteBlocks();
+  return m===b?null:{uhr:b,hand:m};
+}
+function onSite(){
+  if(!hasBlocks())return mins(CMIN,CMOUT)||0;
+  var m=onSiteManual();
+  return m==null?onSiteBlocks():m;
+}
+/* Parque Almirante Reis, Rua D. Carlos I — gestaffelt, nicht pro Stunde:
+   Tag 06–24 Uhr: 0,50 / 0,90 / 1,30 / 1,70 fuer die ersten vier Viertelstunden,
+   danach 0,40 je weitere angefangene Viertelstunde, hoechstens 15,00 am Tag.
+   Nacht 00–06 Uhr: 0,30 / 0,60 / 0,80 / 1,00, danach 0,20. Die Einsaetze liegen
+   am Tag, deshalb ist der Tagtarif die Voreinstellung. */
+function parkStaffel(min, nacht){
+  if(min<=0)return 0;
+  var v=Math.ceil(min/15);
+  var tab=nacht?[0.30,0.60,0.80,1.00]:[0.50,0.90,1.30,1.70];
+  var step=nacht?0.20:0.40;
+  var p=v<=4?tab[v-1]:tab[3]+(v-4)*step;
+  if(!nacht&&p>15)p=15;
+  return Math.round(p*100)/100;
+}
+function settleParts(){
+  var work=hasBlocks()?onSite():(mins(CMIN,CMOUT)||0);
+  var shop=+SET.shop||0;
+  var total=work+shop;
+  var wage=SET.rate?total/60*SET.rate:0;
+  var on=SET.pmode!=='none';
+  var pm=on?(SET.pmin==null?work:(+SET.pmin||0)):0;
+  var pb=on?Math.ceil(pm/15)*15:0;
+  var park=on?(SET.pmode==='garage'?parkStaffel(pb):pb/60*SET.prate):0;
+  return {work:work,shop:shop,total:total,wage:wage,pmin:pm,pbill:pb,park:park,sum:wage+park,on:on};
+}
+function settleSecHTML(){
+  var p=settleParts();
+  function row(pt,en,de,es){
+    return '<li><i lang="pt">'+pt+'</i><i lang="en">'+en+'</i><i lang="de">'+de+'</i><i lang="es">'+es+'</i></li>';}
+  var o='<div class="sec" id="secabr"><h3><i lang="pt">Acerto de contas</i><i lang="en">Settlement</i>'
+       +'<i lang="de">Abrechnung</i><i lang="es">Liquidación</i></h3><ul class="vals">';
+  o+=row('Tempo de trabalho: '+hm(p.work),'Working time: '+hm(p.work),
+         'Arbeitszeit: '+hm(p.work),'Tiempo de trabajo: '+hm(p.work));
+  var cf=timeConflict();
+  if(cf)o+=row('Cronómetro: '+hm(cf.uhr)+' — corrigido à mão para '+hm(cf.hand)+', conta a correção',
+         'Stopwatch: '+hm(cf.uhr)+' — corrected by hand to '+hm(cf.hand)+'; the correction counts',
+         'Stoppuhr: '+hm(cf.uhr)+' — von Hand auf '+hm(cf.hand)+' korrigiert, gerechnet wird die Korrektur',
+         'Cronómetro: '+hm(cf.uhr)+' — corregido a mano a '+hm(cf.hand)+', cuenta la corrección');
+  if(p.shop)o+=row('Tempo de compras creditado: '+hm(p.shop),'Shopping time credited: '+hm(p.shop),
+         'Angerechnete Einkaufszeit: '+hm(p.shop),'Tiempo de compras acreditado: '+hm(p.shop));
+  o+=row('Tempo pago no total: '+hm(p.total),'Paid time in total: '+hm(p.total),
+         'Bezahlte Zeit gesamt: '+hm(p.total),'Tiempo pagado en total: '+hm(p.total));
+  /* Valeria: Der Satz steht nicht im Formular. Er wird nur lokal unten eingetragen
+     und reist nie im Link — so sieht sie beim Oeffnen ihres Berichts keinen Betrag. */
+  if(SET.rate){
+  o+=row('Valor à hora: '+eur(SET.rate),'Hourly rate: '+eur(SET.rate),
+         'Stundensatz: '+eur(SET.rate),'Precio por hora: '+eur(SET.rate));
+  o+=row('Trabalho: '+eur(p.wage),'Labour: '+eur(p.wage),'Lohn: '+eur(p.wage),'Trabajo: '+eur(p.wage));}
+  if(p.on){var pz=SET.pmode==='garage'?hm(p.pbill)+' (tabela do parque)':hm(p.pbill)+' × '+eur(SET.prate)+'/h';
+    var pzd=SET.pmode==='garage'?hm(p.pbill)+' (Tarif des Parkhauses)':hm(p.pbill)+' × '+eur(SET.prate)+'/h';
+    o+=row('Estacionamento: '+pz+' = '+eur(p.park),
+         'Parking: '+pzd.replace('Tarif des Parkhauses','car park tariff')+' = '+eur(p.park),
+         'Parkgebühr: '+pzd+' = '+eur(p.park),
+         'Aparcamiento: '+pz.replace('tabela do parque','tarifa del parking')+' = '+eur(p.park));}
+  if(SET.rate)o+=row('<b>Total a transferir: '+eur(p.sum)+'</b>','<b>Total to transfer: '+eur(p.sum)+'</b>',
+         '<b>Gesamtbetrag zur Überweisung: '+eur(p.sum)+'</b>','<b>Total a transferir: '+eur(p.sum)+'</b>');
+  return o+'</ul></div>';
+}
+function settleRefresh(){
+  var old=document.getElementById('secabr');
+  if(old){var t=document.createElement('div');t.innerHTML=settleSecHTML();old.parentNode.replaceChild(t.firstChild,old);}
+  var s=document.getElementById('abrsum');
+  if(s){var p=settleParts();
+    s.innerHTML=(SET.rate?'<span>'+hm(p.total)+' × '+eur(SET.rate)+' = <b>'+eur(p.wage)+'</b></span>':'<span>'+hm(p.total)+' bezahlte Zeit — Stundensatz oben eintragen</span>')
+      +(p.on?'<span>Parken '+hm(p.pbill)+' = <b>'+eur(p.park)+'</b></span>':'')
+      +'<span class="tot">Gesamt <b>'+eur(p.sum)+'</b></span>';}
+  var st=document.getElementById('abrstat');
+  if(st)st.textContent=SET.pmode==='none'?'ohne Parkgebühr'
+    :(hm(SET.pmin==null?onSite():SET.pmin)+' im Parkhaus'+(hasBlocks()?' (nur Zeit am Haus, ohne Supermarkt)':''));
+}
+function settleUI(w){
+  var box=document.createElement('div');box.className='settle';
+  var work=onSite();
+  var meas=measuredShop();
+  SET.shop=meas?meas:(CMSHOP?30:0);
+  SET.pmin=work;
+  box.innerHTML=
+    '<h4>Abrechnung <em>— nur für mich, erscheint im Download</em></h4>'
+   +'<div class="srow"><label>Stundensatz</label><div class="opts" id="abrrate">'
+   +'<input class="rt" type="number" min="0" step="0.50" placeholder="€/h"><span class="u">€/h</span></div></div>'
+   +'<div class="srow"><label>Einkaufszeit anrechnen'+(meas?' <em>— gemessen: '+hm(meas)+'</em>':'')+'</label><div class="opts" id="abrshop">'
+   +(meas?'<button type="button" data-v="'+meas+'">gemessen</button>':'')
+   +'<button type="button" data-v="0">keine</button>'
+   +'<button type="button" data-v="15">15 min</button>'
+   +'<button type="button" data-v="30">30 min</button>'
+   +'<input type="number" min="0" step="5" placeholder="eigene min"></div></div>'
+   +'<div class="srow"><label>Parken</label><div class="opts" id="abrpark">'
+   +'<button type="button" data-v="none">kein Parken</button>'
+   +'<button type="button" data-v="garage">Parkhaus</button>'
+   +'<button type="button" data-v="street">Straße</button>'
+   +'<input class="pr" type="number" min="0" step="0.10" value="1.70" title="Euro pro Stunde — nur fuer Strassenparken; das Parkhaus rechnet nach eigener Tabelle"><span class="u">€/h</span>'
+   +'<input class="pm" type="number" min="0" step="15" title="Minuten"><span class="u">min</span></div></div>'
+   +'<div class="hintx" id="abrstat"></div>'
+   +'<div class="ssum" id="abrsum"></div>';
+  w.appendChild(box);
+
+  var rtIn=box.querySelector('#abrrate .rt');
+  rtIn.addEventListener('input',function(){SET.rate=parseFloat(rtIn.value.replace(',','.'))||null;settleRefresh();});
+  var shopWrap=box.querySelector('#abrshop'), parkWrap=box.querySelector('#abrpark');
+  var shopIn=shopWrap.querySelector('input');
+  var prIn=parkWrap.querySelector('.pr'), pmIn=parkWrap.querySelector('.pm');
+  pmIn.value=work;
+  function markShop(){
+    Array.prototype.slice.call(shopWrap.querySelectorAll('button')).forEach(function(b){
+      b.classList.toggle('on',(+b.getAttribute('data-v'))===(+SET.shop));});
+    if([0,15,30].indexOf(+SET.shop)<0)shopIn.value=SET.shop; }
+  function markPark(){
+    Array.prototype.slice.call(parkWrap.querySelectorAll('button')).forEach(function(b){
+      b.classList.toggle('on',b.getAttribute('data-v')===SET.pmode);});
+    parkWrap.classList.toggle('off',SET.pmode==='none'); }
+  Array.prototype.slice.call(shopWrap.querySelectorAll('button')).forEach(function(b){
+    b.addEventListener('click',function(){SET.shop=+b.getAttribute('data-v');shopIn.value='';markShop();settleRefresh();});});
+  shopIn.addEventListener('input',function(){SET.shop=+shopIn.value||0;markShop();settleRefresh();});
+  Array.prototype.slice.call(parkWrap.querySelectorAll('button')).forEach(function(b){
+    b.addEventListener('click',function(){
+      SET.pmode=b.getAttribute('data-v');
+      if(SET.pmode==='garage'){prIn.disabled=true;}else{prIn.disabled=false;}
+      markPark();settleRefresh();});});
+  prIn.addEventListener('input',function(){SET.prate=parseFloat(prIn.value.replace(',','.'))||0;
+    if(SET.pmode==='none'){SET.pmode='street';markPark();} settleRefresh();});
+  pmIn.addEventListener('input',function(){
+    SET.pmin=pmIn.value===''?work:(+pmIn.value||0);
+    /* Wer Parkminuten eintraegt, will Parken abrechnen: ohne das blieb der Modus
+       auf "kein Parken" und die Summe aenderte sich nicht. */
+    if(SET.pmode==='none'&&pmIn.value!==''){SET.pmode='garage';markPark();}
+    settleRefresh();});
+  markShop();markPark();
+}
+
+
+/* ---------- Kompakte Zusammenfassung ---------- */
+function buildCompact(){
+  var w=document.querySelector('.wrap');
+  var kids=Array.prototype.slice.call(w.children);
+  var secs=[],cur=null,done={};
+  function q(el,sel){return el.querySelectorAll?Array.prototype.slice.call(el.querySelectorAll(sel)):[]}
+  kids.forEach(function(el){
+    if(el.tagName==='H2'){cur={t:el.innerHTML,items:[]};secs.push(cur);return}
+    if(!cur)return;
+    q(el,'.row').forEach(function(r){
+      var ni=r.querySelector('.stp input');if(!ni)return;
+      var n=+ni.value||0;if(!n)return;
+      var tx=r.querySelector('input[type=text]');
+      var lab=tx?esc(tx.value||'?'):(r.querySelector('.t')||{innerHTML:''}).innerHTML;
+      cur.items.push('<b class="qt">'+n+'&times;</b> '+lab);});
+    q(el,'input[type=checkbox]').forEach(function(c){
+      if(!c.checked)return;
+      var ci=c.parentNode.querySelector('.ci');
+      var t=c.parentNode.querySelector('.t');
+      cur.items.push(ci?esc(ci.value||'?'):(t?t.innerHTML:''));});
+    var sels=el.tagName==='SELECT'?[el]:q(el,'select');
+    sels.forEach(function(s){
+      var g=s.getAttribute('data-g');if(!g||done[g])return;done[g]=1;
+      var map={};['pt','en','de','es'].forEach(function(L){
+        var o=document.querySelector('select[lang="'+L+'"][data-g="'+g+'"]');
+        map[L]=o?esc(o.options[o.selectedIndex].textContent):'';});
+      cur.items.push(langSpan(map));});
+    var fl=(el.matches&&el.matches('input,textarea'))?[el]:q(el,'input,textarea');
+    fl.forEach(function(x){
+      if(x.type==='checkbox'||x.type==='radio'||x.type==='hidden')return;
+      if(x.closest&&x.closest('.row'))return;
+      var v=(x.value||'').trim();if(!v)return;
+      if(x.id==='f-data'||x.id==='f-in'||x.id==='f-out'||x.id==='f-min'||x.id==='f-code')return;
+      cur.items.push('<span class="free">'+esc(v)+'</span>');});
+  });
+  var html='';
+  secs.forEach(function(s){
+    if(!s.items.length)return;
+    html+='<section class="sec"><h3>'+s.t+'</h3><ul class="vals">';
+    s.items.forEach(function(x){html+='<li>'+x+'</li>'});
+    html+='</ul></section>';});
+  return html;
+}
+
+/* ---------- Kennzahlen-Band ---------- */
+function buildKPI(){
+  if(CMLIST){
+    var n=0,tot=0;
+    Array.prototype.slice.call(document.querySelectorAll('.row')).forEach(function(r){
+      var v=+((r.querySelector('.stp input')||{}).value||0);if(v){n++;tot+=v}});
+    if(!tot)return '';
+    return '<div class="kpi"><div class="k"><span class="kn">'+tot+'</span>'+
+      langSpan({pt:'peças no total',en:'items in total',de:'Teile insgesamt',es:'piezas en total'})+'</div>'+
+      '<div class="k"><span class="kn">'+n+'</span>'+
+      langSpan({pt:'posições',en:'entries',de:'Positionen',es:'posiciones'})+'</div></div>';
+  }
+  var d=mins(CMIN,CMOUT), m=+CMMIN||0;
+  var _dy=dayVal();
+  var dv=_dy?fmtDate(_dy):'';
+  if(d==null&&!m&&!dv)return '';
+  var o='<div class="kpi">';
+  if(dv)o+='<div class="k"><span class="kn">'+dv+'</span>'+
+    langSpan({pt:'dia do servi\u00e7o',en:'day of service',de:'Einsatztag',es:'d\u00eda de servicio'})+'</div>';
+  var _hb=(CMBLOCKS&&CMBLOCKS.length);
+  var _shop=_hb?blkCat('shop'):0;
+  var _flat=(d==null)?null:Math.max(0,d-m-_shop);
+  if(d!=null){
+    o+='<div class="k"><span class="kn">'+hm(d)+'</span>'+
+      langSpan({pt:'no total',en:'in total',de:'insgesamt',es:'en total'})+
+      '<span class="ks">'+CMIN+' – '+CMOUT+'</span></div>';
+    o+='<div class="k"><span class="kn">'+hm(_flat)+'</span>'+
+      langSpan({pt:'no apartamento',en:'in the flat',de:'in der Wohnung',es:'en el apartamento'})+'</div>';
+  }
+  if(_shop)o+='<div class="k"><span class="kn">'+hm(_shop)+'</span>'+
+    langSpan({pt:'compras e deslocação',en:'shopping and travel',de:'Einkauf und Fahrt',es:'compras y desplazamiento'})+'</div>';
+  else if(CMSHOP)o+='<div class="k"><span class="kn">✓</span>'+
+    langSpan({pt:'compras (forfait)',en:'shopping (flat rate)',de:'Einkauf (Pauschale)',es:'compras (a tanto alzado)'})+'</div>';
+  if(CMCODE)o+='<div class="k code"><span class="kn">'+esc(CMCODE)+'</span>'+
+    langSpan({pt:'c\u00f3digo novo da caixa',en:'new key box code',de:'neuer Schl\u00fcsselcode',es:'nuevo c\u00f3digo de la caja'})+'</div>';
+  o+='<div class="k'+(m?' hi':'')+'"><span class="kn">'+(m?hm(m):'—')+'</span>'+
+     langSpan({pt:'partes comuns',en:'common parts',de:'Gemeinschaftsflächen',es:'zonas comunes'})+
+     '<span class="ks">'+langSpan({pt:'para o condomínio',en:'for the management',de:'für die Hausverwaltung',es:'para la administración'})+'</span></div>';
+  return o+'</div>';
+}
+
+/* ---------- CSV ---------- */
+function csvq(s){return '"'+String(s==null?'':s).replace(/"/g,'""')+'"'}
+function yq(v){
+  if(v==null||v==='')return '""';
+  var s=String(v);
+  return /^[A-Za-z0-9ÄÖÜäöüß .:\/-]+$/.test(s)&&!/^\d+$/.test(s)? '"'+s.replace(/"/g,'\\"')+'"'
+       : (/^\d+$/.test(s)? s : '"'+s.replace(/"/g,'\\"')+'"');
+}
+function buildMD(o){
+  var L='de', P=PDFL[L];
+  var d=new Date(o.t||Date.now());
+  var iso=d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+'T'+pad(d.getHours())+':'+pad(d.getMinutes());
+  var dt=pad(d.getDate())+'.'+pad(d.getMonth()+1)+'.'+d.getFullYear();
+  var day=dayVal();
+  var fm=[];
+  fm.push('document: '+yq(FPREFIX));
+  fm.push('author: '+yq(o.a||AUTOR));
+  fm.push('filled_at: '+yq(iso));
+  fm.push('language_filled: '+yq(o.l||'pt'));
+  if(day)fm.push('service_date: '+yq(day));
+  if(!CMLIST){
+    var du=mins(CMIN,CMOUT),cm=+CMMIN||0;
+    fm.push('time_from: '+yq(CMIN));
+    fm.push('time_to: '+yq(CMOUT));
+    if(du!=null){fm.push('duration_min: '+(du));fm.push('flat_min: '+(du-cm))}
+    fm.push('common_min: '+(cm||0));
+    if(CMCODE)fm.push('key_code: '+yq(CMCODE));
+    fm.push('shopping: '+(CMSHOP?'true':'false'));
+    if(CMSHOP)fm.push('shopping_note: "tempo a acertar no pagamento"');
+    ['tipo','estado','roupa','prob','falta'].forEach(function(g,i){
+      var k=['type','condition','laundry','problem','missing'][i];
+      var v=selTxt(g,L); if(v)fm.push(k+': '+yq(v));});
+    if(CMEXTRA.length)fm.push('extra_work: ['+CMEXTRA.map(function(x){
+      var t=x.plain!=null?x.plain:'';if(!t){var dv=document.createElement('div');dv.innerHTML=x.html||'';
+      var i2=dv.querySelector('i[lang="de"]');t=(i2?i2.textContent:dv.textContent).trim()}return yq(t)}).join(', ')+']');
+    if(CMCOMMON.length)fm.push('common_parts: ['+CMCOMMON.map(function(x){
+      var dv=document.createElement('div');dv.innerHTML=x.html||'';
+      var i2=dv.querySelector('i[lang="de"]');return yq((i2?i2.textContent:dv.textContent).trim())}).join(', ')+']');
+    if(CMPROB)fm.push('problem_notes: '+yq(CMPROB));
+    if(CMOBS)fm.push('notes: '+yq(CMOBS));
+  }else{
+    var n=0,tot=0;
+    Array.prototype.slice.call(document.querySelectorAll('ul.vals li')).forEach(function(li){
+      var m2=/^(\d+)/.exec(li.textContent.trim());if(m2){n++;tot+=+m2[1]}});
+    fm.push('positions: '+n);fm.push('items_total: '+tot);
+  }
+  var title=txtIn(document.querySelector('h1'),L)||FPREFIX;
+  var out='---\n'+fm.join('\n')+'\n---\n\n# '+title+' — '+(day?fmtDate(day):dt)+'\n\n';
+  out+='**'+P.by+':** '+(o.a||AUTOR)+'  \n**'+(CMLIST?'Erstellt':'Ausgefüllt')+':** '+dt+' '+pad(d.getHours())+':'+pad(d.getMinutes())+'\n\n';
+  if(!CMLIST){
+    var du2=mins(CMIN,CMOUT),cm2=+CMMIN||0;
+    if(du2!=null)out+='| '+P.tot+' | '+P.flat+' | '+P.com+' |\n|---|---|---|\n| '+
+      hm(du2)+' | '+hm(du2-cm2)+' | '+(cm2?hm(cm2):'—')+' |\n\n';
+    if(CMCODE)out+='> **'+P.code+':** '+CMCODE+'\n\n';
+  }
+  docSections(L).forEach(function(s){
+    out+='## '+s.label+'\n\n';
+    s.values.forEach(function(v){out+='- '+v+'\n'});
+    out+='\n';});
+  out+='---\n*'+P.foot+' · '+dt+' '+pad(d.getHours())+':'+pad(d.getMinutes())+'*\n';
+  return out;
+}
+function buildCSV(o){
+  var d=new Date(o.t||Date.now());
+  var day=pad(d.getDate())+'.'+pad(d.getMonth()+1)+'.'+d.getFullYear();
+  var who=o.a||AUTOR, S=';', NL='\r\n', rows=[];
+  if(CMLIST){
+    rows.push(['date','author','document','category','item','quantity'].map(csvq).join(S));
+    Array.prototype.slice.call(document.querySelectorAll('.sec')).forEach(function(el){
+      var cat=txtIn(el.querySelector('h3'));
+      Array.prototype.slice.call(el.querySelectorAll('ul.vals li')).forEach(function(li){
+        var raw=li.textContent.trim();
+        var m=/^(\d+)/.exec(raw);
+        var lab=(txtIn(li)||raw).replace(/^\s*\d+\s*×?\s*/,'').trim();
+        rows.push([day,who,FPREFIX,cat,lab,m?m[1]:''].map(csvq).join(S));});
+    });
+  }else{
+    var dur=mins(CMIN,CMOUT);
+    rows.push(['date','author','document','from','to','duration_min','flat_min','common_min',
+      'key_code','shopping','shopping_min','type','condition','extra_work','common_parts','laundry','problem','problem_notes','missing','notes',
+      'paid_min','hourly_rate_eur','wage_eur','park_min','park_rate_eur','park_eur','total_eur'].map(csvq).join(S));
+    var AB=settleParts();
+    var n2=function(x){return String(Math.round(x*100)/100).replace('.',',')};
+    rows.push([day,who,FPREFIX,CMIN,CMOUT,dur==null?'':dur,
+      dur==null?'':(dur-(+CMMIN||0)),CMMIN,
+      CMCODE,(CMSHOP?'ja':'nein'),AB.shop,selTxt('tipo'),selTxt('estado'),
+      CMEXTRA.map(resolveML).join(' | '),CMCOMMON.map(resolveML).join(' | '),
+      selTxt('roupa'),selTxt('prob'),CMPROB,selTxt('falta'),CMOBS,
+      AB.total,n2(SET.rate||0),n2(AB.wage),(AB.on?AB.pbill:0),(AB.on?n2(SET.prate):'0'),n2(AB.park),n2(AB.sum)].map(csvq).join(S));
+  }
+  return '\ufeff'+rows.join(NL)+NL;
+}
+
+/* ================= Export: PDF, HTML, CSV in einem ZIP ================= */
+var LBL={
+ pt:{doc:'Documento',by:'Preenchido por',on:'Data',total:'Total',flat:'Apartamento',common:'Partes comuns',
+     foot:'Documento gerado automaticamente',dl:'Descarregar',send:'Enviar'},
+ en:{doc:'Document',by:'Filled in by',on:'Date',total:'Total',flat:'Flat',common:'Common parts',
+     foot:'Automatically generated document',dl:'Download',send:'Send'},
+ de:{doc:'Dokument',by:'Ausgefüllt von',on:'Datum',total:'Gesamt',flat:'Wohnung',common:'Gemeinschaftsflächen',
+     foot:'Automatisch erzeugtes Dokument',dl:'Herunterladen',send:'Senden'},
+ es:{doc:'Documento',by:'Rellenado por',on:'Fecha',total:'Total',flat:'Apartamento',common:'Zonas comunes',
+     foot:'Documento generado automáticamente',dl:'Descargar',send:'Enviar'}};
+
+function docSections(L){
+  var out=[];
+  Array.prototype.slice.call(document.querySelectorAll('.sec')).forEach(function(s){
+    var lab=txtIn(s.querySelector('h3'),L);
+    var vals=Array.prototype.slice.call(s.querySelectorAll('ul.vals li')).map(function(li){
+      var i=li.querySelector('i[lang="'+L+'"]');
+      if(i){var q=li.querySelector('.qt');return (q?q.textContent.trim()+' ':'')+i.textContent.trim()}
+      return li.textContent.trim();});
+    if(vals.length)out.push({label:lab,values:vals});});
+  return out;
+}
+function kpiLine(L){
+  if(CMLIST)return '';
+  var d=mins(CMIN,CMOUT),m=+CMMIN||0,p=[];
+  if(d!=null){p.push(LBL[L].total+': '+hm(d));p.push(LBL[L].flat+': '+hm(d-m))}
+  if(m)p.push(LBL[L].common+': '+hm(m));
+  return p.join('   ·   ');
+}
+
+/* ---------- PDF (eigener Erzeuger, echter Text, keine Bibliothek) ---------- */
+var WIN={0x2013:0x96,0x2014:0x97,0x2018:0x91,0x2019:0x92,0x201C:0x93,0x201D:0x94,0x2022:0x95,0x2026:0x85,0x00D7:0xD7,0x20AC:0x80};
+function pdfBytes(str){
+  var out=[];
+  for(var i=0;i<str.length;i++){
+    var c=str.charCodeAt(i);
+    if(WIN[c])c=WIN[c]; else if(c>255)c=63;
+    out.push(c);}
+  return out;
+}
+function pdfEsc(s){
+  var b=pdfBytes(s),o='';
+  for(var i=0;i<b.length;i++){
+    var c=b[i];
+    if(c===40||c===41||c===92)o+='\\'+String.fromCharCode(c);
+    else if(c<32||c>126)o+='\\'+('00'+c.toString(8)).slice(-3);
+    else o+=String.fromCharCode(c);}
+  return o;
+}
+function pdfWidth(s,size,bold){
+  var w=0,b=pdfBytes(s);
+  for(var i=0;i<b.length;i++){var c=b[i];
+    w += (c===32?278:(c>=48&&c<=57?556:(bold?600:520)));}
+  return w*size/1000;
+}
+function wrapText(s,size,bold,maxw){
+  var words=String(s).split(/\s+/),lines=[],cur='';
+  words.forEach(function(w){
+    var t=cur?cur+' '+w:w;
+    if(pdfWidth(t,size,bold)>maxw&&cur){lines.push(cur);cur=w}else cur=t;});
+  if(cur)lines.push(cur);
+  return lines.length?lines:[''];
+}
+var PDFL={
+ pt:{by:'Preenchido por',day:'DIA',tot:'TOTAL',flat:'APARTAMENTO',com:'PARTES COMUNS',code:'CÓDIGO NOVO',shop:'COMPRAS',
+     items:'PEÇAS NO TOTAL',pos:'POSIÇÕES',foot:'Documento gerado automaticamente'},
+ en:{by:'Filled in by',day:'DAY',tot:'TOTAL',flat:'FLAT',com:'COMMON PARTS',code:'NEW CODE',shop:'SHOPPING',
+     items:'ITEMS IN TOTAL',pos:'ENTRIES',foot:'Automatically generated document'},
+ de:{by:'Ausgefüllt von',day:'EINSATZTAG',tot:'GESAMT',flat:'WOHNUNG',com:'GEMEINSCHAFTSFLÄCHEN',code:'NEUER CODE',shop:'EINKAUF',
+     items:'TEILE INSGESAMT',pos:'POSITIONEN',foot:'Automatisch erzeugtes Dokument'},
+ es:{by:'Rellenado por',day:'DÍA',tot:'TOTAL',flat:'APARTAMENTO',com:'ZONAS COMUNES',code:'CÓDIGO NUEVO',shop:'COMPRAS',
+     items:'PIEZAS EN TOTAL',pos:'POSICIONES',foot:'Documento generado automáticamente'}};
+function buildPDF(o,L){
+  L=L||'de';var P=PDFL[L]||PDFL.de;
+  var W=595.28,H=841.89,M=42.5,RIGHT=W-M,BW=RIGHT-M;
+  var LABW=128, VALX=M+LABW+10, VALW=RIGHT-VALX;
+  var pages=[],cur=[],y=H-M;
+  function push(s){cur.push(s)}
+  function newPage(){pages.push(cur);cur=[];y=H-M}
+  function text(x,yy,s,size,bold,gray){
+    push('BT /'+(bold?'F2':'F1')+' '+size+' Tf '+(gray||'0')+' g '+x.toFixed(2)+' '+yy.toFixed(2)+' Td ('+pdfEsc(s)+') Tj ET');}
+  function line(x1,yy,x2,wid,gray){
+    push((gray||'0')+' G '+wid+' w '+x1.toFixed(2)+' '+yy.toFixed(2)+' m '+x2.toFixed(2)+' '+yy.toFixed(2)+' l S');}
+  function rect(x,yy,w2,h2,gray){push((gray)+' g '+x.toFixed(2)+' '+yy.toFixed(2)+' '+w2.toFixed(2)+' '+h2.toFixed(2)+' re f');}
+  function box(x,yy,w2,h2,gray){push((gray||'0.8')+' G 0.6 w '+x.toFixed(2)+' '+yy.toFixed(2)+' '+w2.toFixed(2)+' '+h2.toFixed(2)+' re S');}
+
+  var d=new Date(o.t||Date.now());
+  var dt=pad(d.getDate())+'.'+pad(d.getMonth()+1)+'.'+d.getFullYear();
+  var tm=pad(d.getHours())+':'+pad(d.getMinutes());
+  var title=txtIn(document.querySelector('h1'),L)||FPREFIX;
+
+  /* Kopf */
+  line(M,y,RIGHT,1.6); y-=13;
+  text(M,y,P.by+': '+(o.a||AUTOR),8.5,true);
+  text(RIGHT-pdfWidth(dt,8.5,false),y,dt,8.5,false);
+  y-=11;
+  text(M,y,'Alojamento Local · Funchal',8.5,false,'0.25');
+  text(RIGHT-pdfWidth(tm,8.5,false),y,tm,8.5,false,'0.25');
+  y-=9; line(M,y,RIGHT,0.7); y-=24;
+
+  /* Titel */
+  text(M,y,title,15,true); y-=22;
+
+  /* Kennzahlen */
+  var cells=[];
+  if(!CMLIST){
+    var mm=mins(CMIN,CMOUT),cm=+CMMIN||0;
+    var _dy=dayVal();
+    if(_dy)cells.push([fmtDate(_dy),P.day,false]);
+    if(mm!=null){cells.push([hm(mm),P.tot,false]);cells.push([hm(mm-cm),P.flat,false]);}
+    if(CMSHOP)cells.push(['sim',P.shop,false]);
+    if(CMCODE)cells.push([CMCODE,P.code,true]);
+    cells.push([cm?hm(cm):'—',P.com,true]);
+  }else{
+    var n=0,tot=0;
+    Array.prototype.slice.call(document.querySelectorAll('ul.vals li')).forEach(function(li){
+      var m2=/^(\d+)/.exec(li.textContent.trim());if(m2){n++;tot+=+m2[1]}});
+    if(tot){cells.push([String(tot),P.items,false]);cells.push([String(n),P.pos,true]);}
+  }
+  if(cells.length){
+    var ch=34, cw=BW/cells.length;
+    cells.forEach(function(c,i){
+      var x=M+i*cw;
+      if(c[2])rect(x,y-ch+12,cw,ch,'0.945');
+      box(x,y-ch+12,cw,ch);
+      text(x+7,y-2,c[0],12,true);
+      text(x+7,y-14,c[1],6.6,true,'0.35');});
+    y-=ch+18;
+  }
+
+  /* Tabelle */
+  var i=0;
+  docSections(L).forEach(function(s){
+    var labLines=wrapText(s.label.toUpperCase(),7.4,true,LABW);
+    var blocks=s.values.map(function(v){return wrapText(v,9,false,VALW)});
+    var vh=0;blocks.forEach(function(b){vh+=b.length*11.5});
+    var h2=Math.max(vh,labLines.length*9.5)+11;
+    if(y-h2<M+30){newPage();}
+    if(i%2===1)rect(M,y-h2+8,BW,h2,'0.973');
+    var y0=y;
+    labLines.forEach(function(t,k){text(M,y0-k*9.5,t,7.4,true,'0.33')});
+    var yy=y0;
+    blocks.forEach(function(b){b.forEach(function(t){text(VALX,yy,t,9,false);yy-=11.5})});
+    y-=h2;
+    line(M,y+6,RIGHT,0.4,'0.87');
+    i++;
+  });
+
+  /* Fuß */
+  var fy=M+16;
+  line(M,fy+10,RIGHT,0.8);
+  text(M,fy,P.foot,7.5,false,'0.3');
+  var right2=dt+' '+tm;
+  text(RIGHT-pdfWidth(right2,7.5,false),fy,right2,7.5,false,'0.3');
+  pages.push(cur);
+
+  var total=pages.length, idF1=3+total*2, idF2=idF1+1;
+  var out='%PDF-1.4\n', pieces=[];
+  pieces.push('1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n');
+  var kids='';for(var k=0;k<total;k++)kids+=(3+k*2)+' 0 R ';
+  pieces.push('2 0 obj\n<< /Type /Pages /Count '+total+' /Kids ['+kids.trim()+'] >>\nendobj\n');
+  for(var k=0;k<total;k++){
+    var pid=3+k*2,cid=pid+1,stream=pages[k].join('\n');
+    pieces.push(pid+' 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 '+W.toFixed(2)+' '+H.toFixed(2)+
+      '] /Resources << /Font << /F1 '+idF1+' 0 R /F2 '+idF2+' 0 R >> >> /Contents '+cid+' 0 R >>\nendobj\n');
+    pieces.push(cid+' 0 obj\n<< /Length '+pdfBytes(stream).length+' >>\nstream\n'+stream+'\nendstream\nendobj\n');}
+  pieces.push(idF1+' 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>\nendobj\n');
+  pieces.push(idF2+' 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>\nendobj\n');
+  var offs=[],pos=pdfBytes(out).length;
+  pieces.forEach(function(p){offs.push(pos);pos+=pdfBytes(p).length;out+=p});
+  var x='xref\n0 '+(idF2+1)+'\n0000000000 65535 f \n';
+  offs.forEach(function(off){x+=('0000000000'+off).slice(-10)+' 00000 n \n'});
+  out+=x+'trailer\n<< /Size '+(idF2+1)+' /Root 1 0 R >>\nstartxref\n'+pos+'\n%%EOF';
+  return new Uint8Array(pdfBytes(out));
+}
+
+/* ---------- ZIP (ohne Kompression) ---------- */
+var CRCT=(function(){var t=[],c;for(var n=0;n<256;n++){c=n;for(var k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})();
+function crc32(u8){var c=0xFFFFFFFF;for(var i=0;i<u8.length;i++)c=CRCT[(c^u8[i])&0xFF]^(c>>>8);return (c^0xFFFFFFFF)>>>0}
+function utf8(s){return new TextEncoder().encode(s)}
+function zip(files){
+  var parts=[],central=[],off=0;
+  function u16(n){return [n&255,(n>>8)&255]}
+  function u32(n){return [n&255,(n>>8)&255,(n>>16)&255,(n>>>24)&255]}
+  files.forEach(function(f){
+    var name=utf8(f.name), data=f.data, c=crc32(data);
+    var lh=[].concat([0x50,0x4b,0x03,0x04],u16(20),u16(0x0800),u16(0),u16(0),u16(0),
+      u32(c),u32(data.length),u32(data.length),u16(name.length),u16(0));
+    parts.push(new Uint8Array(lh),name,data);
+    central.push({name:name,crc:c,len:data.length,off:off});
+    off+=lh.length+name.length+data.length;});
+  var cd=[];
+  central.forEach(function(e){
+    cd=cd.concat([0x50,0x4b,0x01,0x02],u16(20),u16(20),u16(0x0800),u16(0),u16(0),u16(0),
+      u32(e.crc),u32(e.len),u32(e.len),u16(e.name.length),u16(0),u16(0),u16(0),u16(0),u32(0),u32(e.off));
+    cd=cd.concat(Array.prototype.slice.call(e.name));});
+  var eo=[].concat([0x50,0x4b,0x05,0x06],u16(0),u16(0),u16(files.length),u16(files.length),
+    u32(cd.length),u32(off),u16(0));
+  parts.push(new Uint8Array(cd),new Uint8Array(eo));
+  var total=0;parts.forEach(function(p){total+=p.length});
+  var out=new Uint8Array(total),k=0;
+  parts.forEach(function(p){out.set(p,k);k+=p.length});
+  return out;
+}
+
+/* ---------- Förmliches Dokument (Stil der Steuer-Vorlage) ---------- */
+var DOCCSS = '@page{size:A4;margin:15mm 15mm 20mm 15mm}'
++'*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}'
++'html{background:#e9e9e9}'
++'body{font-family:Arial,Helvetica,sans-serif;font-size:8.5pt;color:#111;background:#e9e9e9;line-height:1.45;padding:6mm 0}'
++'.document{width:210mm;margin:0 auto;background:#fff;padding:15mm}'
++'i{display:none}'
++'#l-pt:checked~.document i[lang=pt],#l-en:checked~.document i[lang=en],#l-de:checked~.document i[lang=de],#l-es:checked~.document i[lang=es]{display:inline}'
++'.sw{position:absolute;opacity:0;pointer-events:none}'
++'.langs{width:210mm;margin:0 auto 3mm;display:flex;gap:6px}'
++'.langs label{padding:4px 10px;border:1px solid #bbb;background:#fff;font-size:8.5pt;cursor:pointer;border-radius:2px}'
++'#l-pt:checked~.langs label[for=l-pt],#l-en:checked~.langs label[for=l-en],#l-de:checked~.langs label[for=l-de],#l-es:checked~.langs label[for=l-es]{background:#111;color:#fff;border-color:#111}'
++'.kopf{border-top:2px solid #111;border-bottom:1px solid #111;padding:3mm 0 4mm;margin-bottom:5mm;display:flex;justify-content:space-between;gap:6mm;line-height:1.6}'
++'.kopf-rechts{text-align:right;white-space:nowrap}'
++'h1{font-size:15pt;margin:0 0 4mm;line-height:1.2}'
++'.kband{display:flex;gap:0;border:1px solid #ccc;margin:0 0 6mm}'
++'.kband>div{flex:1;padding:2.5mm 3mm;border-right:1px solid #eee}'
++'.kband>div:last-child{border-right:none}'
++'.kband .kn{display:block;font-size:13pt;font-weight:bold;line-height:1.2}'
++'.kband .kl{display:block;font-size:7.5pt;color:#555;text-transform:uppercase;letter-spacing:.05em;margin-top:.8mm}'
++'.kband .hi{background:#f4f4f4}'
++'table{border-collapse:collapse;width:100%;font-size:8.5pt}'
++'tr{break-inside:avoid;page-break-inside:avoid}'
++'th{width:45mm;text-align:left;vertical-align:top;font-size:7.8pt;font-weight:bold;color:#555;'
++'text-transform:uppercase;letter-spacing:.05em;padding:2mm 4mm 2mm 0;border-bottom:.5px solid #eee}'
++'td{vertical-align:top;padding:2mm 0;border-bottom:.5px solid #eee}'
++'tbody tr:nth-child(even) th,tbody tr:nth-child(even) td{background:#fafafa}'
++'td div{margin-bottom:1mm}td div:last-child{margin-bottom:0}'
++'.qt{font-weight:bold}'
++'.fuss{border-top:1px solid #111;margin-top:9mm;padding-top:2mm;font-size:7.5pt;color:#444;display:flex;justify-content:space-between}'
++'@media print{html,body{background:#fff;padding:0}.document{width:auto;padding:0}.langs{display:none}}';
+
+function formalBody(o,secs){
+  var d=new Date(o.t||Date.now());
+  var dt=pad(d.getDate())+'.'+pad(d.getMonth()+1)+'.'+d.getFullYear();
+  var tm=pad(d.getHours())+':'+pad(d.getMinutes());
+  var title=document.querySelector('h1')?document.querySelector('h1').innerHTML:FPREFIX;
+  var rows='';
+  secs.forEach(function(s){
+    var vals='';
+    Array.prototype.slice.call(s.querySelectorAll('ul.vals li')).forEach(function(li){
+      vals+='<div>'+li.innerHTML+'</div>';});
+    rows+='<tr><th>'+s.querySelector('h3').innerHTML+'</th><td>'+vals+'</td></tr>';});
+  function cell(n,l,hi){return '<div class="'+(hi?'hi':'')+'"><span class="kn">'+n+'</span><span class="kl">'+l+'</span></div>'}
+  var kb='';
+  if(!CMLIST){
+    var mm=mins(CMIN,CMOUT),cm=+CMMIN||0;
+    var _dy=dayVal();
+    if(_dy)kb+=cell(fmtDate(_dy),langSpan({pt:'Dia',en:'Day',de:'Einsatztag',es:'Día'}));
+    if(mm!=null){
+      kb+=cell(hm(mm),langSpan({pt:'Total',en:'Total',de:'Gesamt',es:'Total'}));
+      kb+=cell(hm(mm-cm),langSpan({pt:'Apartamento',en:'Flat',de:'Wohnung',es:'Apartamento'}));}
+    if(CMSHOP)kb+=cell('✓',langSpan({pt:'Compras',en:'Shopping',de:'Einkauf',es:'Compras'}));
+    if(CMCODE)kb+=cell(esc(CMCODE),langSpan({pt:'Código novo',en:'New code',de:'Neuer Code',es:'Código nuevo'}),true);
+    kb+=cell(cm?hm(cm):'—',langSpan({pt:'Partes comuns',en:'Common parts',de:'Gemeinschaftsflächen',es:'Zonas comunes'}),true);
+  }else{
+    var n=0,tot=0;
+    secs.forEach(function(s){Array.prototype.slice.call(s.querySelectorAll('ul.vals li')).forEach(function(li){
+      var m2=/^(\d+)/.exec(li.textContent.trim());if(m2){n++;tot+=+m2[1]}})});
+    if(tot){kb+=cell(tot,langSpan({pt:'Peças no total',en:'Items in total',de:'Teile insgesamt',es:'Piezas en total'}));
+            kb+=cell(n,langSpan({pt:'Posições',en:'Entries',de:'Positionen',es:'Posiciones'}),true);}
+  }
+  if(kb)kb='<div class="kband">'+kb+'</div>';
+  var byL=langSpan({pt:'Preenchido por',en:'Filled in by',de:'Ausgefüllt von',es:'Rellenado por'});
+  var ftL=langSpan({pt:'Documento gerado automaticamente',en:'Automatically generated document',
+    de:'Automatisch erzeugtes Dokument',es:'Documento generado automáticamente'});
+  return '<div class="document">'
+    +'<div class="kopf"><div><strong>'+byL+':</strong> '+(o.a||AUTOR)+'<br>Alojamento Local · Funchal</div>'
+    +'<div class="kopf-rechts">'+dt+'<br>'+tm+'</div></div>'
+    +'<h1>'+title+'</h1>'+kb
+    +'<table><tbody>'+rows+'</tbody></table>'
+    +'<div class="fuss"><span>'+ftL+'</span><span>'+dt+' '+tm+'</span></div>'
+    +'</div>';
+}
+function buildDocHTML(o){
+  var d=new Date(o.t||Date.now());
+  var dt=pad(d.getDate())+'.'+pad(d.getMonth()+1)+'.'+d.getFullYear();
+  var radios='';['pt','en','de','es'].forEach(function(L){
+    radios+='<input class="sw" type="radio" name="lang" id="l-'+L+'"'+(L===curLang()?' checked':'')+'>';});
+  var secs=Array.prototype.slice.call(document.querySelectorAll('.sec'));
+  return '<!doctype html>\n<html lang="pt"><head><meta charset="utf-8">'
+    +'<meta name="viewport" content="width=device-width, initial-scale=1">'
+    +'<title>'+FPREFIX+' '+dt+'</title><style>'+DOCCSS+'</style></head><body>'
+    +radios
+    +'<div class="langs"><label for="l-pt">Português</label><label for="l-en">English</label>'
+    +'<label for="l-de">Deutsch</label><label for="l-es">Español</label></div>'
+    +formalBody(o,secs)+'</body></html>';
+}
+
+/* ---------- Sperrmodus ---------- */
+function recordMode(o){
+  applyState(o);
+  CMDAY=dayVal();
+  CMOFF=(o.o==null?-new Date().getTimezoneOffset():o.o);
+  var _bl=document.getElementById('f-blocks');
+  CMBLOCKS=[];CMDERIV=null;
+  if(_bl&&_bl.value){try{var _pj=JSON.parse(_bl.value);
+    if(_pj&&_pj.b){CMBLOCKS=_pj.b||[];CMDERIV=_pj.d||null}
+    else CMBLOCKS=_pj||[];}catch(e){CMBLOCKS=[]}}
+  var _tp=document.querySelector('select[data-g=tipo]');CMTIPO=_tp?_tp.selectedIndex:-1;
+  CMEXTRA=[];CMCOMMON=[];SELMAP={};
+  Array.prototype.slice.call(document.querySelectorAll('select[data-g]')).forEach(function(s){
+    var g=s.getAttribute('data-g'),L=s.getAttribute('lang');
+    (SELMAP[g]=SELMAP[g]||{})[L]=s.options[s.selectedIndex].textContent.trim();});
+  var _m=document.getElementById('f-min');CMMIN=_m?(_m.value||''):'';
+  var _a=document.getElementById('f-in'),_b=document.getElementById('f-out');
+  CMIN=_a?(_a.value||''):'';CMOUT=_b?(_b.value||''):'';
+  CMLIST=!!document.querySelector('.row .stp');
+  var _c=document.getElementById('f-code');CMCODE=_c?_c.value.trim():'';
+  var _s=document.getElementById('f-shop');CMSHOP=!!(_s&&_s.checked);
+  var _p=document.getElementById('f-prob'),_o2=document.getElementById('f-obs');
+  CMPROB=_p?_p.value.trim():'';CMOBS=_o2?_o2.value.trim():'';
+  Array.prototype.slice.call(document.querySelectorAll('input[data-x]')).forEach(function(c){
+    if(c.checked){var ci=c.parentNode.querySelector('.ci');var t=c.parentNode.querySelector('.t');
+      CMEXTRA.push(ci?{plain:ci.value.trim()}:{html:t?t.innerHTML:''})}});
+  Array.prototype.slice.call(document.querySelectorAll('input[data-cm]')).forEach(function(c){
+    if(c.checked){var t2=c.parentNode.querySelector('.t');CMCOMMON.push({html:t2?t2.innerHTML:''})}});
+
+  var d=new Date(o.t||Date.now());
+  var st=document.createElement('style');st.id='s1';
+  st.textContent='.send,.reset,.add,.addx,.del,.last,.mins,.card,.note{display:none!important}'
+   +'.stamp{border:1px solid rgba(0,0,0,.14);background:#fff;border-radius:12px;padding:13px 15px;margin:8px 0 18px;font-size:15px;line-height:1.55}'
+   +'.stamp b{font-weight:650}.stamp span{color:#8a8880}'
+   +'.kpi{display:flex;gap:10px;margin:0 0 22px;flex-wrap:wrap}'
+   +'.kpi .k{flex:1 1 130px;background:#fff;border:1px solid rgba(0,0,0,.10);border-radius:14px;padding:14px 15px}'
+   +'.kpi .k.hi{background:#0ca30c;border-color:#0ca30c;color:#fff}'
+   +'.kpi .k.code{background:#eb6834;border-color:#eb6834;color:#fff}'
+   +'.kpi .k.code i{color:rgba(255,255,255,.92)}'
+   +'.kpi .kn{display:block;font-size:26px;font-weight:700;letter-spacing:-.02em;line-height:1.1}'
+   +'.kpi .k i{font-size:14px;color:#6b6963}.kpi .k.hi i{color:rgba(255,255,255,.92)}'
+   +'.kpi .ks{display:block;font-size:12.5px;color:#a09e95;margin-top:3px}'
+   +'.kpi .k.hi .ks{color:rgba(255,255,255,.75)}'
+   +'.dl{display:block;width:100%;margin:26px 0 40px;padding:18px;font:700 18px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;'
+   +'text-align:center;background:#111;color:#fff;border:none;border-radius:14px;cursor:pointer}'
+   +'.sec{border-top:1px solid #e6e5de;padding-top:14px;margin:0 0 18px}'
+   +'.sec h3{margin:0 0 8px;font-size:12.5px;letter-spacing:.09em;text-transform:uppercase;color:#8a8880;font-weight:700}'
+   +'ul.vals{margin:0;padding:0;list-style:none}'
+   +'ul.vals li{position:relative;padding-left:18px;margin-bottom:6px;font-size:17px;line-height:1.5}'
+   +'ul.vals li::before{content:"";position:absolute;left:2px;top:10px;width:5px;height:5px;border-radius:50%;background:#c2c0b6}'
+   +'ul.vals li b.qt{font-weight:700}'
+   +'ul.vals li.tledit{color:#c0392b}ul.vals li.tledit::before{background:#c0392b}'
+   +'.free{color:#5a5852}'
+   +'@media (prefers-color-scheme:dark){.stamp{background:#1a1a19;border-color:rgba(255,255,255,.14)}'
+   +'.kpi .k{background:#1a1a19;border-color:rgba(255,255,255,.10)}.kpi .k i{color:#a9a79e}'
+   +'.dl{background:#fff;color:#111}.sec{border-color:#2c2c2a}ul.vals li::before{background:#4a4844}}'
+   +'.plaus{border:1px solid #eb6834;background:#fdf1ec;color:#8a3b16;border-radius:12px;padding:12px 14px;margin:0 0 18px;font-size:14px;line-height:1.5}'
+   +'.plaus b{color:#c0392b}'
+   +'@media (prefers-color-scheme:dark){.plaus{background:#2d1a12;border-color:#eb6834;color:#f0c3aa}}'
+   +'.settle{border:1px solid rgba(0,0,0,.12);border-radius:14px;padding:15px 16px;margin:0 0 24px;background:#fff}'
+   +'.settle h4{margin:0 0 12px;font-size:12.5px;letter-spacing:.09em;text-transform:uppercase;color:#8a8880;font-weight:700}'
+   +'.settle h4 em{font-style:normal;text-transform:none;letter-spacing:0;font-weight:400;color:#b0aea5}'
+   +'.settle .srow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:10px}'
+   +'.settle .srow>label{flex:0 0 100%;font-size:13px;color:#6b6963}'
+   +'.settle .srow>label em{font-style:normal;color:#0ca30c;font-weight:600}'
+   +'.settle .opts{display:flex;flex-wrap:wrap;align-items:center;gap:6px}'
+   +'.settle .opts.off input,.settle .opts.off .u{opacity:.35}'
+   +'.settle button{font:600 15px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;'
+   +'padding:9px 13px;border-radius:10px;border:1px solid rgba(0,0,0,.16);background:#fff;color:#111;cursor:pointer}'
+   +'.settle button.on{background:#111;color:#fff;border-color:#111}'
+   +'.settle input{font:600 15px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;'
+   +'width:88px;padding:9px 10px;border-radius:10px;border:1px solid rgba(0,0,0,.16);background:#fff;color:#111}'
+   +'.settle .u{font-size:13px;color:#8a8880}'
+   +'.settle .hintx{font-size:13px;color:#8a8880;margin:2px 0 10px}'
+   +'.settle .ssum{display:flex;flex-wrap:wrap;gap:14px;border-top:1px solid #e6e5de;padding-top:11px;font-size:15px}'
+   +'.settle .ssum .tot{margin-left:auto;font-size:17px}'
+   +'@media (prefers-color-scheme:dark){.settle{background:#1a1a19;border-color:rgba(255,255,255,.12)}'
+   +'.settle button,.settle input{background:#232322;color:#f2f1ec;border-color:rgba(255,255,255,.18)}'
+   +'.settle button.on{background:#fff;color:#111;border-color:#fff}.settle .ssum{border-color:#2c2c2a}}'
+   +'@media print{.langs,.dl,.stamp,.settle{display:none!important}}';
+  document.head.appendChild(st);
+
+  var kpi=buildKPI();
+  var compact=buildCompact();
+  var w=document.querySelector('.wrap');
+  var keep=[];
+  Array.prototype.slice.call(w.children).forEach(function(e){
+    if(e.classList&&e.classList.contains('langs'))keep.push(e);
+    else if(e.tagName==='H1')keep.push(e);});
+  w.innerHTML='';keep.forEach(function(e){w.appendChild(e)});
+
+  var box=document.createElement('div');box.className='stamp';
+  var her=new Date((o.t||Date.now())+CMOFF*60000);
+  var zn=(CMOFF===60?'Madeira':(CMOFF===0?'Madeira / UTC':'UTC'+(CMOFF<0?'':'+')+(CMOFF/60)));
+  var herTxt=pad(her.getUTCDate())+'.'+pad(her.getUTCMonth()+1)+'.'+her.getUTCFullYear()
+    +' &middot; '+pad(her.getUTCHours())+':'+pad(her.getUTCMinutes())+' <span>('+zn+')</span>';
+  var mine=-new Date().getTimezoneOffset();
+  var extra='';
+  if(mine!==CMOFF){
+    extra='<br><span>bei mir &middot; local:</span> '+pad(d.getDate())+'.'+pad(d.getMonth()+1)+'.'+d.getFullYear()
+      +' &middot; '+pad(d.getHours())+':'+pad(d.getMinutes());}
+  box.innerHTML='<b>'+(o.a||AUTOR)+'</b><br><span>Preenchido &middot; filled in &middot; ausgefüllt:</span> '+herTxt+extra;
+  w.appendChild(box);
+  var kb=document.createElement('div');kb.innerHTML=kpi;
+  if(kpi)w.appendChild(kb.firstChild);
+  if(!CMLIST){
+    var tlh=blSecHTML();
+    if(tlh){var tc=document.createElement('div');tc.innerHTML=tlh;w.appendChild(tc.firstChild);}
+    var _hb2=(CMBLOCKS&&CMBLOCKS.length);
+    var _du=mins(CMIN,CMOUT),_cm=+CMMIN||0;
+    var _rest=_hb2?blkCat('flat'):((_du==null)?0:_du-_cm);
+    if(CMTIPO===3&&_rest>15){
+      var wv=document.createElement('div');wv.className='plaus';
+      wv.innerHTML='<b>Prüfen:</b> Als Art der Reinigung steht „nur Flur und Treppenhaus", '
+        +'trotzdem bleiben '+hm(_rest)+' Wohnungszeit übrig. Gehört das wirklich zur Wohnung?';
+      w.appendChild(wv);}
+  }
+  if(!CMLIST)settleUI(w);
+  var body=document.createElement('div');body.innerHTML=compact;
+  while(body.firstChild)w.appendChild(body.firstChild);
+
+  var base=FPREFIX+'_'+d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+
+           '_'+pad(d.getHours())+pad(d.getMinutes())+'_'+(o.a||AUTOR).replace(/\s+/g,'-');
+  var btn=document.createElement('button');btn.className='dl';btn.type='button';
+  function label(){btn.textContent=(LBL[curLang()]||LBL.pt).dl}
+  label();
+  document.querySelectorAll('input[name=lang]').forEach(function(r){r.addEventListener('change',label)});
+  btn.addEventListener('click',function(){
+    var L=curLang();
+    var files=[
+      {name:base+'.pdf', data:buildPDF(o,'de')},
+      {name:base+'.html',data:utf8(buildDocHTML(o))},
+      {name:base+'.csv', data:utf8(buildCSV(o))},
+      {name:base+'.md',  data:utf8(buildMD(o))}];
+    var url=URL.createObjectURL(new Blob([zip(files)],{type:'application/zip'}));
+    var a=document.createElement('a');a.href=url;a.download=base+'.zip';
+    document.body.appendChild(a);a.click();
+    setTimeout(function(){URL.revokeObjectURL(url);a.remove()},5000);});
+  if(!CMLIST){var sc=document.createElement('div');sc.innerHTML=settleSecHTML();w.appendChild(sc.firstChild);settleRefresh();}
+  w.appendChild(btn);
+  document.title=base;
+}
+window.__mkExtra=function(card){
+  if(!card)return null;
+  if(card.querySelector('.row')){
+    var r=document.createElement('div');
+    r.className='row free';
+    r.innerHTML='<input type="text" placeholder="...">'+
+      '<span class="stp"><button type="button" data-d="-">−</button>'+
+      '<input type="number" inputmode="numeric" min="0" value=""><button type="button" data-d="+">+</button></span>';
+    card.appendChild(r);return r;
+  }
+  var l=document.createElement('label');
+  l.className='cust';
+  l.innerHTML='<input type="checkbox" data-x="x'+Date.now()+'"><span class="t"><input class="ci" type="text" value=""></span>'+
+    '<span class="last">↺ —</span><button class="del" type="button">×</button>';
+  card.appendChild(l);return l;
+};
+/* Druck des Formulars zeigt dasselbe förmliche Dokument */
+function captureVars(){
+  CMDAY=dayVal();
+  CMEXTRA=[];CMCOMMON=[];SELMAP={};
+  Array.prototype.slice.call(document.querySelectorAll('select[data-g]')).forEach(function(s){
+    var g=s.getAttribute('data-g'),L=s.getAttribute('lang');
+    (SELMAP[g]=SELMAP[g]||{})[L]=s.options[s.selectedIndex].textContent.trim();});
+  var _m=document.getElementById('f-min');CMMIN=_m?(_m.value||''):'';
+  var _a=document.getElementById('f-in'),_b=document.getElementById('f-out');
+  CMIN=_a?(_a.value||''):'';CMOUT=_b?(_b.value||''):'';
+  CMLIST=!!document.querySelector('.row .stp');
+  var _c=document.getElementById('f-code');CMCODE=_c?_c.value.trim():'';
+  var _p=document.getElementById('f-prob'),_o=document.getElementById('f-obs');
+  CMPROB=_p?_p.value.trim():'';CMOBS=_o?_o.value.trim():'';
+  Array.prototype.slice.call(document.querySelectorAll('input[data-x]')).forEach(function(c){
+    if(c.checked){var ci=c.parentNode.querySelector('.ci');var t=c.parentNode.querySelector('.t');
+      CMEXTRA.push(ci?{plain:ci.value.trim()}:{html:t?t.innerHTML:''})}});
+  Array.prototype.slice.call(document.querySelectorAll('input[data-cm]')).forEach(function(c){
+    if(c.checked){var t2=c.parentNode.querySelector('.t');CMCOMMON.push({html:t2?t2.innerHTML:''})}});
+}
+window.addEventListener('beforeprint',function(){
+  if(document.querySelector('.stamp'))return;
+  captureVars();
+  var tmp=document.createElement('div');tmp.innerHTML=buildCompact();
+  var host=document.createElement('div');host.id='printdoc';
+  host.appendChild(tmp);
+  document.body.appendChild(host);
+  var secs=Array.prototype.slice.call(tmp.querySelectorAll('.sec'));
+  host.innerHTML=formalBody({t:Date.now(),a:AUTOR},secs);
+  var st=document.createElement('style');st.id='pdst';
+  st.textContent='#printdoc{display:none}@media print{.wrap,.langs,.sw{display:none!important}'
+   +'#printdoc{display:block}'+DOCCSS.replace(/@page[^}]*}/,'')+'}';
+  document.head.appendChild(st);
+});
+window.addEventListener('afterprint',function(){
+  var p=document.getElementById('printdoc');if(p)p.remove();
+  var s=document.getElementById('pdst');if(s)s.remove();
+});
+/* ---- Taetigkeiten der Stempeluhr (auch im Record-Modus gebraucht) ---- */
+var ACT=[
+ {k:'comum', cat:'comum', pt:'Corredor e escadas',en:'Corridor and stairs',de:'Flur und Treppe',es:'Pasillo y escaleras'},
+ {k:'apart', cat:'flat',  pt:'Apartamento',en:'Flat',de:'Wohnung',es:'Apartamento'},
+ {k:'compras',cat:'shop', pt:'Compras',en:'Shopping',de:'Einkauf',es:'Compras'},
+ {k:'desloc',cat:'shop',  pt:'Deslocação',en:'Travel',de:'Fahrt',es:'Desplazamiento'},
+ {k:'lavand',cat:'flat',  pt:'Lavandaria',en:'Laundrette',de:'Wäscherei',es:'Lavandería'},
+ {k:'outro', cat:'flat',  pt:'Outro',en:'Other',de:'Sonstiges',es:'Otro'}];
+var STOPL={pt:'Terminar',en:'Finish',de:'Beenden',es:'Terminar'};
+var RUNL={pt:'a decorrer',en:'running',de:'läuft',es:'en curso'};
+var TOTL={pt:'Total',en:'Total',de:'Gesamt',es:'Total'};
+var CMBLOCKS=[],CMTIPO=-1,CMOFF=0,CMDERIV=null;
+function actOf(k){for(var i=0;i<ACT.length;i++)if(ACT[i].k===k)return ACT[i];return null}
+function actLab(k,L){var a=actOf(k);return a?(a[L||curLang()]||a.pt):k}
+function hhmm(ms){var x=new Date(ms);return pad(x.getHours())+':'+pad(x.getMinutes())}
+function hhmmOff(ms){var x=new Date(ms+(CMOFF||0)*60000);return pad(x.getUTCHours())+':'+pad(x.getUTCMinutes())}
+function blkMin(x){return (x&&x.e)?Math.max(0,Math.round((x.e-x.s)/60000)):0}
+function blkCat(cat){var t=0;(CMBLOCKS||[]).forEach(function(x){var a=actOf(x.k);if(a&&a.cat===cat)t+=blkMin(x)});return t}
+function blSecHTML(){
+  if(!CMBLOCKS||!CMBLOCKS.length)return '';
+  var b=CMBLOCKS.slice().sort(function(p,q){return p.s-q.s});
+  var o='<div class="sec" id="sectl"><h3><i lang="pt">Registo de tempo</i><i lang="en">Time log</i>'
+       +'<i lang="de">Zeiterfassung</i><i lang="es">Registro de tiempo</i></h3><ul class="vals">';
+  b.forEach(function(x){
+    var t=hhmmOff(x.s)+' – '+(x.e?hhmmOff(x.e):'—')+'  ·  '+blkMin(x)+' min';
+    o+='<li><b class="qt">'+t+'</b> <i lang="pt">'+actLab(x.k,'pt')+'</i><i lang="en">'+actLab(x.k,'en')
+      +'</i><i lang="de">'+actLab(x.k,'de')+'</i><i lang="es">'+actLab(x.k,'es')+'</i></li>';});
+  var ch=blEdits();
+  ch.forEach(function(c){
+    o+='<li class="tledit"><i lang="pt">Alterado à mão: '+c.pt+' '+c.a+' \u2192 '+c.b+'</i>'
+      +'<i lang="en">Changed by hand: '+c.en+' '+c.a+' \u2192 '+c.b+'</i>'
+      +'<i lang="de">Von Hand geändert: '+c.de+' '+c.a+' \u2192 '+c.b+'</i>'
+      +'<i lang="es">Modificado a mano: '+c.es+' '+c.a+' \u2192 '+c.b+'</i></li>';});
+  return o+'</ul></div>';}
+function blEdits(){
+  if(!CMDERIV)return [];
+  var out=[];
+  function cmp(key,cur,pt,en,de,es,fmt){
+    var was=CMDERIV[key];
+    if(was==null||was==='')return;
+    var a=fmt?fmt(was):was, b=fmt?fmt(cur):cur;
+    if(String(was)!==String(cur||''))out.push({pt:pt,en:en,de:de,es:es,a:a,b:b});}
+  cmp('in',CMIN,'entrada','arrival','Ankunft','entrada');
+  cmp('out',CMOUT,'saída','end','Ende','salida');
+  cmp('min',(CMMIN===''?'0':CMMIN),'partes comuns','common parts','Gemeinschaftsflächen','zonas comunes',
+      function(v){return hm(+v||0)});
+  cmp('date',CMDAY,'dia','day','Tag','día');
+  return out;}
+/* Berichte, die vor dem 11.09.2026 gestempelt wurden, tragen einen Versatz von zwei
+   Positionen je gestempeltem Block (s. Kommentar bei ctrls). Erkennbar daran, dass im
+   ersten Feld kein Datum steht: dann wird gesucht, wo das Datum gelandet ist, und der
+   ganze Satz um genau diesen Betrag zurueckgeschoben. Neue Berichte tragen k:1 und
+   laufen gar nicht erst durch diese Reparatur. */
+function fixShift(o){
+  if(!o||!o.d||o.k===1)return o;
+  var d=o.d,isDate=function(v){return typeof v==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(v)};
+  if(isDate(d['0']))return o;
+  var keys=Object.keys(d).map(Number).sort(function(a,b){return a-b}),off=-1;
+  for(var i=0;i<keys.length;i++){if(isDate(d[String(keys[i])])){off=keys[i];break}}
+  if(off<=0)return o;
+  var out={};
+  keys.forEach(function(k){var n=k-off;if(n>=0)out[String(n)]=d[String(k)]});
+  o.d=out;
+  return o;
+}
+/* Frueher fiel ein unlesbarer Link stillschweigend auf das leere Formular zurueck —
+   es sah dann so aus, als haette die Reinigungskraft nichts abgeschickt. */
+function readFail(){
+  try{
+    var w=document.querySelector('.wrap')||document.body;
+    var b=document.createElement('div');
+    b.style.cssText='margin:14px 0;padding:13px 15px;border:1px solid #e0b4ac;'+
+      'background:#fdf1ef;color:#7a2e22;border-radius:12px;font-size:15px;line-height:1.5';
+    b.textContent='Dieser Bericht liess sich nicht oeffnen — der Link stammt aus einer '+
+      'aelteren Fassung des Formulars. Der Berichtstext in der WhatsApp-Nachricht ist vollstaendig.';
+    w.insertBefore(b,w.firstChild);
+  }catch(e){}
+}
+function restore(){
+  var m=/[#&?]r=([A-Za-z0-9\-_]+)/.exec(location.hash||location.search);
+  if(!m)return false;
+  var o;
+  try{o=fixShift(JSON.parse(b64d(m[1])))}catch(e){readFail();return false}
+  try{recordMode(o);return true}catch(e){readFail();return false}
+}
+
+var LB={
+ pt:{h:'Pronto para enviar',p:'1. Toque em «Copiar»  2. Abra o WhatsApp  3. Se a mensagem não aparecer sozinha, cole na conversa.',c:'Copiar',ok:'Copiado ✓',w:'Abrir o WhatsApp',x:'Fechar'},
+ en:{h:'Ready to send',p:'1. Tap "Copy"  2. Open WhatsApp  3. If the message does not appear by itself, paste it into the chat.',c:'Copy',ok:'Copied ✓',w:'Open WhatsApp',x:'Close'},
+ de:{h:'Fertig zum Senden',p:'1. Auf „Kopieren" tippen  2. WhatsApp öffnen  3. Erscheint die Nachricht nicht von selbst, in den Chat einfügen.',c:'Kopieren',ok:'Kopiert ✓',w:'WhatsApp öffnen',x:'Schließen'},
+ es:{h:'Listo para enviar',p:'1. Pulse «Copiar»  2. Abra WhatsApp  3. Si el mensaje no aparece solo, péguelo en la conversación.',c:'Copiar',ok:'Copiado ✓',w:'Abrir WhatsApp',x:'Cerrar'}};
+function panel(text){
+  var L=LB[curLang()]||LB.pt;
+  var ov=document.createElement('div');ov.className='ov';
+  var bx=document.createElement('div');bx.className='bx';
+  bx.innerHTML='<h3></h3><p></p><textarea readonly></textarea>'+
+    '<button class="b1" type="button"></button><a class="b2" target="_blank" rel="noopener"></a>'+
+    '<button class="b3" type="button"></button>';
+  ov.appendChild(bx);document.body.appendChild(ov);
+  bx.querySelector('h3').textContent=L.h;
+  bx.querySelector('p').textContent=L.p;
+  var ta=bx.querySelector('textarea');ta.value=text;
+  var cp=bx.querySelector('.b1');cp.textContent=L.c;
+  cp.addEventListener('click',function(){
+    var done=function(){cp.textContent=L.ok;cp.style.background='#0a7d0a'};
+    function legacy(){try{ta.removeAttribute('readonly');ta.focus();
+      ta.setSelectionRange(0,text.length);document.execCommand('copy');
+      ta.setAttribute('readonly','readonly');window.getSelection().removeAllRanges();done()}catch(e){}}
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(done,legacy)}else legacy();});
+  var wa=bx.querySelector('.b2');wa.textContent=L.w;
+  wa.href='https://wa.me/'+TEL+'?text='+encodeURIComponent(text);
+  bx.querySelector('.b3').textContent=L.x;
+  bx.querySelector('.b3').addEventListener('click',function(){ov.remove()});
+  ov.addEventListener('click',function(e){if(e.target===ov)ov.remove()});
+}
+function deliver(text){
+  try{
+    var base=location.href.split('#')[0].split('?')[0];
+    if(/^https?:/.test(base))text=base+'#r='+encodeState()+'\n\n'+text;
+  }catch(e){}
+  if(navigator.share){
+    navigator.share({text:text}).then(function(){},function(err){
+      if(!err||err.name!=='AbortError')panel(text);});
+    return;}
+  panel(text);
+}
+if(restore())return;
+var st={};try{st=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
+var z=function(x){return('0'+x).slice(-2)};
+var d=new Date();
+var dt=document.getElementById('f-data');
+dt.value=d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate());
+dt.min=dt.value;
+
+/* ================= Stempeluhr ================= */
+function BL(){st.bl=st.bl||[];return st.bl}
+function blOpen(){var b=BL();for(var i=b.length-1;i>=0;i--)if(!b[i].e)return b[i];return null}
+function blDur(x){var e=x.e||Date.now();return Math.max(0,Math.round((e-x.s)/60000))}
+function blStart(k){
+  var now=Date.now(),o=blOpen();
+  if(o){ if(o.k===k){return} o.e=now; }
+  BL().push({k:k,s:now,e:null}); save(); blPaint();}
+function blStop(){var o=blOpen();if(o){o.e=Date.now();save();blPaint()}}
+function blSum(cat){var t=0;BL().forEach(function(x){var a=actOf(x.k);if(a&&a.cat===cat)t+=blDur(x)});return t}
+function blDerive(){
+  var b=BL().slice().sort(function(p,q){return p.s-q.s});
+  var hid=document.getElementById('f-blocks');
+  if(!b.length){if(hid)hid.value='';return}
+  var first=b[0], last=b[b.length-1];
+  var fi=document.getElementById('f-in'), fo=document.getElementById('f-out'), fm=document.getElementById('f-min');
+  var dv={};
+  dv.in=hhmm(first.s);
+  if(last.e)dv.out=hhmm(last.e);
+  dv.min=String(blSum('comum')||0);
+  var ds=new Date(first.s);
+  dv.date=ds.getFullYear()+'-'+z(ds.getMonth()+1)+'-'+z(ds.getDate());
+  if(fi)fi.value=dv.in;
+  if(fo&&dv.out)fo.value=dv.out;
+  if(fm)fm.value=(+dv.min)?dv.min:'';
+  if(dt){ if(dv.date<dt.min)dt.min=dv.date; dt.value=dv.date; }
+  if(hid)hid.value=JSON.stringify({b:b.map(function(x){return{k:x.k,s:x.s,e:x.e}}),d:dv});
+}
+function blPaint(){
+  var L=curLang();
+  var wrap=document.getElementById('clkb');
+  if(wrap&&!wrap.dataset.built){
+    ACT.forEach(function(a){
+      var btn=document.createElement('button');btn.type='button';btn.dataset.k=a.k;
+      ACT.forEach(function(){});
+      btn.innerHTML='<i lang="pt">'+a.pt+'</i><i lang="en">'+a.en+'</i><i lang="de">'+a.de+'</i><i lang="es">'+a.es+'</i>';
+      btn.addEventListener('click',function(){blStart(a.k)});
+      wrap.appendChild(btn);});
+    wrap.dataset.built='1';}
+  var open=blOpen();
+  if(wrap)Array.prototype.slice.call(wrap.querySelectorAll('button')).forEach(function(b2){
+    b2.classList.toggle('on',!!open&&open.k===b2.dataset.k)});
+  var sb=document.getElementById('clkstop');
+  if(sb){sb.textContent=STOPL[L]||STOPL.pt;sb.disabled=!open;}
+  var tl=document.getElementById('clktl');
+  if(tl){
+    tl.innerHTML='';
+    var b=BL().slice().sort(function(p,q){return p.s-q.s});
+    b.forEach(function(x){
+      var idx=BL().indexOf(x);
+      var li=document.createElement('li');
+      if(!x.e)li.className='run';
+      li.innerHTML='<span class="nm">'+actLab(x.k,L)+(x.e?'':' <em>'+(RUNL[L]||RUNL.pt)+'</em>')+'</span>'
+        +'<input type="time" class="ts" value="'+hhmm(x.s)+'">'
+        +'<input type="time" class="te" value="'+(x.e?hhmm(x.e):'')+'">'
+        +'<span class="dur">'+blDur(x)+' min</span>'
+        +'<button type="button" class="rm">\u00d7</button>';
+      li.querySelector('.ts').addEventListener('change',function(ev){
+        var v=ev.target.value;if(!/^\d\d:\d\d$/.test(v))return;
+        var dd=new Date(x.s);dd.setHours(+v.slice(0,2),+v.slice(3),0,0);
+        BL()[idx].s=dd.getTime();save();blPaint();});
+      li.querySelector('.te').addEventListener('change',function(ev){
+        var v=ev.target.value;
+        if(!/^\d\d:\d\d$/.test(v)){BL()[idx].e=null;save();blPaint();return}
+        var dd=new Date(x.e||x.s);dd.setHours(+v.slice(0,2),+v.slice(3),0,0);
+        if(dd.getTime()<BL()[idx].s)dd.setDate(dd.getDate()+1);
+        BL()[idx].e=dd.getTime();save();blPaint();});
+      li.querySelector('.rm').addEventListener('click',function(){
+        BL().splice(idx,1);save();blPaint();});
+      tl.appendChild(li);});
+  }
+  var tot=document.getElementById('clktot');
+  if(tot){
+    var b2=BL();
+    if(!b2.length){tot.hidden=true}
+    else{
+      tot.hidden=false;
+      var all=0;b2.forEach(function(x){all+=blDur(x)});
+      var h=Math.floor(all/60),m=all%60;
+      tot.innerHTML='<span>'+(TOTL[L]||TOTL.pt)+'</span><span>'+(h?h+' h '+(m?z(m)+' min':''):m+' min')+'</span>';}
+  }
+  blDerive();
+}
+var _sb=document.getElementById('clkstop');
+if(_sb)_sb.addEventListener('click',blStop);
+document.querySelectorAll('input[name=lang]').forEach(function(r){r.addEventListener('change',blPaint)});
+blPaint();
+setInterval(function(){if(blOpen())blPaint()},60000);
+
+// Sprachauswahl synchron halten
+var groups={};
+document.querySelectorAll('select').forEach(function(s){
+  (groups[s.dataset.g]=groups[s.dataset.g]||[]).push(s);});
+Object.keys(groups).forEach(function(g){
+  groups[g].forEach(function(s){
+    s.addEventListener('change',function(){
+      groups[g].forEach(function(o){o.selectedIndex=s.selectedIndex});});});});
+function val(g){var s=groups[g][0];return s.options[s.selectedIndex]}
+function txtPT(g){return groups[g][0].options[groups[g][0].selectedIndex].textContent}
+
+// letzte Ausfuehrung der Zusatzarbeiten
+function paintLast(){
+  document.querySelectorAll('.last').forEach(function(el){
+    var v=st['x'+el.dataset.l];
+    el.textContent='\u21ba '+(v?v:'\u2014');});}
+paintLast();
+
+// eigene Arbeiten
+var card=document.querySelector('.card');
+st.custom=st.custom||[];
+function addRow(o,focus){
+  var l=document.createElement('label');
+  l.className='cust';
+  l.innerHTML='<input type="checkbox" data-x="'+o.id+'">'+
+    '<span class="t"><input class="ci" type="text" value=""></span>'+
+    '<span class="last" data-l="'+o.id+'">\u21ba \u2014</span>'+
+    '<button class="del" type="button">\u00d7</button>';
+  card.appendChild(l);
+  var tx=l.querySelector('.ci');tx.value=o.label||'';
+  tx.addEventListener('input',function(){o.label=tx.value;save()});
+  l.querySelector('.del').addEventListener('click',function(ev){
+    ev.preventDefault();ev.stopPropagation();
+    st.custom=st.custom.filter(function(x){return x.id!==o.id});
+    delete st['x'+o.id];save();l.remove();});
+  paintLast();
+  if(focus)tx.focus();
+}
+st.custom.forEach(function(o){addRow(o,false)});
+document.querySelector('.addx').addEventListener('click',function(){
+  var o={id:'c'+Date.now(),label:''};
+  st.custom.push(o);save();addRow(o,true);});
+
+document.querySelectorAll('.now').forEach(function(b){
+  b.addEventListener('click',function(){
+    var n=new Date(),v=('0'+n.getHours()).slice(-2)+':'+('0'+n.getMinutes()).slice(-2);
+    var t=document.getElementById(b.dataset.t);t.value=v;
+    b.style.background='#0ca30c';b.style.color='#fff';b.style.borderColor='#0ca30c';});});
+var mi=document.getElementById('f-min'),mrow=document.querySelector('.mins');
+var mwarn=document.createElement('p');mwarn.className='hint';mwarn.style.color='#eb6834';mwarn.hidden=true;
+mwarn.textContent='';
+mrow.parentNode.insertBefore(mwarn,mrow.nextSibling);
+function mcheck(){
+  var any=[].slice.call(document.querySelectorAll('input[data-cm]')).some(function(c){return c.checked});
+  var L={pt:'Falta indicar os minutos.',en:'The minutes are still missing.',de:'Die Minuten fehlen noch.',es:'Faltan los minutos.'};
+  var r=document.querySelector('input[name=lang]:checked');
+  mwarn.textContent=L[r?r.id.slice(2):'pt']||L.pt;
+  mwarn.hidden=!(any && !(+mi.value||0));}
+document.querySelectorAll('input[data-cm]').forEach(function(c){c.addEventListener('change',mcheck)});
+document.querySelectorAll('input[name=lang]').forEach(function(c){c.addEventListener('change',mcheck)});
+function mpaint(){mrow.classList.toggle('on',(+mi.value||0)>0)}
+document.querySelectorAll('.mins button').forEach(function(b){
+  b.addEventListener('click',function(){
+    var v=(+mi.value||0)+(b.dataset.m==='+'?1:-1);
+    if(v<0)v=0; mi.value=v||''; mpaint(); mcheck();});});
+mi.addEventListener('input',function(){mpaint();mcheck()}); mpaint(); mcheck();
+document.querySelector('.pdf').addEventListener('click',function(){window.print()});
+document.querySelector('.reset').addEventListener('click',function(){
+  document.querySelectorAll('input[type=checkbox]').forEach(function(c){c.checked=false});
+  document.getElementById('f-prob').value='';
+  document.getElementById('f-obs').value='';
+  document.getElementById('f-code').value='';
+  document.getElementById('f-shop').checked=false;
+  document.getElementById('f-in').value='';
+  document.getElementById('f-out').value='';
+  mi.value='';mpaint();
+  Object.keys(groups).forEach(function(g){groups[g].forEach(function(s){s.selectedIndex=0})});});
+
+document.querySelector('.send').addEventListener('click',function(ev){
+  ev.preventDefault();
+  var T=M();
+  var dv=dt.value?dt.value.split('-').reverse().join('.'):'';
+  var m=T.rep+'  '+dv+'\n';
+  var a=document.getElementById('f-in').value,b=document.getElementById('f-out').value;
+  if(a||b)m+=(a||'?')+' - '+(b||'?')+'\n';
+  var kc=document.getElementById('f-code').value.trim();
+  if(kc)m+='\n'+T.code+': '+kc+'\n';
+  m+='\n'+T.type+': '+selCur('tipo')+'\n';
+  m+=T.cond+': '+selCur('estado')+'\n';
+  var xs=[];
+  document.querySelectorAll('input[data-x]').forEach(function(c){
+    if(c.checked){
+      var ci=c.parentNode.querySelector('.ci');
+      var lab=ci?ci.value.trim():labCur(c.parentNode.querySelector('.t'));
+      xs.push(lab||'(?)');
+      st['x'+c.dataset.x]=dv;}});
+  if(xs.length){m+='\n'+T.extra+':\n';xs.forEach(function(x){m+='- '+x+'\n'})}
+  var cm=[],mn=+document.getElementById('f-min').value||0;
+  document.querySelectorAll('input[data-cm]').forEach(function(c){
+    if(c.checked)cm.push(labCur(c.parentNode.querySelector('.t')))});
+  if(cm.length||mn){
+    m+='\n'+T.com+':\n';
+    cm.forEach(function(x){m+='- '+x+'\n'});
+    m+= mn ? T.tm+': '+mn+' min\n' : T.tmx+'\n';}
+  m+='\n'+T.lau+': '+selCur('roupa')+'\n';
+  m+=T.prob+': '+selCur('prob')+'\n';
+  var p=document.getElementById('f-prob').value.trim();
+  if(p)m+='   '+p+'\n';
+  m+=T.miss+': '+selCur('falta')+'\n';
+  if(document.getElementById('f-shop').checked)m+=T.shop+'\n';
+  var ob=document.getElementById('f-obs').value.trim();
+  if(ob)m+='\n'+T.notes+': '+ob+'\n';
+  save();paintLast();
+  deliver(m);});
+})();
+</script>
+
+</body></html>
