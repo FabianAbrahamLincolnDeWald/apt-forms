@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Nachweise Samsung 860 QVO</title>
+<style>
+:root{--bg:#f4f3ef;--card:#fff;--fg:#17181a;--mut:#6f6d66;--line:#e3e1d9;--ac:#2372C6;--ok:#1f7a3d;--okbg:#e5f4ea}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101110;--card:#1a1a19;--fg:#f2f1ec;--mut:#a9a79e;--line:#2c2c2a;--ac:#5b9be0;--ok:#6fd08f;--okbg:#17301f}}
+:root[data-theme="dark"]{--bg:#101110;--card:#1a1a19;--fg:#f2f1ec;--mut:#a9a79e;--line:#2c2c2a;--ac:#5b9be0;--ok:#6fd08f;--okbg:#17301f}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;padding:24px 16px 64px}
+.wrap{max-width:720px;margin:0 auto}
+h1{font-size:24px;margin:0 0 4px}.sub{color:var(--mut);font-size:14px;margin:0 0 20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:18px 20px;margin-bottom:14px}
+h2{font-size:17px;margin:0 0 8px}
+table{width:100%;border-collapse:collapse;font-size:15px}td{padding:7px 4px;border-bottom:1px solid var(--line);vertical-align:top}td:first-child{color:var(--mut);width:42%}tr:last-child td{border-bottom:0}
+.ok{display:inline-block;background:var(--okbg);color:var(--ok);font-size:13px;padding:2px 10px;border-radius:8px}
+a{color:var(--ac)}.btn{display:inline-block;margin:6px 8px 0 0}
+code{font:12px ui-monospace,Menlo,monospace;word-break:break-all;color:var(--mut)}
+.note{color:var(--mut);font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Samsung SSD 860 QVO 1TB</h1>
+<p class="sub">Seriennummer S4CZNF0N487358Z · vollständige Prüf- und Löschberichte vom 11.11.2026, erstellt vor dem Inserieren · seitdem nicht mehr angeschlossen</p>
+
+<div class="card">
+<h2>Kurzfassung</h2>
+<table>
+<tr><td>Verschleiß (SMART)</td><td>0 % · 100 % Restlebensdauer</td></tr>
+<tr><td>Unkorrigierbare Fehler</td><td>0</td></tr>
+<tr><td>SMART-Ausfallvorhersage</td><td>kein Ausfall vorhergesagt</td></tr>
+<tr><td>Betriebsstunden</td><td>12.255 h (reine Einschaltzeit)</td></tr>
+<tr><td>Löschung</td><td>jeder Sektor mit Nullen überschrieben, 64 Stichproben geprüft: alle 0 <span class="ok">gelöscht</span></td></tr>
+</table>
+</div>
+
+<div class="card">
+<h2>1 · Löschnachweis</h2>
+<p class="note">11.11.2026, 14:31:47 – 17:45:24 Uhr · diskpart clean all</p>
+<a class="btn" href="Loeschnachweis_SSD_2026-11-11_1431.html">Bericht öffnen</a>
+<a class="btn" href="Loeschnachweis_SSD_2026-11-11_1431.json">Rohdaten (JSON)</a>
+</div>
+
+<div class="card">
+<h2>2 · Funktionsnachweis</h2>
+<p class="note">11.11.2026, 19:26:24 Uhr · SMART-Werte, Fehlerzähler, Ereignisprotokoll. Der Durchsatztest war nach der Löschung nicht möglich (kein beschreibbares Volume), das steht im Bericht als Anmerkung.</p>
+<a class="btn" href="Funktionsnachweis_SSD_2026-11-11_1926.html">Bericht öffnen</a>
+<a class="btn" href="Funktionsnachweis_SSD_2026-11-11_1926.json">Rohdaten (JSON)</a>
+<a class="btn" href="Protokoll_2026-11-11_1926.txt">Sitzungsprotokoll</a>
+</div>
+
+<div class="card">
+<h2>Selbst nachprüfen</h2>
+<p class="note">Die Berichte nennen die SHA-256-Prüfsumme ihrer Rohdaten. Stimmt sie mit der heruntergeladenen JSON-Datei überein, wurden die Messwerte nicht verändert.</p>
+<table>
+<tr><td>Löschnachweis JSON</td><td><code>25F5655D0AB90C3367E57949FEBF2340302C839227EE95040D6E72F6716344E7</code></td></tr>
+<tr><td>Funktionsnachweis JSON</td><td><code>DC2D1D88B22DA2D9403D72D17BFE95B715F56F33FF0E48B1E897EAC53384A6C4</code></td></tr>
+</table>
+<p class="note">Die Seriennummer steht auch auf dem Etikett der SSD und lässt sich nach Erhalt mit jedem SMART-Tool (z. B. CrystalDiskInfo) vergleichen.</p>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,126 @@
+{
+    "Nachweis":  {
+                     "Bauteil":  "SSD / Festplatte",
+                     "Artikel":  "",
+                     "Kaeufer":  "",
+                     "BeginnLokal":  "2026-11-11 19:26:24",
+                     "EndeLokal":  "2026-11-11 19:26:39",
+                     "BeginnISO8601":  "2026-11-11T19:26:24.5717479+01:00",
+                     "EndeISO8601":  "2026-11-11T19:26:39.1306563+01:00",
+                     "Zeitzone":  "W. Europe Standard Time / Mitteleuropäische Zeit (UTC+01:00)",
+                     "DauerSekunden":  15,
+                     "Urteil":  "FUNKTIONSFAEHIG MIT ANMERKUNG",
+                     "Adminrechte":  true,
+                     "SkriptVersion":  "1.0"
+                 },
+    "Pruefsystem":  {
+                        "Rechner":  "JUSTIN",
+                        "Benutzer":  "justi",
+                        "Windows":  "Microsoft Windows 11 Pro",
+                        "Build":  "26200",
+                        "Mainboard":  "Gigabyte Technology Co., Ltd. B650 AORUS ELITE AX V2",
+                        "BoardSN":  "Default string",
+                        "BIOS":  "F36",
+                        "Laufzeit_h":  6
+                    },
+    "Identitaet":  [
+                       {
+                           "Feld":  "Modell",
+                           "Wert":  "Samsung SSD 860 QVO 1TB",
+                           "Quelle":  "Get-PhysicalDisk"
+                       },
+                       {
+                           "Feld":  "Seriennummer",
+                           "Wert":  "S4CZNF0N487358Z",
+                           "Quelle":  "eindeutig - identifiziert genau dieses Laufwerk"
+                       },
+                       {
+                           "Feld":  "Firmware",
+                           "Wert":  "RVQ02B6Q",
+                           "Quelle":  ""
+                       },
+                       {
+                           "Feld":  "Kapazitaet",
+                           "Wert":  "932 GB (0.91 TB)",
+                           "Quelle":  ""
+                       },
+                       {
+                           "Feld":  "Anbindung / Typ",
+                           "Wert":  "SATA / SSD",
+                           "Quelle":  ""
+                       },
+                       {
+                           "Feld":  "Partitionsstil",
+                           "Wert":  "GPT",
+                           "Quelle":  ""
+                       },
+                       {
+                           "Feld":  "Datentraeger-GUID",
+                           "Wert":  "{ab32da0d-5b53-45f0-884b-98122dc7feb3}",
+                           "Quelle":  "aendert sich beim Neupartitionieren"
+                       }
+                   ],
+    "Befunde":  [
+                    {
+                        "Gruppe":  "Grunddaten",
+                        "Titel":  "Betriebszustand",
+                        "Status":  "OK",
+                        "Wert":  "Healthy / OK",
+                        "Kommentar":  "Meldung des Windows-Speicherstacks."
+                    },
+                    {
+                        "Gruppe":  "Lebensdauer",
+                        "Titel":  "Verschleiss (SMART)",
+                        "Status":  "OK",
+                        "Wert":  "0 % verbraucht",
+                        "Kommentar":  "Der Hersteller-Zaehler fuer verbrauchte Schreiblebensdauer. 100 % Restlebensdauer laut Laufwerk."
+                    },
+                    {
+                        "Gruppe":  "Lebensdauer",
+                        "Titel":  "Betriebsstunden",
+                        "Status":  "WARN",
+                        "Wert":  "12255 h (rund 511 Tage)",
+                        "Kommentar":  "Reine Einschaltzeit des Laufwerks - unabhaengig davon, wie viel geschrieben wurde."
+                    },
+                    {
+                        "Gruppe":  "Lebensdauer",
+                        "Titel":  "Unkorrigierbare Fehler",
+                        "Status":  "OK",
+                        "Wert":  "0",
+                        "Kommentar":  "Das Laufwerk hat in seiner gesamten Lebenszeit keinen Datenblock verloren."
+                    },
+                    {
+                        "Gruppe":  "Lebensdauer",
+                        "Titel":  "SMART-Ausfallvorhersage",
+                        "Status":  "OK",
+                        "Wert":  "kein Ausfall vorhergesagt",
+                        "Kommentar":  ""
+                    },
+                    {
+                        "Gruppe":  "Belastungstest",
+                        "Titel":  "Durchsatztest",
+                        "Status":  "WARN",
+                        "Wert":  "nicht moeglich",
+                        "Kommentar":  "Auf dem Laufwerk ist kein beschreibbares Volume mit mindestens 8 GB frei - Lese-/Schreibtest uebersprungen."
+                    },
+                    {
+                        "Gruppe":  "Belastungstest",
+                        "Titel":  "Treiberfehler waehrend des Tests",
+                        "Status":  "OK",
+                        "Wert":  "0",
+                        "Kommentar":  "Ereignisprotokoll-Quelle \"disk\" - Lese-/Schreib-Timeouts und Blockfehler tauchen hier auf."
+                    }
+                ],
+    "Messwerte":  {
+                      "SMART":  {
+                                    "VerschleissProzent":  0,
+                                    "BetriebsstundenH":  12255,
+                                    "TemperaturC":  0,
+                                    "TemperaturMaxC":  0,
+                                    "LesefehlerKorrigiert":  0,
+                                    "LesefehlerUnkorrigiert":  null,
+                                    "SchreibfehlerUnkorrigiert":  null,
+                                    "StartStopZyklen":  null
+                                }
+                  }
+}

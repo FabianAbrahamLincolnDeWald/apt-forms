@@ -1,0 +1,217 @@
+<!doctype html><html lang='de'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Funktionsnachweis SSD / Festplatte 2026-11-11_1926</title><style id='stil'>/* Helle Darstellung ist die Grundlage; die dunkle wird darueber gelegt.
+   Reihenfolge wichtig: erst Systemeinstellung, dann die Handumschaltung,
+   damit der Knopf die Systemvorgabe in beide Richtungen ueberstimmt. */
+:root{
+  --bg:#f4f2ee; --card:#ffffff; --line:#e2dfd9; --txt:#1d1d1f; --dim:#6b6b70;
+  --ok:#2b7a3d; --warn:#916200; --risk:#b3261e; --info:#1f6feb;
+  --tint-ok:rgba(43,122,61,.09); --tint-warn:rgba(145,98,0,.10); --tint-risk:rgba(179,38,30,.08);
+  --btn:#ffffff; --btnline:#d8d4cc; --btnhov:#efece6; --schatten:0 1px 2px rgba(0,0,0,.05);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1115; --card:#181b22; --line:#262b35; --txt:#e6e8ec; --dim:#9aa3b2;
+    --ok:#3fb950; --warn:#d29922; --risk:#f85149; --info:#58a6ff;
+    --tint-ok:rgba(63,185,80,.10); --tint-warn:rgba(210,153,34,.10); --tint-risk:rgba(248,81,73,.10);
+    --btn:#20242e; --btnline:#2f3540; --btnhov:#2a303c; --schatten:none;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f1115; --card:#181b22; --line:#262b35; --txt:#e6e8ec; --dim:#9aa3b2;
+  --ok:#3fb950; --warn:#d29922; --risk:#f85149; --info:#58a6ff;
+  --tint-ok:rgba(63,185,80,.10); --tint-warn:rgba(210,153,34,.10); --tint-risk:rgba(248,81,73,.10);
+  --btn:#20242e; --btnline:#2f3540; --btnhov:#2a303c; --schatten:none;
+}
+*{box-sizing:border-box}
+body{margin:0;padding:26px 20px 40px;background:var(--bg);color:var(--txt);
+font:15px/1.55 -apple-system,Segoe UI,system-ui,sans-serif}
+.wrap{max-width:940px;margin:0 auto}
+
+/* Werkzeugleiste - beim Drucken und im PNG ausgeblendet */
+.werkzeuge{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end;
+margin-bottom:18px;align-items:center}
+.werkzeuge button{background:var(--btn);color:var(--txt);border:1px solid var(--btnline);
+border-radius:8px;padding:8px 14px;font:inherit;font-size:13.5px;cursor:pointer;
+box-shadow:var(--schatten);transition:background .12s,border-color .12s}
+.werkzeuge button:hover:not(:disabled){background:var(--btnhov);border-color:var(--info)}
+.werkzeuge button:disabled{opacity:.55;cursor:default}
+.werkzeuge .trenner{flex:1}
+.werkzeuge .thema{color:var(--dim)}
+
+.kopf{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;
+border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:24px}
+h1{font-size:25px;margin:0 0 6px;letter-spacing:-.2px}
+h1 small{display:block;font-size:13px;font-weight:400;color:var(--dim);
+letter-spacing:1.4px;text-transform:uppercase;margin-bottom:6px}
+.stempel{text-align:right;font-size:12px;color:var(--dim);white-space:nowrap;
+font-variant-numeric:tabular-nums;line-height:1.7}
+.stempel b{color:var(--txt);font-size:15px;display:block}
+.verdict{padding:20px 24px;border-radius:12px;margin-bottom:16px;border:1px solid}
+.verdict h2{margin:0 0 6px;font-size:21px;letter-spacing:.3px}
+.verdict p{margin:0;color:var(--dim);font-size:14px}
+.verdict.ok{background:var(--tint-ok);border-color:var(--ok)}
+.verdict.ok h2{color:var(--ok)}
+.verdict.warn{background:var(--tint-warn);border-color:var(--warn)}
+.verdict.warn h2{color:var(--warn)}
+.verdict.defekt{background:var(--tint-risk);border-color:var(--risk)}
+.verdict.defekt h2{color:var(--risk)}
+.ampel{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;font-size:13px;color:var(--dim)}
+.ampel span{display:flex;align-items:center;gap:7px;background:var(--card);
+border:1px solid var(--line);border-radius:8px;padding:6px 12px;box-shadow:var(--schatten)}
+h3{font-size:12px;text-transform:uppercase;letter-spacing:1.3px;color:var(--dim);
+margin:30px 0 10px;font-weight:600}
+table{width:100%;border-collapse:collapse;background:var(--card);
+border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:var(--schatten)}
+td,th{padding:11px 14px;border-top:1px solid var(--line);vertical-align:top;text-align:left}
+tr:first-child td,tr:first-child th{border-top:none}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block}
+td.s{width:34px;text-align:center}
+.t{font-weight:600;width:32%}
+.v{font-variant-numeric:tabular-nums}
+.c{color:var(--dim);font-size:13px;display:block;margin-top:3px}
+.OK .dot{background:var(--ok)} .WARN .dot{background:var(--warn)}
+.DEFEKT .dot{background:var(--risk)} .INFO .dot{background:var(--info)}
+.DEFEKT td{background:var(--tint-risk)}
+.WARN td{background:var(--tint-warn)}
+.ident td.t{color:var(--dim);font-weight:500}
+.ident td.v{font-weight:600;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:14px}
+.spark{display:block;width:100%;height:120px;background:var(--card);
+border:1px solid var(--line);border-radius:10px;margin-top:8px;box-shadow:var(--schatten)}
+.hinweise{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--info);
+border-radius:8px;padding:14px 18px;margin-top:14px;font-size:14px;color:var(--dim);box-shadow:var(--schatten)}
+.hinweise ul{margin:6px 0 0;padding-left:20px}
+.sig{margin-top:34px;border:1px solid var(--line);border-radius:12px;
+background:var(--card);padding:20px 24px;font-size:13px;color:var(--dim);box-shadow:var(--schatten)}
+.sig .hash{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+font-size:11.5px;word-break:break-all;color:var(--txt);margin-top:6px}
+.sigrow{display:flex;gap:40px;margin-top:22px}
+.sigrow div{flex:1;border-top:1px solid var(--line);padding-top:7px;font-size:12px}
+footer{margin-top:26px;color:var(--dim);font-size:12px;
+border-top:1px solid var(--line);padding-top:16px}
+
+/* Ausdruck und PDF immer hell und ohne Bedienelemente */
+@media print{
+  .werkzeuge{display:none !important}
+  body{background:#fff;color:#111;padding:0;font-size:11pt}
+  .wrap{max-width:100%}
+  .verdict,.ampel span,table,.sig,.hinweise,.spark{background:#fff !important;
+    border-color:#bbb !important;box-shadow:none !important;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .verdict.ok{border-color:#2b8a3e !important} .verdict.ok h2{color:#2b8a3e !important}
+  .verdict.warn{border-color:#b8860b !important} .verdict.warn h2{color:#b8860b !important}
+  .verdict.defekt{border-color:#c92a2a !important} .verdict.defekt h2{color:#c92a2a !important}
+  .c,.stempel,h3,.hinweise,.sig,footer{color:#555 !important}
+  .ident td.v,.sig .hash,h1,.stempel b,td,th{color:#111 !important}
+  .DEFEKT td,.WARN td{background:#f6f6f6 !important}
+  h3{page-break-after:avoid} table{page-break-inside:avoid}
+}</style></head><body><script>try{var t=localStorage.getItem('nachweis-ansicht');if(t==='hell')document.documentElement.setAttribute('data-theme','light');else if(t==='dunkel')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script><div class='wrap'><div class='werkzeuge' id='werkzeuge'><button type='button' class='thema' id='themaKnopf' onclick='ansichtWechseln()'>Ansicht: System</button><span class='trenner'></span><button type='button' onclick='alsPdf()'>Als PDF sichern</button><button type='button' onclick='alsPng(this)'>Als PNG sichern</button><button type='button' onclick='alsHtml()'>Als HTML sichern</button></div><div class='kopf'><h1><small>Funktionsnachweis vor Versand</small>SSD / Festplatte</h1><div class='stempel'><b>11.11.2026</b>Pr&uuml;fbeginn 19:26:24<br>Pr&uuml;fende &nbsp;&nbsp;19:26:39<br>Dauer 15 s &middot; Mitteleuropäische Zeit (UTC+01:00)<br>Rechner JUSTIN</div></div><div class='verdict warn'><h2>FUNKTIONSF&Auml;HIG MIT ANMERKUNG</h2><p>Alle Funktionstests bestanden. Einzelne Werte sind erw&auml;hnenswert und sollten in der Anzeige offen genannt werden.</p></div><div class='ampel'><span><span class='dot' style='background:var(--ok)'></span>5 bestanden</span><span><span class='dot' style='background:var(--warn)'></span>2 Anmerkungen</span><span><span class='dot' style='background:var(--risk)'></span>0 Beanstandungen</span></div><h3>Identit&auml;t des gepr&uuml;ften Bauteils</h3><table class='ident'><tr><td class='t'>Modell</td><td class='v'>Samsung SSD 860 QVO 1TB<span class='c'>Get-PhysicalDisk</span></td></tr><tr><td class='t'>Seriennummer</td><td class='v'>S4CZNF0N487358Z<span class='c'>eindeutig - identifiziert genau dieses Laufwerk</span></td></tr><tr><td class='t'>Firmware</td><td class='v'>RVQ02B6Q</td></tr><tr><td class='t'>Kapazit&auml;t</td><td class='v'>932 GB (0.91 TB)</td></tr><tr><td class='t'>Anbindung / Typ</td><td class='v'>SATA / SSD</td></tr><tr><td class='t'>Partitionsstil</td><td class='v'>GPT</td></tr><tr><td class='t'>Datentr&auml;ger-GUID</td><td class='v'>{ab32da0d-5b53-45f0-884b-98122dc7feb3}<span class='c'>&auml;ndert sich beim Neupartitionieren</span></td></tr></table><h3>Grunddaten</h3><table><tr class='OK'><td class='s'><span class='dot'></span></td><td class='t'>Betriebszustand</td><td class='v'>Healthy / OK<span class='c'>Meldung des Windows-Speicherstacks.</span></td></tr></table><h3>Lebensdauer</h3><table><tr class='OK'><td class='s'><span class='dot'></span></td><td class='t'>Verschleiss (SMART)</td><td class='v'>0 % verbraucht<span class='c'>Der Hersteller-Z&auml;hler f&uuml;r verbrauchte Schreiblebensdauer. 100 % Restlebensdauer laut Laufwerk.</span></td></tr><tr class='WARN'><td class='s'><span class='dot'></span></td><td class='t'>Betriebsstunden</td><td class='v'>12255 h (rund 511 Tage)<span class='c'>Reine Einschaltzeit des Laufwerks - unabh&auml;ngig davon, wie viel geschrieben wurde.</span></td></tr><tr class='OK'><td class='s'><span class='dot'></span></td><td class='t'>Unkorrigierbare Fehler</td><td class='v'>0<span class='c'>Das Laufwerk hat in seiner gesamten Lebenszeit keinen Datenblock verloren.</span></td></tr><tr class='OK'><td class='s'><span class='dot'></span></td><td class='t'>SMART-Ausfallvorhersage</td><td class='v'>kein Ausfall vorhergesagt</td></tr></table><h3>Belastungstest</h3><table><tr class='WARN'><td class='s'><span class='dot'></span></td><td class='t'>Durchsatztest</td><td class='v'>nicht m&ouml;glich<span class='c'>Auf dem Laufwerk ist kein beschreibbares Volume mit mindestens 8 GB frei - Lese-/Schreibtest &uuml;bersprungen.</span></td></tr><tr class='OK'><td class='s'><span class='dot'></span></td><td class='t'>Treiberfehler w&auml;hrend des Tests</td><td class='v'>0<span class='c'>Ereignisprotokoll-Quelle &quot;disk&quot; - Lese-/Schreib-Timeouts und Blockfehler tauchen hier auf.</span></td></tr></table><div class='hinweise'><b>Sichtpr&uuml;fung / manuell zu erg&auml;nzen</b><ul><li>Vor dem Versand sicher l&ouml;schen: diskpart -&gt; select disk N -&gt; clean all, oder NVMe-Format &uuml;ber das Hersteller-Tool. Der Nachweis bleibt davon unber&uuml;hrt.</li><li>Der Verschleisswert im Nachweis ist der Stand VOR dem L&ouml;schen - ein clean all schreibt die Kapazit&auml;t einmal voll und erh&ouml;ht ihn leicht.</li></ul></div><div class='sig'><b style='color:#e6e8ec'>Beleg-Integrit&auml;t</b><br>Alle Messwerte dieses Nachweises liegen unver&auml;ndert in <code>Funktionsnachweis_SSD_2026-11-11_1926.json</code>. SHA-256-Pr&uuml;fsumme dieser Datei:<div class='hash'>DC2D1D88B22DA2D9403D72D17BFE95B715F56F33FF0E48B1E897EAC53384A6C4</div><p style='margin:14px 0 0'>Der Test wurde am <b style='color:#e6e8ec'>11.11.2026 um 19:26:24 Uhr</b> (Mitteleuropäische Zeit (UTC+01:00)) auf dem oben genannten Rechner durchgef&uuml;hrt. Der Nachweis dokumentiert den Zustand zum Pr&uuml;fzeitpunkt unmittelbar vor dem Versand; Transportsch&auml;den und Einbaufehler beim Empf&auml;nger sind davon nicht erfasst.</p><div class='sigrow'><div>Ort, Datum</div><div>Unterschrift Verk&auml;ufer</div></div></div><footer>Erstellt mit Verkauf-Check.ps1 v1.0 &middot; Rohdaten: Funktionsnachweis_SSD_2026-11-11_1926.json &middot; Windows Microsoft Windows 11 Pro Build 26200</footer></div><script>var DATEINAME="Funktionsnachweis_SSD_2026-11-11_1926";</script><script>(function(){
+  var SCHL = "nachweis-ansicht";
+  var FOLGE = ["system","hell","dunkel"];
+  var NAMEN = {system:"System", hell:"Hell", dunkel:"Dunkel"};
+  var aktuell = "system";
+  try { aktuell = localStorage.getItem(SCHL) || "system"; } catch(e){}
+
+  function anwenden(){
+    var r = document.documentElement;
+    if (aktuell === "hell") r.setAttribute("data-theme","light");
+    else if (aktuell === "dunkel") r.setAttribute("data-theme","dark");
+    else r.removeAttribute("data-theme");
+    var k = document.getElementById("themaKnopf");
+    if (k) k.textContent = "Ansicht: " + NAMEN[aktuell];
+  }
+  window.ansichtWechseln = function(){
+    aktuell = FOLGE[(FOLGE.indexOf(aktuell) + 1) % FOLGE.length];
+    try { if (aktuell === "system") localStorage.removeItem(SCHL); else localStorage.setItem(SCHL, aktuell); } catch(e){}
+    anwenden();
+  };
+  anwenden();
+
+  function sichern(blob, name){
+    var a = document.createElement("a");
+    var url = URL.createObjectURL(blob);
+    a.href = url; a.download = name;
+    document.body.appendChild(a); a.click();
+    setTimeout(function(){ URL.revokeObjectURL(url); a.parentNode.removeChild(a); }, 2000);
+  }
+
+  window.alsPdf = function(){ window.print(); };
+
+  window.alsHtml = function(){
+    var s = "<!doctype html>\n" + document.documentElement.outerHTML;
+    sichern(new Blob([s], {type:"text/html;charset=utf-8"}), DATEINAME + ".html");
+  };
+
+  window.alsPng = function(knopf){
+    var alt = knopf.textContent;
+    knopf.textContent = "PNG wird erzeugt ...";
+    knopf.disabled = true;
+    function fertig(){ knopf.textContent = alt; knopf.disabled = false; }
+
+    setTimeout(function(){
+      try {
+        var wrap = document.querySelector(".wrap");
+        var breite = Math.ceil(wrap.getBoundingClientRect().width);
+        var hoehe  = Math.ceil(wrap.scrollHeight);
+        var rand = 26;
+
+        var klon = wrap.cloneNode(true);
+        var wz = klon.querySelector("#werkzeuge");
+        if (wz) wz.parentNode.removeChild(wz);
+
+        // Farbvariablen fest auf den Klon schreiben: im SVG zeigt :root auf
+        // das svg-Element, die Variablen wuerden sonst nicht aufgeloest.
+        var cs = getComputedStyle(document.documentElement);
+        var namen = ["--bg","--card","--line","--txt","--dim","--ok","--warn","--risk",
+                     "--info","--tint-ok","--tint-warn","--tint-risk","--btn","--btnline",
+                     "--btnhov","--schatten"];
+        var inline = "";
+        for (var i=0; i<namen.length; i++){
+          var w = cs.getPropertyValue(namen[i]);
+          if (w) inline += namen[i] + ":" + w.trim() + ";";
+        }
+        inline += "width:" + breite + "px;font:15px/1.55 -apple-system,Segoe UI,system-ui,sans-serif;";
+        inline += "color:" + cs.getPropertyValue("--txt").trim() + ";";
+        klon.setAttribute("style", inline);
+        klon.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
+
+        var stil = document.createElement("style");
+        stil.textContent = document.getElementById("stil").textContent;
+        klon.insertBefore(stil, klon.firstChild);
+
+        var hg = getComputedStyle(document.body).backgroundColor;
+        var inhalt = new XMLSerializer().serializeToString(klon);
+        var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + (breite + 2*rand) +
+                  '" height="' + (hoehe + 2*rand) + '">' +
+                  '<rect width="100%" height="100%" fill="' + hg + '"/>' +
+                  '<foreignObject x="' + rand + '" y="' + rand + '" width="' + breite +
+                  '" height="' + hoehe + '">' + inhalt + '</foreignObject></svg>';
+
+        var bild = new Image();
+        bild.onload = function(){
+          var s = 2;   // doppelte Aufloesung, damit der Text scharf bleibt
+          var c = document.createElement("canvas");
+          c.width = (breite + 2*rand) * s;
+          c.height = (hoehe + 2*rand) * s;
+          var ctx = c.getContext("2d");
+          ctx.scale(s, s);
+          ctx.drawImage(bild, 0, 0);
+          if (c.toBlob) {
+            c.toBlob(function(b){
+              if (b) sichern(b, DATEINAME + ".png");
+              else scheitern();
+              fertig();
+            }, "image/png");
+          } else { scheitern(); fertig(); }
+        };
+        bild.onerror = function(){ scheitern(); fertig(); };
+        bild.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+      } catch(e){ scheitern(e.message); fertig(); }
+    }, 40);
+
+    function scheitern(grund){
+      alert("Das PNG liess sich nicht erzeugen" + (grund ? " (" + grund + ")" : "") +
+            ".\n\nNimm stattdessen \"Als PDF sichern\" - im Druckdialog unter Ziel " +
+            "\"Als PDF speichern\" waehlen. Das Ergebnis ist ohnehin das bessere " +
+            "Format zum Verschicken.");
+    }
+  };
+})();</script></body></html>
